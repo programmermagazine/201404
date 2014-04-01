@@ -1,0 +1,476 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="../css/pmag.css" type="text/css" />
+</head>
+<body>
+<div id="header_wrap">
+   <h1><a href="https://www.facebook.com/groups/programmerMagazine">程式人雜誌</a> <sub> --  <a href="https://dl.dropbox.com/u/101584453/pmag/201403/htm/home.html">2014 年 4 月號</a> (開放公益出版品)</sub></h1>
+</div>
+<div id="content">
+<div id="TOC">
+<ul>
+<li><a href="#類神經網路轉譯成-c-作者張藝瀚">類神經網路轉譯成 C++ (作者：張藝瀚)</a></li>
+</ul>
+</div>
+<h2 id="類神經網路轉譯成-c-作者張藝瀚"><a href="#類神經網路轉譯成-c-作者張藝瀚">類神經網路轉譯成 C++ (作者：張藝瀚)</a></h2>
+<p>我的第一支類神經網路程式終於誕生啦!</p>
+<p>雖然只是轉譯自别人的 C# 程式範例,雖然只是簡單的 XOR Gate,依我的理解補上缺的程式碼, 第一次執行成功看到輸出值逐漸收歛, 感覺很有成就感, 總算實現了多年的心願! 後續目標是做出更複雜的模型 (好歹要有反饋式), 做成 Multithread, 做到雲端...</p>
+<p>感謝 C#.Net 版的原作者漠哥, 同意我轉譯成 C++ 使用, 原作網址是:</p>
+<ul>
+<li><a href="http://mogerwu.pixnet.net/blog/post/25518602">http://mogerwu.pixnet.net/blog/post/25518602</a></li>
+</ul>
+<p>轉譯好, 確定可以在 Linux 下編譯執行的C++程式碼分享如下:</p>
+<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">/* =========================================================================</span>
+<span class="co">   Summary :</span>
+<span class="co">       類神經網路 - 學習機器人</span>
+<span class="co">   Compiler :</span>
+<span class="co">       linux:</span>
+<span class="co">           g++ -lrt -o ./Neural3 ./Neural3.cpp</span>
+<span class="co">   Usage :</span>
+<span class="co">       ./Neural3</span>
+<span class="co">   Reference :</span>
+<span class="co">      類神經網路-神經網路物件 @ 人生四十宅開始二號宅  痞客邦 PIXNET</span>
+<span class="co">        http://mogerwu.pixnet.net/blog/post/25518602</span>
+<span class="co">   Remark :</span>
+<span class="co">   History :</span>
+<span class="co">   yyyy.mm.dd Author           Discription</span>
+<span class="co">   ---------- ---------------- ---------------------------------------------</span>
+<span class="co">   2010.11.10 Yihhann Chang    Translate from the C# source code of Moger Wu</span>
+<span class="co">   ---------- ---------------- ---------------------------------------------</span>
+<span class="co">   Test:</span>
+<span class="co">       ./Neural3</span>
+<span class="co"> </span>
+<span class="co">========================================================================= */</span>
+ 
+<span class="ot">#include &lt;ctype.h&gt;</span>
+<span class="ot">#include &lt;math.h&gt;   </span><span class="co">// for exp(), fabs(), sqrt()</span>
+<span class="ot">#include &lt;stdio.h&gt;</span>
+<span class="ot">#include &lt;stdlib.h&gt;</span>
+<span class="ot">#include &lt;string.h&gt;</span>
+<span class="ot">#include &lt;time.h&gt;   </span><span class="co">// for srand()</span>
+ 
+<span class="co">// 之前寫的類神經程式因為考慮到多執行緒，許多人看不懂，這一篇使用陣列來表達</span>
+<span class="co">// 神經元，並且完全不考慮多執行緒的問題，應該比較容易理解。</span>
+ 
+<span class="co">// 首先當然就是設計神經元，Value為神經元輸出值，如果神經元位於輸入層，它</span>
+<span class="co">// 同時也是輸入值，這樣設計是為了後面計算的程式好寫。神經元初始化的時候</span>
+<span class="co">// 必須要告訴他上一層的神經元個數，這樣他才能準備好神經鍵陣列Synapse。初</span>
+<span class="co">// 始化的時候讓閥值（GateValue)、神經鍵（Synapse）都使用亂數設定初始值，</span>
+<span class="co">// 根據經驗如果使用固定值，也就是1與-1交錯的初始值，在某些案例中可能不容</span>
+<span class="co">// 易收斂。</span>
+<span class="co">//</span>
+<span class="co">// 同時神經元也包含誤差值(diffentValue)、閥值修正(fixGateValue)、神經鍵</span>
+<span class="co">// 修正(fixSynapse[])，這樣把所有的值都放一起應該比較容易懂了吧。</span>
+<span class="kw">class</span> Element
+{
+    <span class="kw">public</span> :
+    <span class="dt">double</span> Value;
+    <span class="dt">double</span> GateValue;
+    <span class="dt">double</span> *Synapse;
+ 
+    <span class="co">// internal :</span>
+    <span class="dt">double</span> diffentValue;
+    <span class="dt">double</span> fixGateValue;
+    <span class="dt">double</span> *fixSynapse;
+    <span class="dt">int</span> UpperLayerSize; <span class="co">// the length of Synapse and fixSynapse</span>
+ 
+    <span class="kw">public</span> :
+ 
+    Element(<span class="dt">int</span> upperLayerSize) {
+        <span class="dt">int</span> s;
+ 
+        UpperLayerSize = upperLayerSize;
+        Synapse = <span class="kw">new</span> <span class="dt">double</span>[UpperLayerSize];
+        fixSynapse = <span class="kw">new</span> <span class="dt">double</span>[UpperLayerSize];
+ 
+        <span class="kw">if</span> (UpperLayerSize &gt; <span class="dv">0</span>) {
+            GateValue = ( (<span class="dt">double</span>)rand() / RAND_MAX ) * <span class="dv">2</span> - <span class="dv">1</span>;
+            <span class="kw">for</span> ( s = <span class="dv">0</span>; s &lt; UpperLayerSize; s++) {
+                Synapse[s] = ( (<span class="dt">double</span>)rand() / RAND_MAX ) * <span class="dv">2</span> - <span class="dv">1</span>;
+            }
+        }
+    }
+   
+    <span class="co">// 解構式, 釋放動態配置的資源</span>
+    ~Element() {
+        <span class="kw">if</span>( Synapse != NULL ) <span class="kw">delete</span> Synapse;
+        <span class="kw">if</span>( fixSynapse != NULL ) <span class="kw">delete</span> fixSynapse;
+    }
+   
+};
+<span class="co">// end of class Element</span>
+ 
+<span class="co">// 接著解釋網路元件的設計。</span>
+<span class="co">//     Element ***Elements;</span>
+<span class="co">// 用一個二維的動態陣列來儲存神經元，陣列第一個註腳就是神經層，第二個註腳</span>
+<span class="co">// 就是每個神經層的神經元。</span>
+ 
+<span class="dt">const</span> <span class="dt">int</span> ELEMENTS_LENGTH = <span class="dv">3</span>;   <span class="co">// Network::Elements.length, 三種 Layer</span>
+<span class="kw">class</span> Network {
+    <span class="kw">public</span>:
+    Element ***Elements;
+    <span class="dt">double</span> *Standar;
+    <span class="dt">double</span> DiffentValue;
+ 
+    <span class="co">// Elements[?].length, 三種 Layer 的元素數, 方便跑迴圈用</span>
+    <span class="dt">int</span> Elements_lengths[ELEMENTS_LENGTH];
+ 
+    <span class="co">// 為了程式方便，設計兩個屬性，直接傳回輸入層和輸出層。</span>
+    Element ** OutputLayer; <span class="co">// Elements[2];</span>
+    Element ** InputLayer;  <span class="co">// Elements[0];</span>
+ 
+    Network(<span class="dt">int</span> InputLayerSize, <span class="dt">int</span> HiddenLayerSize, <span class="dt">int</span> OutputLayerSize) {
+        <span class="co">// 使用動態的方式宣告每一層的大小，這樣也比較符合實際網路架構。</span>
+        Elements = <span class="kw">new</span> Element **[<span class="dv">3</span>];
+        Elements[<span class="dv">0</span>] = <span class="kw">new</span> Element *[InputLayerSize];
+        Elements[<span class="dv">1</span>] = <span class="kw">new</span> Element *[HiddenLayerSize];
+        Elements[<span class="dv">2</span>] = <span class="kw">new</span> Element *[OutputLayerSize];
+ 
+        OutputLayer = Elements[<span class="dv">2</span>];
+        InputLayer = Elements[<span class="dv">0</span>];
+        Elements_lengths[<span class="dv">0</span>] = InputLayerSize;
+        Elements_lengths[<span class="dv">1</span>] = HiddenLayerSize;
+        Elements_lengths[<span class="dv">2</span>] = OutputLayerSize;
+ 
+        Standar = <span class="kw">new</span> <span class="dt">double</span>[OutputLayerSize];
+ 
+        <span class="dt">int</span> upperLayerSize = <span class="dv">0</span>;
+        <span class="kw">for</span> (<span class="dt">int</span> l = <span class="dv">0</span>; l &lt; ELEMENTS_LENGTH; l++) {
+            <span class="kw">for</span> (<span class="dt">int</span> e = <span class="dv">0</span>; e &lt; Elements_lengths[l]; e++) {
+                Elements[l][e] = <span class="kw">new</span> Element(upperLayerSize);
+            }
+            upperLayerSize = Elements_lengths[l];
+        }
+    }
+    <span class="co">// end of Network(int InputLayerSize, int HiddenLayerSize, int OutputLayerSize)</span>
+ 
+    <span class="co">// 解構式, 釋放動態配置的資源</span>
+    ~Network() {
+        <span class="kw">if</span>( Elements != NULL ) {
+            <span class="kw">for</span> (<span class="dt">int</span> l = <span class="dv">0</span>; l &lt; ELEMENTS_LENGTH; l++) {
+                <span class="kw">if</span>( Elements[l] != NULL ) {
+                    <span class="kw">for</span> (<span class="dt">int</span> e = <span class="dv">0</span>; e &lt; Elements_lengths[l]; e++) {
+                        <span class="kw">if</span>( Elements[l][e] != NULL ) <span class="kw">delete</span> Elements[l][e];
+                    }
+                    <span class="kw">delete</span> Elements[l];
+                }
+            }
+            <span class="kw">delete</span> Elements;
+        }
+        <span class="kw">if</span>( Standar != NULL ) <span class="kw">delete</span> Standar;
+    }
+    <span class="co">// end of ~Network()</span>
+ 
+ 
+    <span class="co">// 因為網路的修正動作是將所有的範例都計算過修正值之後，再一次進行修正，並</span>
+    <span class="co">// 且再用新的網路進行計算，因此必須在計算之前將網路的動態值歸零，也就是說</span>
+    <span class="co">// 下面這段程式裏面所歸零的值都是加總的值，必須在新的週期開始的時候清除掉。</span>
+    <span class="dt">void</span> ClearValue() {
+        DiffentValue = <span class="dv">0</span>;
+        <span class="kw">for</span> (<span class="dt">int</span> l = <span class="dv">0</span>; l &lt; ELEMENTS_LENGTH; l++) {
+            <span class="kw">for</span> (<span class="dt">int</span> e = <span class="dv">0</span>; e &lt; Elements_lengths[l]; e++) {
+                Elements[l][e]-&gt;Value = <span class="dv">0</span>;
+                Elements[l][e]-&gt;diffentValue = <span class="dv">0</span>;
+                Elements[l][e]-&gt;fixGateValue = <span class="dv">0</span>;
+                <span class="kw">for</span> (<span class="dt">int</span> s = <span class="dv">0</span>; s &lt; Elements[l][e]-&gt;UpperLayerSize; s++) {
+                    Elements[l][e]-&gt;fixSynapse[s] = <span class="dv">0</span>;
+                }
+            }
+        }
+        <span class="co">// ==== DEBUG ==== TODO : LastHidden 不曉得是哪來的, 後面也沒用到</span>
+        <span class="co">// for (int h = 0; h &lt; LastHidden.Length; h++) {</span>
+        <span class="co">//     LastHidden[h] = 0;</span>
+        <span class="co">// }</span>
+    }
+ 
+    <span class="co">// 計算網路的輸出值，看過書的應該可以看得懂，數學公式實在不好貼，等我想到</span>
+    <span class="co">// 好方法再補上吧。</span>
+    <span class="dt">void</span> Summation() {
+        <span class="kw">for</span> (<span class="dt">int</span> l = <span class="dv">1</span>; l &lt; ELEMENTS_LENGTH; l++) {
+            <span class="kw">for</span> (<span class="dt">int</span> e = <span class="dv">0</span>; e &lt; Elements_lengths[l]; e++) {
+                <span class="dt">double</span> outvalue = -Elements[l][e]-&gt;GateValue;
+                <span class="kw">for</span> (<span class="dt">int</span> s = <span class="dv">0</span>; s &lt; Elements[l][e]-&gt;UpperLayerSize; s++) {
+                    outvalue += Elements[l - <span class="dv">1</span>][s]-&gt;Value *
+                        Elements[l][e]-&gt;Synapse[s];
+                }
+                Elements[l][e]-&gt;Value = (<span class="dt">double</span>)(<span class="dv">1</span> / (<span class="dv">1</span> + exp(-outvalue)));
+            }
+        }
+    }
+ 
+    <span class="co">// 計算網路誤差值，這裡我把公式分成兩種，一種是用來計算修正網路值用的，</span>
+    <span class="co">// 使用書上所寫的公式。而另一個是給人看的，同時也是輸出值夠精密到可以跳</span>
+    <span class="co">// 出的依據。為甚麼要這麼做請參考這一篇，雖然很多人來看，還是沒有人告訴</span>
+    <span class="co">// 我答案，所以我用土方法解決這個問題。</span>
+    <span class="dt">void</span> CalcDiffent() {
+        <span class="co">//output layer</span>
+        <span class="kw">for</span> (<span class="dt">int</span> e = <span class="dv">0</span>; e &lt; Elements_lengths[<span class="dv">2</span>]; e++) {
+            <span class="co">//給電腦看的用標準差公式</span>
+            OutputLayer[e]-&gt;diffentValue =
+                (Standar[e] - OutputLayer[e]-&gt;Value) *
+                (OutputLayer[e]-&gt;Value * (<span class="dv">1</span> - OutputLayer[e]-&gt;Value) + <span class="fl">0.01</span>);
+            <span class="co">//給人看的用傳統公式</span>
+            DiffentValue += fabs(Standar[e] - OutputLayer[e]-&gt;Value);
+        }
+        <span class="co">//hidden layer</span>
+        <span class="kw">for</span> (<span class="dt">int</span> l = ELEMENTS_LENGTH - <span class="dv">2</span>; l &gt; <span class="dv">0</span>; l--) {
+            <span class="kw">for</span> (<span class="dt">int</span> e = <span class="dv">0</span>; e &lt; Elements_lengths[l]; e++) {
+                <span class="dt">double</span> sumDiff = <span class="dv">0</span>;
+                <span class="kw">for</span> (<span class="dt">int</span> ne = <span class="dv">0</span>; ne &lt; Elements_lengths[l + <span class="dv">1</span>]; ne++) {
+                    sumDiff += Elements[l + <span class="dv">1</span>][ne]-&gt;Synapse[e] *
+                        Elements[l + <span class="dv">1</span>][ne]-&gt;diffentValue;
+                }
+                Elements[l][e]-&gt;diffentValue = (Elements[l][e]-&gt;Value *
+                    (<span class="dv">1</span> - Elements[l][e]-&gt;Value)) * sumDiff;
+            }
+        }
+    }
+ 
+    <span class="co">// 得到誤差值之後就可以依照誤差值來得到修正值，因為要所有的範例都學習過</span>
+    <span class="co">// 才進行網路修正，所以所有的修正都是累加的。公式還是請自行參考書上說明</span>
+    <span class="co">// 。事實上這一段程式可以跟計算誤差值的程式合併，分開來寫比較容易看得懂</span>
+    <span class="co">// ，如果想要效能好一點就請將它合併在一起。</span>
+    <span class="dt">void</span> CalcFixValue(<span class="dt">double</span> LearnSpeed) {
+        <span class="kw">for</span> (<span class="dt">int</span> l = ELEMENTS_LENGTH - <span class="dv">1</span>; l &gt; <span class="dv">0</span>; l--) {
+            <span class="kw">for</span> (<span class="dt">int</span> e = <span class="dv">0</span>; e &lt; Elements_lengths[l]; e++) {
+                Elements[l][e]-&gt;fixGateValue =
+                    -LearnSpeed * Elements[l][e]-&gt;diffentValue;
+                <span class="kw">for</span> (<span class="dt">int</span> ue = <span class="dv">0</span>; ue &lt; Elements_lengths[l - <span class="dv">1</span>]; ue++) {
+                    Elements[l][e]-&gt;fixSynapse[ue] +=
+                        LearnSpeed * Elements[l][e]-&gt;diffentValue *
+                            Elements[l - <span class="dv">1</span>][ue]-&gt;Value;
+                }
+            }
+        }
+    }
+ 
+    <span class="co">// 當所有的範例都學習完成之後，當然就是要實際修正網路內容，修正值取平均，</span>
+    <span class="co">// 所以需要傳入範例個數來進行運算。</span>
+    <span class="dt">void</span> FixNetwork(<span class="dt">int</span> SampleCount) {
+        <span class="kw">for</span> (<span class="dt">int</span> l = <span class="dv">1</span>; l &lt; ELEMENTS_LENGTH; l++) {
+            <span class="kw">for</span> (<span class="dt">int</span> e = <span class="dv">0</span>; e &lt; Elements_lengths[l]; e++) {
+                Elements[l][e]-&gt;GateValue +=
+                    Elements[l][e]-&gt;fixGateValue / sqrt((<span class="dt">double</span>)SampleCount);
+                <span class="kw">for</span> (<span class="dt">int</span> s = <span class="dv">0</span>; s &lt; Elements[l][e]-&gt;UpperLayerSize; s++) {
+                    Elements[l][e]-&gt;Synapse[s] +=
+                        Elements[l][e]-&gt;fixSynapse[s] /
+                            sqrt((<span class="dt">double</span>)SampleCount);
+                }
+            }
+        }
+    }
+};
+<span class="co">// end of class Network</span>
+ 
+<span class="co">// 學習機器人基礎類別</span>
+<span class="co">// 這個類是個基礎類，因為載入資料和將資料放進輸入層的動作，每一個案例都</span>
+<span class="co">// 不相同，因此使用必須繼承的關鍵字abstract宣告這個類別，並且宣告兩個方</span>
+<span class="co">// 法LoadSample和LoadData為必須實做的。</span>
+<span class="kw">class</span> RobotBase {
+    <span class="kw">public</span> :
+    <span class="dt">int</span> SampleCount;
+   
+    <span class="co">// internal :</span>
+    <span class="dt">int</span> inputLayerSize, outputLayerSize;
+    Network *worknet;
+    <span class="dt">int</span> noBestCount;
+    <span class="dt">int</span> learnSamples;
+    <span class="dt">double</span> bestDiffent; <span class="co">// = 10000;</span>
+   
+    <span class="co">// 建構式 ,賦與初值</span>
+    RobotBase(){
+        bestDiffent = <span class="dv">10000</span>;
+        worknet = NULL;
+    }
+ 
+    <span class="co">// 解構式, 釋放動態配置的資源</span>
+    ~RobotBase(){
+        <span class="kw">if</span>( worknet != NULL ) <span class="kw">delete</span> worknet;
+    }
+ 
+    <span class="co">// 純虛擬函式, 由繼承者實作</span>
+    <span class="kw">virtual</span> <span class="dt">void</span> LoadSample() = <span class="dv">0</span>;
+    <span class="kw">virtual</span> <span class="dt">void</span> LoadData(<span class="dt">int</span> SampleNo) = <span class="dv">0</span>;
+ 
+    <span class="co">// public delegate void OnCycleFinish(int CycleNo, double BestDiffent, double NewDiffent);</span>
+    <span class="co">// public event OnCycleFinish EventCycleFinish;</span>
+ 
+    <span class="co">// public delegate void OnBadLearning(int NoBestCount);</span>
+    <span class="co">// public event OnBadLearning EventBadLearning;</span>
+ 
+    <span class="co">// 最後就是最重要的學習過程了，基本程式和前面VB.Net的寫法一樣，就是用</span>
+    <span class="co">// 【找不到最佳值的次數】或【達到預定的精密度】來決定學習是否完成。不</span>
+    <span class="co">// 過有的時候誤差值調整的幅度很小，可能導致跑了幾十萬次都還出不來，可</span>
+    <span class="co">// 以考慮再增加一個對cycle的限制。</span>
+    <span class="kw">virtual</span> <span class="dt">void</span> Learning(<span class="dt">double</span> LearnSpeed, <span class="dt">int</span> HiddenLayerSize,
+        <span class="dt">int</span> NoBestLimit, <span class="dt">double</span> Precision)
+    {
+        worknet = <span class="kw">new</span> Network(inputLayerSize, HiddenLayerSize, outputLayerSize);
+        bestDiffent = <span class="dv">10000</span>;
+        <span class="dt">int</span> cycle = <span class="dv">0</span>;
+        noBestCount = <span class="dv">0</span>;
+        <span class="kw">while</span> ((noBestCount &lt; NoBestLimit) &amp;&amp; (bestDiffent &gt; Precision)) {
+            <span class="dt">double</span> newDiffent;
+ 
+            cycle++;
+            worknet-&gt;ClearValue();
+            <span class="kw">for</span> (<span class="dt">int</span> sampleNo = <span class="dv">0</span>; sampleNo &lt; learnSamples; sampleNo++) {
+                LoadData(sampleNo);
+                worknet-&gt;Summation();
+                worknet-&gt;CalcDiffent();
+                worknet-&gt;CalcFixValue(LearnSpeed);
+                <span class="co">// ==== DEBUG ====</span>
+                <span class="dt">int</span> e;
+                printf( <span class="st">&quot;Input:( &quot;</span> );
+                <span class="kw">for</span>( e = <span class="dv">0</span>; e &lt; worknet-&gt;Elements_lengths[<span class="dv">0</span>]; e++)
+                    printf( <span class="st">&quot;%+f &quot;</span>, worknet-&gt;InputLayer[e]-&gt;Value );
+                printf( <span class="st">&quot;), Standard:( &quot;</span> );
+                <span class="kw">for</span>( e = <span class="dv">0</span>; e &lt; worknet-&gt;Elements_lengths[<span class="dv">2</span>]; e++)
+                    printf( <span class="st">&quot;%f &quot;</span>, worknet-&gt;Standar[e] );
+                printf( <span class="st">&quot;), Output:( &quot;</span> );
+                <span class="kw">for</span>( e = <span class="dv">0</span>; e &lt; worknet-&gt;Elements_lengths[<span class="dv">2</span>]; e++)
+                    printf( <span class="st">&quot;%f &quot;</span>, worknet-&gt;OutputLayer[e]-&gt;Value );
+                printf( <span class="st">&quot;)</span><span class="ch">\n</span><span class="st">&quot;</span> );
+            }
+            newDiffent = worknet-&gt;DiffentValue / learnSamples;
+            <span class="kw">if</span> (newDiffent &lt; bestDiffent) {
+                bestDiffent = newDiffent;
+                noBestCount = <span class="dv">0</span>;
+            }
+            <span class="kw">else</span> {
+                noBestCount++;
+            }
+            <span class="co">// if (EventBadLearning != null) EventBadLearning(noBestCount);</span>
+            worknet-&gt;FixNetwork(learnSamples);
+            <span class="co">// if (EventCycleFinish != null) EventCycleFinish(cycle, bestDiffent, newDiffent);</span>
+           
+            <span class="co">// ==== DEBUG ====</span>
+            printf( <span class="st">&quot;cycle=%d, noBestCount=%d, bestDiffent=%0.8f, newDiffent=%0.8f</span><span class="ch">\n</span><span class="st">&quot;</span>,
+                cycle, noBestCount, bestDiffent, newDiffent );
+        }
+ 
+        <span class="kw">delete</span> worknet;
+        worknet = NULL;
+    }
+};
+<span class="co">// end of class RobotBase</span>
+ 
+<span class="co">// XOR為範例</span>
+<span class="kw">class</span> RobotXOR : <span class="kw">public</span> RobotBase
+{
+    <span class="kw">public</span> :
+    <span class="co">// XOR 學習機</span>
+    RobotXOR() {
+        inputLayerSize = <span class="dv">2</span>;     <span class="co">// 輸入值 2 個</span>
+        outputLayerSize = <span class="dv">1</span>;    <span class="co">// 輸出結果1 個</span>
+        learnSamples = <span class="dv">4</span>;       <span class="co">// 輸入組合只有 4 種</span>
+    }
+ 
+    <span class="co">// 設定輸入樣本, 及標準答案</span>
+    <span class="dt">void</span> LoadData( <span class="dt">int</span> sampleNo )
+    {
+        <span class="kw">switch</span> ( sampleNo )
+        {
+            <span class="kw">case</span> <span class="dv">0</span>:
+                worknet-&gt;InputLayer[<span class="dv">0</span>]-&gt;Value = -<span class="dv">1</span>;
+                worknet-&gt;InputLayer[<span class="dv">1</span>]-&gt;Value = -<span class="dv">1</span>;
+                worknet-&gt;Standar[<span class="dv">0</span>]           =  <span class="dv">0</span>;
+                <span class="kw">break</span>;
+            <span class="kw">case</span> <span class="dv">1</span>:
+                worknet-&gt;InputLayer[<span class="dv">0</span>]-&gt;Value = -<span class="dv">1</span>;
+                worknet-&gt;InputLayer[<span class="dv">1</span>]-&gt;Value =  <span class="dv">1</span>;
+                worknet-&gt;Standar[<span class="dv">0</span>]           =  <span class="dv">1</span>;
+                <span class="kw">break</span>;
+            <span class="kw">case</span> <span class="dv">2</span>:
+                worknet-&gt;InputLayer[<span class="dv">0</span>]-&gt;Value =  <span class="dv">1</span>;
+                worknet-&gt;InputLayer[<span class="dv">1</span>]-&gt;Value = -<span class="dv">1</span>;
+                worknet-&gt;Standar[<span class="dv">0</span>]           =  <span class="dv">1</span>;
+                <span class="kw">break</span>;
+            <span class="kw">case</span> <span class="dv">3</span>:
+                worknet-&gt;InputLayer[<span class="dv">0</span>]-&gt;Value =  <span class="dv">1</span>;
+                worknet-&gt;InputLayer[<span class="dv">1</span>]-&gt;Value =  <span class="dv">1</span>;
+                worknet-&gt;Standar[<span class="dv">0</span>]           =  <span class="dv">0</span>;
+                <span class="kw">break</span>;
+        }
+    }
+    <span class="co">// end of void LoadData( int sampleNo )</span>
+ 
+    <span class="co">// 這函數應該是用來取代 LoadData, 當樣本數量龐大時, 可以改從檔案/資料庫載入</span>
+    <span class="dt">void</span> LoadSample()
+    {
+    }
+ 
+    <span class="co">// 通常隱藏層的寬度可以設置為</span>
+    <span class="co">// hiddenLayerSize=(inputLayerSize+outputLayerSize)/2</span>
+    <span class="co">// ，但是許多案例並不能滿足需求，而是要用嘗試錯誤法去求得合適的隱藏層寬度</span>
+    <span class="co">// 。前面Learning宣告為可以被重新包裝的，就是?了這個，當然你也可以把它包</span>
+    <span class="co">// 裝在一起。如果一個學習週期跳出後，精密度不夠就試著調整隱藏層寬度。</span>
+    <span class="dt">void</span> Learning(<span class="dt">double</span> LearnSpeed, <span class="dt">int</span> HiddenLayerSize, <span class="dt">int</span> CycleLimit,
+        <span class="dt">double</span> Precision)
+    {
+        <span class="kw">while</span> (bestDiffent &gt; Precision) {
+            <span class="co">// if (EventHiddenLayerChange != null) EventHiddenLayerChange(HiddenLayerSize);</span>
+            <span class="kw">this</span>-&gt;RobotBase::Learning(LearnSpeed, HiddenLayerSize, CycleLimit,
+                Precision);
+            <span class="kw">if</span> (bestDiffent &gt; Precision) {
+                HiddenLayerSize = (<span class="dt">int</span>)(HiddenLayerSize * <span class="fl">1.2</span> + <span class="dv">1</span>);
+            }
+            <span class="co">// ==== DEBUG ====</span>
+            printf( <span class="st">&quot;bestDiffent=%0.8f, Precision=%0.8f, HiddenLayerSize=%d</span><span class="ch">\n\n</span><span class="st">&quot;</span>,
+                bestDiffent, Precision, HiddenLayerSize );
+        }
+    }
+};
+<span class="co">// end of class RobotXOR</span>
+ 
+ 
+<span class="co">// ===========================================================================</span>
+<span class="dt">int</span> main()
+{
+    RobotXOR *Robot;
+    srand ( time(NULL) );   <span class="co">/* initialize random seed: */</span>
+    printf( <span class="st">&quot;Hello~</span><span class="ch">\n</span><span class="st">&quot;</span> );
+ 
+    Robot = <span class="kw">new</span> RobotXOR;
+   
+    Robot-&gt;Learning(
+        <span class="dv">1000</span>,    <span class="co">// double LearnSpeed</span>
+        <span class="dv">10</span>,      <span class="co">// int HiddenLayerSize</span>
+        <span class="dv">10</span>,      <span class="co">// int CycleLimit</span>
+        <span class="fl">0.00001</span>  <span class="co">// double Precision</span>
+    );
+    <span class="kw">delete</span> Robot;
+ 
+    printf( <span class="st">&quot;Bye~</span><span class="ch">\n</span><span class="st">&quot;</span> );
+}</code></pre>
+</div>
+<div id="footer">
+<a href="https://www.facebook.com/groups/programmerMagazine/">程式人雜誌</a> ，採用 <a href="http://creativecommons.org/licenses/by-sa/3.0/tw/ ">創作共用：姓名標示、相同方式分享</a> 授權，歡迎加入 <a href="https://www.facebook.com/groups/programmerMagazine/">雜誌社團</a>
+</div>
+</body>
+</html>

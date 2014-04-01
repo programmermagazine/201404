@@ -1,0 +1,2051 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="2014 年 4 月號" />
+  <title>程式人雜誌</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="../css/pmag.css" type="text/css" />
+</head>
+<body>
+<div id="header_wrap">
+   <h1><a href="https://www.facebook.com/groups/programmerMagazine">程式人雜誌</a> <sub> --  <a href="https://dl.dropbox.com/u/101584453/pmag/201403/htm/home.html">2014 年 4 月號</a> (開放公益出版品)</sub></h1>
+</div>
+<div id="content">
+<div id="header">
+<h1 class="title"><a href="https://www.facebook.com/groups/programmerMagazine/">程式人雜誌</a></h1>
+<h2 class="author">2014 年 4 月號</h2>
+<h3 class="date">本期焦點：神經網路</h3>
+</div>
+<div id="TOC">
+<ul>
+<li><a href="#前言">前言</a><ul>
+<li><a href="#編輯小語">編輯小語</a></li>
+<li><a href="#授權聲明">授權聲明</a></li>
+</ul></li>
+<li><a href="#本期焦點">本期焦點</a><ul>
+<li><a href="#神經網路簡介">神經網路簡介</a></li>
+<li><a href="#單層感知器-perceptron-實作---使用-javascriptnode.js">單層感知器 (Perceptron) 實作 - 使用 JavaScript+Node.js</a></li>
+<li><a href="#多層感知器與反傳遞演算法實作---使用-javascriptnode.js">多層感知器與反傳遞演算法實作 - 使用 JavaScript+Node.js</a></li>
+<li><a href="#類神經網路轉譯成-c-作者張藝瀚">類神經網路轉譯成 C++ (作者：張藝瀚)</a></li>
+</ul></li>
+<li><a href="#程式人文集">程式人文集</a><ul>
+<li><a href="#arduino入門教學16-amarino-的-speaktoarduino-範例程式-作者cooper-maa">Arduino入門教學(16) – Amarino 的 SpeakToArduino 範例程式 (作者：Cooper Maa)</a></li>
+<li><a href="#openni-2-的錯誤處理-作者-heresy-ku">OpenNI 2 的錯誤處理 (作者： Heresy Ku )</a></li>
+<li><a href="#人工神經網路-artificial-neural-network-作者bridan">人工神經網路 (Artificial Neural Network) (作者：Bridan)</a></li>
+<li><a href="#visual-basic-6.0利用遞迴與程序導向解-n-queens-puzzle-皇后問題-作者廖憲得-0xde">Visual Basic 6.0:利用遞迴與程序導向解 N Queens Puzzle 皇后問題 (作者：廖憲得 0xde)</a></li>
+<li><a href="#開放電腦計畫-10-j0c-編譯器使用-node.js-javascript-實作-作者陳鍾誠">開放電腦計畫 (10) – J0C 編譯器：使用 node.js + javascript 實作 (作者：陳鍾誠)</a></li>
+</ul></li>
+<li><a href="#雜誌訊息">雜誌訊息</a><ul>
+<li><a href="#讀者訂閱">讀者訂閱</a></li>
+<li><a href="#投稿須知">投稿須知</a></li>
+<li><a href="#參與編輯">參與編輯</a></li>
+<li><a href="#公益資訊">公益資訊</a></li>
+</ul></li>
+</ul>
+</div>
+<h1 id="前言"><a href="#前言">前言</a></h1>
+<h2 id="編輯小語"><a href="#編輯小語">編輯小語</a></h2>
+<p>在本期的「程式人雜誌」中，聚焦的主題是「神經網路」，包含理論與實作！</p>
+<p>神經網路是「機器學習」與「人工智慧」中的一個重要方法，常被用在「影像處理、語音處理、分群分類」等領域。</p>
+<p>雖然神經網路有很多種類，但本期關注的主要技術是「感知器」，包含「單層感知器」與「多層感知器」，以及用在「多層感知器」上的「反傳遞學習演算法」。</p>
+<p>當然、本期不只有「神經網路」的相關文章，還有更精彩的 Arduino, VB, OpenNI, 開放電腦計畫等內容，希望讀者會喜歡這期的「程式人雜誌」！</p>
+<p>---- （程式人雜誌編輯 - 陳鍾誠）</p>
+<h2 id="授權聲明"><a href="#授權聲明">授權聲明</a></h2>
+<p>本雜誌許多資料修改自維基百科，採用 創作共用：<a href="http://creativecommons.org/licenses/by-sa/3.0/tw/">姓名標示、相同方式分享</a> 授權，若您想要修改本書產生衍生著作時，至少應該遵守下列授權條件：</p>
+<ol style="list-style-type: decimal">
+<li>標示原作者姓名 (包含該文章作者，若有來自維基百科的部份也請一併標示)。</li>
+<li>採用 創作共用：<a href="http://creativecommons.org/licenses/by-sa/3.0/tw/">姓名標示、相同方式分享</a> 的方式公開衍生著作。</li>
+</ol>
+<p>另外、當本雜誌中有文章或素材並非採用 <a href="http://creativecommons.org/licenses/by-sa/3.0/tw/">姓名標示、相同方式分享</a> 時，將會在該文章或素材後面標示其授權，此時該文章將以該標示的方式授權釋出，請修改者注意這些授權標示，以避免產生侵權糾紛。</p>
+<p>例如有些文章可能不希望被作為「商業性使用」，此時就可能會採用創作共用：<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/tw/">姓名標示、非商業性、相同方式分享</a> 的授權，此時您就不應當將該文章用於商業用途上。</p>
+<p>最後、懇請勿移除公益捐贈的相關描述，以便讓愛心得以持續散播！</p>
+<h1 id="本期焦點"><a href="#本期焦點">本期焦點</a></h1>
+<h2 id="神經網路簡介"><a href="#神經網路簡介">神經網路簡介</a></h2>
+<p>在電腦領域，神經網路是指一種模擬神經系統所設計出來的程式，用來模擬人類視覺、聽覺等等智慧行為的原理，企圖讓電腦可以具有人類智慧的一種方法。</p>
+<p>下圖是生物神經細胞的結構圖，這個圖看來頗為複雜，如果電腦程式真的要模擬這麼複雜的結構，那程式應該也會非常複雜才對。</p>
+<div class="figure">
+<img src="../img/NeuralCell.jpg" alt="圖、神經細胞的結構" /><p class="caption">圖、神經細胞的結構</p>
+</div>
+<p>還好、神經網路程式不需要去模擬「細胞膜、粒線體、核醣體」等等複雜的結構，因為學電腦的人可以透過「抽象化」這個伎倆，將上述的神經細胞結構簡化成下圖 (a) 的樣子。</p>
+<p>在下圖中，a1 ... an 是輸入，w1 ... wn 是權重，這些輸入乘上權重之後加總(SUM)，就會得到神經元的刺激強度，接著經過函數 f() 轉換之後，就得到了輸出的刺激強度。</p>
+<div class="figure">
+<img src="../img/NeuralNet1.jpg" alt="圖、神經網路連接模型" /><p class="caption">圖、神經網路連接模型</p>
+</div>
+<p>上圖 (a)所對應的數學公式如下：</p>
+<div class="figure">
+<img src="../timg/5ced75ffc852.jpg" />
+</div>
+<p>其中的 b 值是用來作為門檻的閥值，舉例而言，若 b 是 -0.5，那麼就代表要將總合減掉 0.5，才得到輸入刺激強度，這可以用來調節刺激強度，才不會一直增強上去。</p>
+<p>而上圖 (b) 中的網路，是一種單層的神經網路，所謂單層是不計算輸入節點的計算方式，因此只有圖中的大圈圈才算是一層，其中每個大圈圈都是如圖 (a) 中的一個神經元。</p>
+<p>最早的神經網路程式稱為感知器（Perceptron），這是由 Frank Rosenblatt 在 1957 年於 Cornell 航空實驗室 (Cornell Aeronautical Laboratory) 所發明的。</p>
+<p>但是在 1969 年，Marvin Minsky 和 Seymour Papert 在《Perceptrons》書中，仔細分析了知器為的功能及局限，證明感知器不能解決簡單的 XOR 等問題，結果導致神經網路技術經歷了長達 20 年的低潮期。</p>
+<p>後來在 1986 年，Rumelhart 等人於下列論文中提出「反向傳播」(back-propagation) 演算法，並成功的被運用在語音辨識等領域之後，神經網路才又開始成為熱門的研究主題。</p>
+<blockquote>
+<p>Rumelhart, David E.; Hinton, Geoffrey E., Williams, Ronald J. Learning representations by back-propagating errors. Nature. 8 October 1986, 323 (6088): 533–536.</p>
+</blockquote>
+<p>事實上、反向傳播的方法，並不是 Rumelhart 等人第一個提出來的，Paul J. Werbos 1974 年在哈佛的博士論文中就提出了類似的方法，只是大家都不知道而已。</p>
+<blockquote>
+<p>Paul J. Werbos. Beyond Regression: New Tools for Prediction and Analysis in the Behavioral Sciences. PhD thesis, Harvard University, 1974</p>
+</blockquote>
+<p>當然、神經網路再度成為研究焦點之後，各式各樣的方法又被發展出來了，大致上這些方法可以分為兩類，一種稱為「有指導者」的神經網路(Supervised Neural Network) ，像是「感知器與反傳遞演算法」等，另一種稱為「沒有指導者」的神經網路 (Unsupervised Neural Network)，像是「霍普菲爾德網路 (Hopfield Network) 與自組織神經網路 (Self Organization network)」等等。</p>
+<p>當然、神經網路並不是「神奇銀彈」，可以解決人工智慧上的所有問題，神經網路最強大的地方是容錯性很強，而且不需要像專家系統這樣撰寫一堆規則，但是有一得必有一失，神經網路自動學習完成之後，我們根本不知道該如何再去改進這個學習成果，因為那些權重對人類來說根本就沒有什麼直觀的意義，因此也就很難再去改進這個網路了。</p>
+<p>不過、程式能夠自我學習畢竟是一件很神奇的事情，光是這點就值得讓我們好好的去瞭解一下神經網路到底是怎麼運作的了！</p>
+<h3 id="參考文獻"><a href="#參考文獻">參考文獻</a></h3>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Neuron">Wikipedia:Neuron</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Artificial_neuron">Wikipedia:Artificial neuron</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Artificial_neural_network">Wikipedia:Artificial neural network</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Perceptron">Wikipedia:Perceptron</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Backpropagation">Wikipedia:Backpropagation</a></li>
+<li><a href="http://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5%E5%99%A8">維基百科：感知器</a></li>
+<li><a href="http://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C">維基百科：人工神經網路</a></li>
+<li><a href="http://zh.wikipedia.org/wiki/%E8%B5%AB%E5%B8%83%E7%90%86%E8%AE%BA">維基百科：赫布理論</a></li>
+</ul>
+<p>【本文由陳鍾誠取材並修改自 <a href="http://zh.wikipedia.org/">維基百科</a>，採用創作共用的 <a href="http://creativecommons.org/licenses/by-sa/3.0/tw/">姓名標示、相同方式分享</a> 授權】</p>
+<h2 id="單層感知器-perceptron-實作---使用-javascriptnode.js"><a href="#單層感知器-perceptron-實作---使用-javascriptnode.js">單層感知器 (Perceptron) 實作 - 使用 JavaScript+Node.js</a></h2>
+<h3 id="簡介"><a href="#簡介">簡介</a></h3>
+<p>Rosenblatt 於 1958 年提出第一個神經網路模型，稱為感知器，這個模型是基於 1943 年 McCulloch 與 Pitts 所提出的神經元模型，該模型的數學公式如下。</p>
+<div class="figure">
+<img src="../timg/1faa2e48aea6.jpg" />
+</div>
+<p>其中的 sign 是正負號判斷函數，若是正數則傳回 1，負數則傳回 0。</p>
+<p>請注意，在此我們所說的「感知器」是指 Rosenblatt 當時所使用的感知器，特指只有一層節點的「單層感知器」，而不是指稱那種具有隱藏層的「多層感知器」(Multilayer Perceptron)，這點必須特別澄清一下！</p>
+<p>而所謂感知器的學習，就是透過調整權重 wi 的方式，讓整個網路可以學到某個函數的方法，所以權重的調整方法是整個感知器學習行為的核心。</p>
+<h3 id="感知器的學習"><a href="#感知器的學習">感知器的學習</a></h3>
+<p>那麼、我們要怎麼讓神經網路學會某個函數呢？以下是感知器學習的演算法：</p>
+<ol style="list-style-type: decimal">
+<li><p>初始化：設定權重 <img src="../timg/c139ddae2765.jpg" /> 和臨界值 <img src="../timg/2554a2bb846c.jpg" /> 的初值之範圍為 [-0.5, 0.5]。</p></li>
+<li><p>激勵：用輸入 <img src="../timg/4ec0188cd431.jpg" /> 、權重 <img src="../timg/7f0e1a55880d.jpg" /> 與閥值 <img src="../timg/2554a2bb846c.jpg" /> 計算感知器的輸出值 Y。</p>
+<ul>
+<li><img src="../timg/856b9cd80d94.jpg" title="fig:" /></li>
+</ul></li>
+<li><p>權重修改：根據函數輸出 Yd 與感知器輸出 Y 之間的差異，進行權重調整。</p>
+<ul>
+<li><p>3.1 計算誤差 ： <img src="../timg/49e401d40cf4.jpg" /></p></li>
+<li><p>3.2 計算調整量： <img src="../timg/6fb8eb2fce33.jpg" /></p></li>
+<li><p>3.3 調整權重 ： <img src="../timg/d7d825c1b95d.jpg" /></p></li>
+</ul></li>
+<li><p>重複 2-3 步驟，直到學會為止 (如果一直學不會，只好宣告失敗)。</p></li>
+</ol>
+<h3 id="感知器模型-兩個輸入的情況"><a href="#感知器模型-兩個輸入的情況">感知器模型 (兩個輸入的情況)</a></h3>
+<p>根據以上的方法，假如感知器的輸入只有兩個 <img src="../timg/9fb86666733f.jpg" /> 那麼權重也只會有兩個 <img src="../timg/0a49adc5ecfb.jpg" /> ，於是我們可以得到下列的感知器模型：</p>
+<div class="figure">
+<img src="../img/perceptron.jpg" alt="圖、兩個輸入的感知器模型" /><p class="caption">圖、兩個輸入的感知器模型</p>
+</div>
+<p>假如我們的目標函數對於某組 (x1, x2) 的期望輸出為 yd，那麼就可以計算出誤差為 e=yd-y，於是我們可以透過下列方法調整權重。</p>
+<div class="figure">
+<img src="../timg/b1cacbe18ad7.jpg" />
+</div>
+<div class="figure">
+<img src="../timg/deff37e6fc5a.jpg" />
+</div>
+<p>可惜的是、上述的調整方法中，並沒有調整到 <img src="../timg/2554a2bb846c.jpg" /> 值，如果我們想要連 <img src="../timg/2554a2bb846c.jpg" /> 值也一並設計成可浮動的，那麼就可以將 <img src="../timg/2554a2bb846c.jpg" /> 加入到 w 中，成為 w0，，並將 x0 設為 -1，如下圖所示：</p>
+<div class="figure">
+<img src="../img/perceptron2.jpg" alt="圖、調整簡化後的感知器模型" /><p class="caption">圖、調整簡化後的感知器模型</p>
+</div>
+<p>經過上述的調整簡化之後，我們只要在調整權重時加入下列這條，就可以連 <img src="../timg/2554a2bb846c.jpg" /> 也一併調整了。</p>
+<div class="figure">
+<img src="../timg/8e42fbb23320.jpg" />
+</div>
+<p>當我們對某布林函數「真值表」中的每一個輸入，都反覆進行上述調整，最後是否能學會該「布林函數」呢？</p>
+<p>那麼、我們是否能夠用這麼簡單的方法讓感知器學會 AND、OR 與 XOR 函數呢？</p>
+<p>如果可以的話，那麼我們能不能擴大到 n 輸入的感知器上，讓感知器學會任何一個布林函數呢？</p>
+<p>如果感知器可以學會任何一個布林函數，那就會具有強大的威力了！</p>
+<p>但可惜的是，這個問題的答案是否定的，雖然感知器可以學會 AND 與 OR，但是卻不可能學會 XOR 函數。</p>
+<p>在說明這個問題的理論之前，先讓我們透過實作來體會一下感知器是如何學習 AND 與 OR 函數的，然後感受一下感知器在學 XOR 函數時發生了甚麼問題？</p>
+<p>等到瞭解了程式的運作原理之後，我們再來說明為何感知器無法學會 XOR 函數。</p>
+<h3 id="感知器實作"><a href="#感知器實作">感知器實作</a></h3>
+<p>以下我們使用 JavaScript 程式實作出感知器，其程式碼如下，您可以在 node.js 環境下執行此一程式：</p>
+<p>檔案：perceptron.js</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> log = <span class="ot">console</span>.<span class="fu">log</span>;
+
+<span class="kw">var</span> Perceptron = <span class="kw">function</span>() { <span class="co">// 感知器物件</span>
+  <span class="kw">this</span>.<span class="fu">step</span>=<span class="kw">function</span>(x, w) { <span class="co">// 步階函數：計算目前權重 w 的情況下，網路的輸出值為 0 或 1</span>
+    <span class="kw">var</span> result = w[<span class="dv">0</span>]*x[<span class="dv">0</span>]+w[<span class="dv">1</span>]*x[<span class="dv">1</span>]+w[<span class="dv">2</span>]*x[<span class="dv">2</span>]; <span class="co">// y=w0*x0+x1*w1+x2*w2=-theta+x1*w1+x2*w2</span>
+    <span class="kw">if</span> (result &gt;= <span class="dv">0</span>) <span class="co">// 如果結果大於零</span>
+      <span class="kw">return</span> <span class="dv">1</span>;      <span class="co">//   就輸出 1</span>
+    <span class="kw">else</span>             <span class="co">// 否則</span>
+      <span class="kw">return</span> <span class="dv">0</span>;      <span class="co">//   就輸出 0</span>
+  }
+  
+  <span class="kw">this</span>.<span class="fu">training</span>=<span class="kw">function</span>(truthTable) { <span class="co">// 訓練函數 training(truthTable), 其中 truthTable 是目標真值表</span>
+    <span class="kw">var</span> rate = <span class="fl">0.01</span>; <span class="co">// 學習調整速率，也就是 alpha</span>
+    <span class="kw">var</span> w = [ <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span> ]; 
+    <span class="kw">for</span> (<span class="kw">var</span> loop=<span class="dv">0</span>; loop&lt;<span class="dv">1000</span>; loop++) { <span class="co">// 最多訓練一千輪</span>
+      <span class="kw">var</span> eSum = <span class="fl">0.0</span>;
+      <span class="kw">for</span> (<span class="kw">var</span> i=<span class="dv">0</span>; i&lt;<span class="ot">truthTable</span>.<span class="fu">length</span>; i++) { <span class="co">// 每輪對於真值表中的每個輸入輸出配對，都訓練一次。</span>
+        <span class="kw">var</span> x = [ -<span class="dv">1</span>, truthTable[i][<span class="dv">0</span>], truthTable[i][<span class="dv">1</span>] ]; <span class="co">// 輸入： x</span>
+        <span class="kw">var</span> yd = truthTable[i][<span class="dv">2</span>];       <span class="co">// 期望的輸出 yd</span>
+        <span class="kw">var</span> y = <span class="kw">this</span>.<span class="fu">step</span>(x, w);  <span class="co">// 目前的輸出 y</span>
+        <span class="kw">var</span> e = yd - y;                  <span class="co">// 差距 e = 期望的輸出 yd - 目前的輸出 y</span>
+        eSum += e*e;                     <span class="co">// 計算差距總和</span>
+        <span class="kw">var</span> dw = [ <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span> ];            <span class="co">// 權重調整的幅度 dw</span>
+        dw[<span class="dv">0</span>] = rate * x[<span class="dv">0</span>] * e; w[<span class="dv">0</span>] += dw[<span class="dv">0</span>]; <span class="co">// w[0] 的調整幅度為 dw[0]</span>
+        dw[<span class="dv">1</span>] = rate * x[<span class="dv">1</span>] * e; w[<span class="dv">1</span>] += dw[<span class="dv">1</span>]; <span class="co">// w[1] 的調整幅度為 dw[1]</span>
+        dw[<span class="dv">2</span>] = rate * x[<span class="dv">2</span>] * e; w[<span class="dv">2</span>] += dw[<span class="dv">2</span>]; <span class="co">// w[2] 的調整幅度為 dw[2]</span>
+        <span class="kw">if</span> (loop % <span class="dv">10</span> == <span class="dv">0</span>)
+          <span class="fu">log</span>(<span class="st">&quot;%d:x=(%s,%s,%s) w=(%s,%s,%s) y=%s yd=%s e=%s&quot;</span>, loop, 
+               x[<span class="dv">0</span>].<span class="fu">toFixed</span>(<span class="dv">3</span>), x[<span class="dv">1</span>].<span class="fu">toFixed</span>(<span class="dv">3</span>), x[<span class="dv">2</span>].<span class="fu">toFixed</span>(<span class="dv">3</span>), 
+               w[<span class="dv">0</span>].<span class="fu">toFixed</span>(<span class="dv">3</span>), w[<span class="dv">1</span>].<span class="fu">toFixed</span>(<span class="dv">3</span>), w[<span class="dv">2</span>].<span class="fu">toFixed</span>(<span class="dv">3</span>), 
+               <span class="ot">y</span>.<span class="fu">toFixed</span>(<span class="dv">3</span>), <span class="ot">yd</span>.<span class="fu">toFixed</span>(<span class="dv">3</span>), <span class="ot">e</span>.<span class="fu">toFixed</span>(<span class="dv">3</span>));
+      }
+      <span class="kw">if</span> (<span class="ot">Math</span>.<span class="fu">abs</span>(eSum) &lt; <span class="fl">0.0001</span>) <span class="kw">return</span> w; <span class="co">// 當訓練結果誤差夠小時，就完成訓練了。</span>
+    }
+    <span class="kw">return</span> <span class="kw">null</span>; <span class="co">// 否則，就傳會 null 代表訓練失敗。</span>
+  }
+}
+
+<span class="kw">function</span> <span class="fu">learn</span>(tableName, truthTable) { <span class="co">// 學習主程式：輸入為目標真值表 truthTable 與其名稱 tableName。</span>
+  <span class="fu">log</span>(<span class="st">&quot;================== 學習 %s 函數 ====================&quot;</span>, tableName);
+  <span class="kw">var</span> p = <span class="kw">new</span> <span class="fu">Perceptron</span>();       <span class="co">// 建立感知器物件</span>
+  <span class="kw">var</span> w = <span class="ot">p</span>.<span class="fu">training</span>(truthTable); <span class="co">// 訓練感知器</span>
+  <span class="kw">if</span> (w != <span class="kw">null</span>)                  <span class="co">// 顯示訓練結果</span>
+    <span class="fu">log</span>(<span class="st">&quot;學習成功 !&quot;</span>);
+  <span class="kw">else</span>
+    <span class="fu">log</span>(<span class="st">&quot;學習失敗 !&quot;</span>);
+  <span class="fu">log</span>(<span class="st">&quot;w=%j&quot;</span>, w);
+}
+
+<span class="kw">var</span> andTable = [ [ <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span> ], [ <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span> ], [ <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span> ], [ <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span> ] ]; <span class="co">// AND 函數的真值表</span>
+<span class="kw">var</span> orTable  = [ [ <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span> ], [ <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span> ], [ <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span> ], [ <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span> ] ]; <span class="co">// OR  函數的真值表</span>
+<span class="kw">var</span> xorTable = [ [ <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span> ], [ <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span> ], [ <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span> ], [ <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span> ] ]; <span class="co">// XOR 函數的真值表</span>
+
+<span class="fu">learn</span>(<span class="st">&quot;and&quot;</span>, andTable); <span class="co">// 學習 AND 函數</span>
+<span class="fu">learn</span>(<span class="st">&quot;or&quot;</span>,  orTable);  <span class="co">// 學習 OR  函數</span>
+<span class="fu">learn</span>(<span class="st">&quot;xor&quot;</span>, xorTable); <span class="co">// 學習 XOR 函數</span></code></pre>
+<p>執行結果</p>
+<pre><code>D:\Dropbox\Public\web\ai\code&gt;node perceptron.js
+================== 學習 and 函數 ====================
+0:x=(-1.000,0.000,0.000) w=(1.000,0.000,0.000) y=0.000 yd=0.000 e=0.000
+0:x=(-1.000,0.000,1.000) w=(1.000,0.000,0.000) y=0.000 yd=0.000 e=0.000
+0:x=(-1.000,1.000,0.000) w=(1.000,0.000,0.000) y=0.000 yd=0.000 e=0.000
+0:x=(-1.000,1.000,1.000) w=(0.990,0.010,0.010) y=0.000 yd=1.000 e=1.000
+10:x=(-1.000,0.000,0.000) w=(0.900,0.100,0.100) y=0.000 yd=0.000 e=0.000
+10:x=(-1.000,0.000,1.000) w=(0.900,0.100,0.100) y=0.000 yd=0.000 e=0.000
+10:x=(-1.000,1.000,0.000) w=(0.900,0.100,0.100) y=0.000 yd=0.000 e=0.000
+10:x=(-1.000,1.000,1.000) w=(0.890,0.110,0.110) y=0.000 yd=1.000 e=1.000
+20:x=(-1.000,0.000,0.000) w=(0.800,0.200,0.200) y=0.000 yd=0.000 e=0.000
+20:x=(-1.000,0.000,1.000) w=(0.800,0.200,0.200) y=0.000 yd=0.000 e=0.000
+20:x=(-1.000,1.000,0.000) w=(0.800,0.200,0.200) y=0.000 yd=0.000 e=0.000
+20:x=(-1.000,1.000,1.000) w=(0.790,0.210,0.210) y=0.000 yd=1.000 e=1.000
+30:x=(-1.000,0.000,0.000) w=(0.700,0.300,0.300) y=0.000 yd=0.000 e=0.000
+30:x=(-1.000,0.000,1.000) w=(0.700,0.300,0.300) y=0.000 yd=0.000 e=0.000
+30:x=(-1.000,1.000,0.000) w=(0.700,0.300,0.300) y=0.000 yd=0.000 e=0.000
+30:x=(-1.000,1.000,1.000) w=(0.690,0.310,0.310) y=0.000 yd=1.000 e=1.000
+學習成功 !
+w=[0.6599999999999997,0.34000000000000014,0.34000000000000014]
+================== 學習 or 函數 ====================
+0:x=(-1.000,0.000,0.000) w=(1.000,0.000,0.000) y=0.000 yd=0.000 e=0.000
+0:x=(-1.000,0.000,1.000) w=(0.990,0.000,0.010) y=0.000 yd=1.000 e=1.000
+0:x=(-1.000,1.000,0.000) w=(0.980,0.010,0.010) y=0.000 yd=1.000 e=1.000
+0:x=(-1.000,1.000,1.000) w=(0.970,0.020,0.020) y=0.000 yd=1.000 e=1.000
+10:x=(-1.000,0.000,0.000) w=(0.700,0.200,0.200) y=0.000 yd=0.000 e=0.000
+10:x=(-1.000,0.000,1.000) w=(0.690,0.200,0.210) y=0.000 yd=1.000 e=1.000
+10:x=(-1.000,1.000,0.000) w=(0.680,0.210,0.210) y=0.000 yd=1.000 e=1.000
+10:x=(-1.000,1.000,1.000) w=(0.670,0.220,0.220) y=0.000 yd=1.000 e=1.000
+20:x=(-1.000,0.000,0.000) w=(0.460,0.340,0.340) y=0.000 yd=0.000 e=0.000
+20:x=(-1.000,0.000,1.000) w=(0.450,0.340,0.350) y=0.000 yd=1.000 e=1.000
+20:x=(-1.000,1.000,0.000) w=(0.440,0.350,0.350) y=0.000 yd=1.000 e=1.000
+20:x=(-1.000,1.000,1.000) w=(0.440,0.350,0.350) y=1.000 yd=1.000 e=0.000
+學習成功 !
+w=[0.37999999999999945,0.38000000000000017,0.38000000000000017]
+================== 學習 xor 函數 ====================
+0:x=(-1.000,0.000,0.000) w=(1.000,0.000,0.000) y=0.000 yd=0.000 e=0.000
+0:x=(-1.000,0.000,1.000) w=(0.990,0.000,0.010) y=0.000 yd=1.000 e=1.000
+0:x=(-1.000,1.000,0.000) w=(0.980,0.010,0.010) y=0.000 yd=1.000 e=1.000
+0:x=(-1.000,1.000,1.000) w=(0.980,0.010,0.010) y=0.000 yd=0.000 e=0.000
+10:x=(-1.000,0.000,0.000) w=(0.800,0.100,0.100) y=0.000 yd=0.000 e=0.000
+10:x=(-1.000,0.000,1.000) w=(0.790,0.100,0.110) y=0.000 yd=1.000 e=1.000
+10:x=(-1.000,1.000,0.000) w=(0.780,0.110,0.110) y=0.000 yd=1.000 e=1.000
+10:x=(-1.000,1.000,1.000) w=(0.780,0.110,0.110) y=0.000 yd=0.000 e=0.000
+...
+900:x=(-1.000,0.000,0.000) w=(0.010,-0.010,-0.000) y=1.000 yd=0.000 e=-1.000
+900:x=(-1.000,0.000,1.000) w=(-0.000,-0.010,0.010) y=0.000 yd=1.000 e=1.000
+900:x=(-1.000,1.000,0.000) w=(-0.010,-0.000,0.010) y=0.000 yd=1.000 e=1.000
+900:x=(-1.000,1.000,1.000) w=(-0.000,-0.010,-0.000) y=1.000 yd=0.000 e=-1.000
+...
+990:x=(-1.000,0.000,0.000) w=(0.010,-0.010,-0.000) y=1.000 yd=0.000 e=-1.000
+990:x=(-1.000,0.000,1.000) w=(-0.000,-0.010,0.010) y=0.000 yd=1.000 e=1.000
+990:x=(-1.000,1.000,0.000) w=(-0.010,-0.000,0.010) y=0.000 yd=1.000 e=1.000
+990:x=(-1.000,1.000,1.000) w=(-0.000,-0.010,-0.000) y=1.000 yd=0.000 e=-1.000
+學習失敗 !
+w=null</code></pre>
+<h3 id="分析"><a href="#分析">分析</a></h3>
+<p>您可以看到在上述執行結果中， AND 與 OR 兩個真值表，輸入到單層感知器進行訓練之後，都可以正確的進行學習，也就是單層感知器的輸出可以與該真值表完全一致，這代表單層感知器學習成功了。</p>
+<p>但是對於 XOR 這個真值表，單層感知器卻無法讓輸出與真值表完全一致，這也正是 Minsky 所說的，單層感知器無法正確學習 XOR 函數的原因。</p>
+<p>會產生這個現象的原因，可以用線性代數的概念解釋，下圖顯示了 AND, OR, XOR 等這三個真值表在二維線性空間的狀況，其中的粉紅色圓圈代表真值表的目標輸出值為 1，而淺藍色圓圈代表目標輸出為 0。</p>
+<div class="figure">
+<img src="../img/perceptronLinearAnalysis.jpg" alt="圖、單層感知器為何不能學習 XOR 函數的分析" /><p class="caption">圖、單層感知器為何不能學習 XOR 函數的分析</p>
+</div>
+<p>您可以看到對於 AND 與 OR 都可以用一條線將「粉紅色圓圈」與「淺藍色圓圈」分割開來。但是對 XOR 而言，由於粉紅色與淺藍色分別處於斜對角，我們沒有辦法畫出單一條線將兩者分開，這也是會何上述單層感知器在學習 XOR 這個函數上會失敗的原因了。</p>
+<h3 id="結語"><a href="#結語">結語</a></h3>
+<p>可惜的是，單層感知器並沒有辦法學會任意的布林函數，這個結果雖然令人失望，但是期望這麼簡單的模型就能擁有強大的能力，其實是一種非常天真的想法。</p>
+<p>不過、如果我們將這種單層的網路繼續擴充，變成雙層以上的網路的話，其能力就會大大的提升了，這也就是我們接下來要探討的主題，反傳遞演算法 (Back-Propagation Algorithm) 了。</p>
+<h3 id="參考文獻-1"><a href="#參考文獻-1">參考文獻</a></h3>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Perceptron">Wikipedia:Perceptron</a></li>
+<li><a href="http://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5%E5%99%A8">維基百科：感知器</a></li>
+</ul>
+<p>【本文由陳鍾誠取材並修改自 <a href="http://zh.wikipedia.org/">維基百科</a>，採用創作共用的 <a href="http://creativecommons.org/licenses/by-sa/3.0/tw/">姓名標示、相同方式分享</a> 授權】</p>
+<h2 id="多層感知器與反傳遞演算法實作---使用-javascriptnode.js"><a href="#多層感知器與反傳遞演算法實作---使用-javascriptnode.js">多層感知器與反傳遞演算法實作 - 使用 JavaScript+Node.js</a></h2>
+<h3 id="前言-1"><a href="#前言-1">前言</a></h3>
+<p>在前一篇文章中，我們討論了「單層感知器」的實作方式，然而單層感知器並沒有辦法處理像 XOR 這樣的函數。</p>
+<p>為了提升「感知器」的能力，我們可以在輸入與輸出節點之間，再加入一些隱藏層，並透過這些隱藏層對整個學習空間進行更多次的分割，以便能處理 XOR 這類難以用單一線性函數分割的問題。</p>
+<p>但是加入了隱藏層之後，感知器的學習與訓練就更為複雜了，這時必須有足夠的「數學理論」才能為「多層感知器」提供一個方向，而「反傳遞演算法」 (Back-Propagation) 正是這樣一個可以提供「多層感知器」學習方向的好東西，其數學基礎則是建構在多變數微分「梯度」概念之上的一種「梯度下降法」。</p>
+<p>事實上、反傳遞演算法 (Back-Propagation) 的概念在 1974 年就由 Paul J. Werbos 所提出來了，但沒有受到重視，後來在 1986 年又被 Rumelhart 重新發明了出來，而且受到了廣泛的重視。</p>
+<p>在本文中，我們將說明「多層感知器」與「反傳遞演算法」的概念，並用 Node.js+JavaScript 進行實作。</p>
+<h3 id="模型與數學原理"><a href="#模型與數學原理">模型與數學原理</a></h3>
+<p>以下是本文程式所採用的一個「多層感知器」模型，其中包含「輸入層、隱藏層與輸出層」，這種多層感知器與上一篇「單層感知器」的一個明顯不同點，在於擁有一個隱藏層，因此其能力增強了很多。</p>
+<div class="figure">
+<img src="../img/mlp.jpg" alt="圖、多層感知器模型 (本圖含一個隱藏層)" /><p class="caption">圖、多層感知器模型 (本圖含一個隱藏層)</p>
+</div>
+<p>既然反傳遞演算法是一種梯度下降法，那麼我們只要能計算出梯度的方向，就能讓「多層感知器」的權重朝著能量下降最快的方向前進。</p>
+<p>但是、梯度要怎麼計算呢？先讓我們來看一張多變數的能量曲線圖。</p>
+<div class="figure">
+<img src="../img/Gradient.jpg" alt="圖、曲面與每一點的梯度向量" /><p class="caption">圖、曲面與每一點的梯度向量</p>
+</div>
+<p>在上圖中，底下的平面上所畫的向量，就是上面那個曲面在該點梯度的投影，指示了該平面最陡的下降方向。</p>
+<p>在直覺概念上，曲面上某一點的梯度，其實是曲面在該點切平面的法向量，梯度的計算公式如下：</p>
+<div class="figure">
+<img src="../timg/4d0383fdb044.jpg" />
+</div>
+<p>如果我們可以計算某函數之梯度的話，只要朝著梯度的方向走去，就是最快下降的道路了。</p>
+<p>採用這種沿著梯度方向往下走的方法，就稱為「梯度下降法」(Gradient Descent)，這種方法可以說是一種「貪婪演算法」(Greedy Algorithm)，因為它每次都朝著最斜的方向走去，企圖得到最大的下降幅度。</p>
+<p>為了要計算梯度，我們不能採用「單層感知器裏的那種不可微分的 sign() 步階函數」 (如下圖 a 所示)，因為這樣就不能用微積分的方式計算出梯度了，而必須改用可以微分的連續函數 sigmoid() (如下圖 b 所示)，這樣才能夠透過微分計算出梯度。</p>
+<div class="figure">
+<img src="../img/MLP_neuron.jpg" alt="圖、兩種神經元之比較" /><p class="caption">圖、兩種神經元之比較</p>
+</div>
+<p>當我們改成可微分的 sigmoid() 函數之後，就可以運用微積分公式，事先求出其微分函數 dsigmoid() 。舉例而言、在本文的程式中，我們就用了雙曲正切函數 tanh(x) 作為 sigmoid() 函數，其定義如下所示：</p>
+<div class="figure">
+<img src="../timg/0a7a7dbd3516.jpg" />
+</div>
+<div class="figure">
+<img src="../timg/7621e383e2fc.jpg" />
+</div>
+<div class="figure">
+<img src="../timg/fb1e12546ddc.jpg" />
+</div>
+<p>由於 tanh(x) 的微分是 <img src="../timg/cd7b4072bc59.jpg" /> ，因此在下列這段程式中，我們定義了這些函數的計算方式。</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> tanh=<span class="kw">function</span>(x) {
+  <span class="kw">return</span> (<span class="ot">Math</span>.<span class="fu">exp</span>(x) - <span class="ot">Math</span>.<span class="fu">exp</span>(-x)) / (<span class="ot">Math</span>.<span class="fu">exp</span>(x) + <span class="ot">Math</span>.<span class="fu">exp</span>(-x));
+}
+
+<span class="kw">function</span> <span class="fu">sigmoid</span>(x) {
+  <span class="kw">return</span> <span class="fu">tanh</span>(x); <span class="co">// 表現較好</span>
+}
+
+<span class="kw">function</span> <span class="fu">dsigmoid</span>(x) {
+  <span class="kw">return</span> <span class="fl">1.0</span> - x*x;
+}</code></pre>
+<p>上述程式中 dsigmoid(y) 中的 <code>1.0 - x*x</code> 則是 y=tanh(x) 的微分式，對每個 y=tanh(x) 都取微分式的時候，其實就是梯度的方向。</p>
+<p>(筆者註：有些實作會採用 <img src="../timg/ae4a7a4a574d.jpg" /> 作為 sigmoid() 函數，這與 tanh(x) 函數的形狀非常類似，也是一種可行的方法)。</p>
+<h3 id="程式碼"><a href="#程式碼">程式碼</a></h3>
+<p>檔案：backprop.js</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Back-Propagation Neural Networks (JavaScript 版)</span>
+<span class="co">// 由陳鍾誠修改自 Neil Schemenauer 的 Python 版</span>
+<span class="co">// Python 程式網址為： http://arctrix.com/nas/python/bpnn.py</span>
+
+<span class="kw">var</span> log = <span class="ot">console</span>.<span class="fu">log</span>;
+
+<span class="co">// 建立大小為 n 的陣列並填入初始值 fill</span>
+<span class="kw">var</span> makeArray=<span class="kw">function</span>(n, fill) {
+  <span class="kw">var</span> a = [];
+  <span class="kw">for</span> (<span class="kw">var</span> i=<span class="dv">0</span>; i&lt;n; i++)
+    <span class="ot">a</span>.<span class="fu">push</span>(fill);
+  <span class="kw">return</span> a;
+}
+
+<span class="co">// 建立大小為 I*J 的矩陣並填入初始值 fill</span>
+<span class="kw">var</span> makeMatrix=<span class="kw">function</span>(I, J, fill) {
+  <span class="kw">var</span> m = [];
+  <span class="kw">for</span> (<span class="kw">var</span> i=<span class="dv">0</span>; i&lt;I; i++)
+    <span class="ot">m</span>.<span class="fu">push</span>(<span class="fu">makeArray</span>(J, fill));
+  <span class="kw">return</span> m;
+}
+
+<span class="co">// numbersToStr():以精確度為 precision 個小數來輸出陣列 array</span>
+<span class="kw">var</span> numbersToStr=<span class="kw">function</span>(array, precision) {
+  <span class="kw">var</span> rzStr = <span class="st">&quot;&quot;</span>;
+  <span class="kw">for</span> (<span class="kw">var</span> i=<span class="dv">0</span>; i&lt;<span class="ot">array</span>.<span class="fu">length</span>; i++) {
+    <span class="kw">if</span> (array[i]&gt;=<span class="dv">0</span>)
+      rzStr+=<span class="st">&quot; &quot;</span>+array[i].<span class="fu">toFixed</span>(precision)+<span class="st">&quot; &quot;</span>;
+    <span class="kw">else</span>
+      rzStr+=array[i].<span class="fu">toFixed</span>(precision)+<span class="st">&quot; &quot;</span>;
+  }
+  <span class="kw">return</span> rzStr;
+}
+
+<span class="co">// rand():取得 a 到 b 之間的一個隨機亂數</span>
+<span class="kw">var</span> rand=<span class="kw">function</span>(a, b) {
+  <span class="kw">return</span> (b-a)*<span class="ot">Math</span>.<span class="fu">random</span>() + a;
+}
+
+<span class="co">// sigmoid(x)=tanh(x)</span>
+<span class="kw">function</span> <span class="fu">sigmoid</span>(x) {
+  <span class="kw">var</span> tanh = (<span class="ot">Math</span>.<span class="fu">exp</span>(x) - <span class="ot">Math</span>.<span class="fu">exp</span>(-x)) / (<span class="ot">Math</span>.<span class="fu">exp</span>(x) + <span class="ot">Math</span>.<span class="fu">exp</span>(-x));
+  <span class="kw">return</span> tanh; <span class="co">// 雙曲正切函數</span>
+}
+
+<span class="co">// dsigmoid(x)=1-x^2;</span>
+<span class="co">// 參考：http://pynopticon.googlecode.com/svn/trunk/src/vlfeat/toolbox/special/dsigmoid.m</span>
+<span class="co">// 參考：http://en.wikipedia.org/wiki/Sigmoid_function</span>
+<span class="kw">function</span> <span class="fu">dsigmoid</span>(x) {
+  <span class="kw">return</span> <span class="fl">1.0</span> - x*x;
+}
+
+<span class="kw">function</span> <span class="fu">NeuralNet</span>() {
+
+  <span class="co">// init()：設定網路結構與權重的隨機初始值的函數。</span>
+  <span class="kw">this</span>.<span class="fu">init</span>=<span class="kw">function</span>(ni, nh, no) {
+    <span class="co">// number of input, hidden, and output nodes</span>
+    <span class="kw">this</span>.<span class="fu">ni</span> = ni + <span class="dv">1</span>; <span class="co">// +1 for bias node</span>
+    <span class="kw">this</span>.<span class="fu">nh</span> = nh;
+    <span class="kw">this</span>.<span class="fu">no</span> = no;
+
+    <span class="co">// activations for nodes : 建立各層的節點陣列</span>
+    <span class="kw">this</span>.<span class="fu">ai</span> = <span class="fu">makeArray</span>(<span class="kw">this</span>.<span class="fu">ni</span>, <span class="fl">1.0</span>);
+    <span class="kw">this</span>.<span class="fu">ah</span> = <span class="fu">makeArray</span>(<span class="kw">this</span>.<span class="fu">nh</span>, <span class="fl">1.0</span>);
+    <span class="kw">this</span>.<span class="fu">ao</span> = <span class="fu">makeArray</span>(<span class="kw">this</span>.<span class="fu">no</span>, <span class="fl">1.0</span>);
+        
+    <span class="co">// create weights : 建立權重矩陣</span>
+    <span class="kw">this</span>.<span class="fu">wi</span> = <span class="fu">makeMatrix</span>(<span class="kw">this</span>.<span class="fu">ni</span>, <span class="kw">this</span>.<span class="fu">nh</span>, <span class="fl">0.0</span>);
+    <span class="kw">this</span>.<span class="fu">wo</span> = <span class="fu">makeMatrix</span>(<span class="kw">this</span>.<span class="fu">nh</span>, <span class="kw">this</span>.<span class="fu">no</span>, <span class="fl">0.0</span>);
+        
+    <span class="co">// set them to random vaules : 隨機設定權重初始值。</span>
+    <span class="kw">for</span> (<span class="kw">var</span> i=<span class="dv">0</span>; i&lt;<span class="kw">this</span>.<span class="fu">ni</span>; i++)
+      <span class="kw">for</span> (<span class="kw">var</span> j=<span class="dv">0</span>; j&lt;<span class="kw">this</span>.<span class="fu">nh</span>; j++)
+        <span class="kw">this</span>.<span class="fu">wi</span>[i][j] = <span class="fu">rand</span>(-<span class="fl">0.2</span>, <span class="fl">0.2</span>);
+    <span class="kw">for</span> (<span class="kw">var</span> j=<span class="dv">0</span>; j&lt;<span class="kw">this</span>.<span class="fu">nh</span>; j++)
+      <span class="kw">for</span> (<span class="kw">var</span> k=<span class="dv">0</span>; k&lt;<span class="kw">this</span>.<span class="fu">no</span>; k++)
+        <span class="kw">this</span>.<span class="fu">wo</span>[j][k] = <span class="fu">rand</span>(-<span class="fl">2.0</span>, <span class="fl">2.0</span>);
+
+    <span class="co">// last change in weights for momentum  : 上一次的改變量矩陣，用來當動量以便爬過肩型區域。</span>
+    <span class="kw">this</span>.<span class="fu">ci</span> = <span class="fu">makeMatrix</span>(<span class="kw">this</span>.<span class="fu">ni</span>, <span class="kw">this</span>.<span class="fu">nh</span>, <span class="fl">0.0</span>);
+    <span class="kw">this</span>.<span class="fu">co</span> = <span class="fu">makeMatrix</span>(<span class="kw">this</span>.<span class="fu">nh</span>, <span class="kw">this</span>.<span class="fu">no</span>, <span class="fl">0.0</span>);
+    <span class="kw">return</span> <span class="kw">this</span>;
+  }
+    
+  <span class="co">// update() : 計算網路的輸出的函數</span>
+  <span class="kw">this</span>.<span class="fu">update</span>=<span class="kw">function</span>(inputs) {
+    <span class="co">// input activations : 設定輸入值</span>
+    <span class="kw">for</span> (<span class="kw">var</span> i=<span class="dv">0</span>; i&lt;<span class="kw">this</span>.<span class="fu">ni</span><span class="dv">-1</span>; i++)
+      <span class="kw">this</span>.<span class="fu">ai</span>[i] = inputs[i];
+
+    <span class="co">// hidden activations : 計算隱藏層輸出值 ah[j]</span>
+    <span class="kw">for</span> (<span class="kw">var</span> j=<span class="dv">0</span>; j&lt;<span class="kw">this</span>.<span class="fu">nh</span>; j++) {
+      <span class="kw">var</span> sum = <span class="fl">0.0</span>;
+      <span class="kw">for</span> (<span class="kw">var</span> i=<span class="dv">0</span>; i&lt;<span class="kw">this</span>.<span class="fu">ni</span>; i++)
+        sum = sum + <span class="kw">this</span>.<span class="fu">ai</span>[i] * <span class="kw">this</span>.<span class="fu">wi</span>[i][j];
+      <span class="kw">this</span>.<span class="fu">ah</span>[j] = <span class="fu">sigmoid</span>(sum);
+    }
+
+    <span class="co">// output activations : 計算輸出層輸出值 ao[k]</span>
+    <span class="kw">for</span> (<span class="kw">var</span> k=<span class="dv">0</span>; k&lt;<span class="kw">this</span>.<span class="fu">no</span>; k++) {
+      <span class="kw">var</span> sum = <span class="fl">0.0</span>;
+      <span class="kw">for</span> (<span class="kw">var</span> j=<span class="dv">0</span>; j&lt;<span class="kw">this</span>.<span class="fu">nh</span>; j++)
+        sum = sum + <span class="kw">this</span>.<span class="fu">ah</span>[j] * <span class="kw">this</span>.<span class="fu">wo</span>[j][k];
+      <span class="kw">this</span>.<span class="fu">ao</span>[k] = <span class="fu">sigmoid</span>(sum);
+    }
+
+    <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">ao</span>; <span class="co">// 傳回輸出層輸出值 ao</span>
+  }
+
+  <span class="co">// backPropagate()：反傳遞學習的函數 (重要)</span>
+  <span class="kw">this</span>.<span class="fu">backPropagate</span> = <span class="kw">function</span>(targets, rate, moment) {
+    <span class="co">// calculate error terms for output : 計算輸出層誤差</span>
+    <span class="kw">var</span> output_deltas = <span class="fu">makeArray</span>(<span class="kw">this</span>.<span class="fu">no</span>, <span class="fl">0.0</span>);
+    <span class="kw">for</span> (<span class="kw">var</span> k=<span class="dv">0</span>; k&lt;<span class="kw">this</span>.<span class="fu">no</span>; k++) {
+      <span class="kw">var</span> error = targets[k]-<span class="kw">this</span>.<span class="fu">ao</span>[k];
+      output_deltas[k] = <span class="fu">dsigmoid</span>(<span class="kw">this</span>.<span class="fu">ao</span>[k]) * error;
+    }
+
+    <span class="co">// calculate error terms for hidden : 計算隱藏層誤差</span>
+    <span class="kw">var</span> hidden_deltas = <span class="fu">makeArray</span>(<span class="kw">this</span>.<span class="fu">nh</span>, <span class="fl">0.0</span>);
+    <span class="kw">for</span> (<span class="kw">var</span> j=<span class="dv">0</span>; j&lt;<span class="kw">this</span>.<span class="fu">nh</span>; j++) {
+      <span class="kw">var</span> error = <span class="fl">0.0</span>;
+      <span class="kw">for</span> (<span class="kw">var</span> k=<span class="dv">0</span>; k&lt;<span class="kw">this</span>.<span class="fu">no</span>; k++) {
+              <span class="co">// 注意、在此輸出層誤差 output_deltas 會反傳遞到隱藏層，因此才稱為反傳遞演算法。</span>
+        error = error + output_deltas[k]*<span class="kw">this</span>.<span class="fu">wo</span>[j][k]; 
+          }
+      hidden_deltas[j] = <span class="fu">dsigmoid</span>(<span class="kw">this</span>.<span class="fu">ah</span>[j]) * error;
+    }
+
+    <span class="co">// update output weights : 更新輸出層權重</span>
+    <span class="kw">for</span> (<span class="kw">var</span> j=<span class="dv">0</span>; j&lt;<span class="kw">this</span>.<span class="fu">nh</span>; j++) {
+      <span class="kw">for</span> (<span class="kw">var</span> k=<span class="dv">0</span>; k&lt;<span class="kw">this</span>.<span class="fu">no</span>; k++) {
+        <span class="kw">var</span> change = output_deltas[k]*<span class="kw">this</span>.<span class="fu">ah</span>[j];
+        <span class="kw">this</span>.<span class="fu">wo</span>[j][k] = <span class="kw">this</span>.<span class="fu">wo</span>[j][k] + rate*change + moment*<span class="kw">this</span>.<span class="fu">co</span>[j][k];
+        <span class="kw">this</span>.<span class="fu">co</span>[j][k] = change;
+        <span class="co">// print N*change, M*this.co[j][k]</span>
+      }
+    }
+
+    <span class="co">// update input weights : 更新輸入層權重</span>
+    <span class="kw">for</span> (<span class="kw">var</span> i=<span class="dv">0</span>; i&lt;<span class="kw">this</span>.<span class="fu">ni</span>; i++) {
+      <span class="kw">for</span> (<span class="kw">var</span> j=<span class="dv">0</span>; j&lt;<span class="kw">this</span>.<span class="fu">nh</span>; j++) {
+        <span class="kw">var</span> change = hidden_deltas[j]*<span class="kw">this</span>.<span class="fu">ai</span>[i];
+        <span class="kw">this</span>.<span class="fu">wi</span>[i][j] = <span class="kw">this</span>.<span class="fu">wi</span>[i][j] + rate*change + moment*<span class="kw">this</span>.<span class="fu">ci</span>[i][j];
+        <span class="kw">this</span>.<span class="fu">ci</span>[i][j] = change;
+      }
+    }
+
+    <span class="co">// calculate error : 計算輸出層誤差總合</span>
+    <span class="kw">var</span> error = <span class="fl">0.0</span>;
+    <span class="kw">for</span> (<span class="kw">var</span> k=<span class="dv">0</span>; k&lt;<span class="ot">targets</span>.<span class="fu">length</span>; k++)
+      error = error + <span class="fl">0.5</span>*<span class="ot">Math</span>.<span class="fu">pow</span>(targets[k]-<span class="kw">this</span>.<span class="fu">ao</span>[k],<span class="dv">2</span>);
+    <span class="kw">return</span> error;
+  }
+
+    <span class="co">// test() : 對真值表 (訓練樣本) 中的每個輸入都印出「網路輸出」與「期望輸出」，以便觀察學習結果是否都正確。</span>
+  <span class="kw">this</span>.<span class="fu">test</span> = <span class="kw">function</span>(patterns) {
+    <span class="kw">for</span> (<span class="kw">var</span> p <span class="kw">in</span> patterns) {
+      <span class="kw">var</span> inputs = patterns[p][<span class="dv">0</span>];
+      <span class="kw">var</span> outputs= patterns[p][<span class="dv">1</span>];
+      <span class="fu">log</span>(<span class="st">&quot;%j -&gt; [%s] [%s]&quot;</span>, inputs, <span class="fu">numbersToStr</span>(<span class="kw">this</span>.<span class="fu">update</span>(inputs), <span class="dv">0</span>), <span class="fu">numbersToStr</span>(outputs, <span class="dv">0</span>));
+      <span class="co">// this.dump();</span>
+    }
+  }
+
+    <span class="co">// train(): 主要學習函數，反覆呼叫反傳遞算法</span>
+    <span class="co">// 參數：rate: learning rate (學習速率), moment: momentum factor (動量常數)</span>
+  <span class="kw">this</span>.<span class="fu">train</span>=<span class="kw">function</span>(patterns, iterations, rate, moment) {
+    <span class="kw">for</span> (<span class="kw">var</span> i=<span class="dv">0</span>; i&lt;iterations; i++) {
+      <span class="kw">var</span> error = <span class="fl">0.0</span>;
+      <span class="kw">for</span> (<span class="kw">var</span> p <span class="kw">in</span> patterns) {
+        <span class="kw">var</span> pat=patterns[p];
+        <span class="kw">var</span> inputs = pat[<span class="dv">0</span>];
+        <span class="kw">var</span> targets = pat[<span class="dv">1</span>];
+        <span class="kw">var</span> outputs = <span class="kw">this</span>.<span class="fu">update</span>(inputs);
+        error = error + <span class="kw">this</span>.<span class="fu">backPropagate</span>(targets, rate, moment);
+      }
+      <span class="kw">if</span> (i % <span class="dv">100</span> == <span class="dv">0</span>)
+        <span class="fu">log</span>(<span class="st">&#39;%d:error %j&#39;</span>, i, error);
+    }
+  }
+}
+
+<span class="ot">module</span>.<span class="fu">exports</span> = NeuralNet; <span class="co">// 匯出 NeuralNet 物件。</span></code></pre>
+<h3 id="執行範例-1-學習-xor-函數"><a href="#執行範例-1-學習-xor-函數">執行範例 1 : 學習 XOR 函數</a></h3>
+<p>檔案：backprop_xor.js</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> NN = <span class="fu">require</span>(<span class="st">&quot;./backprop&quot;</span>);
+
+pat = [
+  [[<span class="dv">0</span>,<span class="dv">0</span>], [<span class="dv">0</span>]],
+  [[<span class="dv">0</span>,<span class="dv">1</span>], [<span class="dv">1</span>]],
+  [[<span class="dv">1</span>,<span class="dv">0</span>], [<span class="dv">1</span>]],
+  [[<span class="dv">1</span>,<span class="dv">1</span>], [<span class="dv">0</span>]]
+];
+
+<span class="co">// create a network with two input, two hidden, and one output nodes</span>
+nn = <span class="kw">new</span> <span class="fu">NN</span>().<span class="fu">init</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>);
+<span class="co">// train it with some patterns</span>
+<span class="ot">nn</span>.<span class="fu">train</span>(pat, <span class="dv">1000</span>, <span class="fl">0.5</span>, <span class="fl">0.1</span>);
+<span class="co">// test it</span>
+<span class="ot">nn</span>.<span class="fu">test</span>(pat);</code></pre>
+<p>執行結果：</p>
+<pre><code>D:\Dropbox\Public\web\ai\code\neural&gt;node backprop_xor
+0:error 1.1411586806597014
+100:error 0.15669092345306487
+200:error 0.0044566959936791035
+300:error 0.0018489705409186357
+400:error 0.0011477205633429219
+500:error 0.0008277968129286529
+600:error 0.0006456614467953627
+700:error 0.005231441443909679
+800:error 0.0004595906757934737
+900:error 0.0003945408066808508
+[0,0] -&gt; [ 0 ] [ 0 ]
+[0,1] -&gt; [ 1 ] [ 1 ]
+[1,0] -&gt; [ 1 ] [ 1 ]
+[1,1] -&gt; [-0 ] [ 0 ]</code></pre>
+<h3 id="執行範例-2-學習七段顯示器函數"><a href="#執行範例-2-學習七段顯示器函數">執行範例 2 : 學習七段顯示器函數</a></h3>
+<p>檔案：backprop_7seg.js</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">/* 七段顯示器排列圖示</span>
+<span class="co">  A</span>
+<span class="co">F   B</span>
+<span class="co">  G</span>
+<span class="co">E   C</span>
+<span class="co">  D</span>
+<span class="co">*/</span>
+
+<span class="kw">var</span> NN = <span class="fu">require</span>(<span class="st">&quot;./backprop&quot;</span>);
+
+pat = [
+ <span class="co">// A B C D E F G </span>
+  [[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>], [<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>]], <span class="co">// 0</span>
+  [[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>], [<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>]], <span class="co">// 1</span>
+  [[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>], [<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>]], <span class="co">// 2</span>
+  [[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>], [<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>]], <span class="co">// 3</span>
+  [[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>], [<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>]], <span class="co">// 4</span>
+  [[<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>], [<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>]], <span class="co">// 5</span>
+  [[<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>], [<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>]], <span class="co">// 6</span>
+  [[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>], [<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>]], <span class="co">// 7</span>
+  [[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>], [<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>]], <span class="co">// 8</span>
+  [[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>], [<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>]]  <span class="co">// 9</span>
+];
+
+<span class="co">// create a network with 7 input, 5 hidden, and 4 output nodes</span>
+nn = <span class="kw">new</span> <span class="fu">NN</span>().<span class="fu">init</span>(<span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">4</span>);
+<span class="co">// train it with some patterns</span>
+<span class="ot">nn</span>.<span class="fu">train</span>(pat, <span class="dv">10000</span>, <span class="fl">0.2</span>, <span class="fl">0.01</span>);
+<span class="co">// test it</span>
+<span class="ot">nn</span>.<span class="fu">test</span>(pat);</code></pre>
+<p>執行結果：</p>
+<pre><code>D:\Dropbox\Public\web\ai\code\neural&gt;node backprop_7seg
+0:error 21.80370718175807
+100:error 3.0996784544877736
+200:error 2.9554663137424373
+300:error 2.9322332121195545
+400:error 0.9175505320368402
+500:error 0.5911840202045504
+600:error 0.6702566860375645
+700:error 0.6175745429758741
+800:error 0.6073471516556047
+900:error 0.601200049561361
+1000:error 0.5810463514787689
+1100:error 0.5364677212922591
+1200:error 0.532025286869445
+1300:error 0.46666848524996085
+1400:error 0.48129628693742754
+1500:error 0.8155362088747744
+1600:error 0.5829386518767099
+1700:error 0.6944742612114545
+1800:error 0.49717362214697597
+1900:error 0.40957109669176334
+2000:error 0.5388564563993076
+2100:error 0.3703582901903478
+2200:error 0.5178647638260341
+2300:error 0.1764373289120007
+2400:error 0.25347246319196093
+2500:error 0.33310966813566406
+2600:error 0.17106878914718923
+2700:error 0.1365002209754472
+2800:error 0.1594051132697459
+2900:error 0.3070991793860354
+3000:error 0.3766039636947747
+3100:error 0.3555367190225767
+3200:error 0.11555541960454409
+3300:error 0.11367500949340971
+3400:error 0.12234128181753154
+3500:error 0.1675446667610037
+3600:error 0.09044262748000728
+3700:error 0.08628776394501735
+3800:error 0.27906234926518514
+3900:error 0.04818459875532369
+4000:error 0.062418918530088664
+4100:error 0.2804289611800696
+4200:error 0.13725495522690973
+4300:error 0.12719742994691247
+4400:error 0.07177660395615833
+4500:error 0.08548411758763816
+4600:error 0.03974217740792855
+4700:error 0.09595126476746213
+4800:error 0.03853494372617759
+4900:error 0.06360901767700806
+5000:error 0.07246959735102428
+5100:error 0.05362418748287888
+5200:error 0.04669033343340621
+5300:error 0.03270696475959521
+5400:error 0.03940008954106113
+5500:error 0.047208537352753516
+5600:error 0.049368429554604215
+5700:error 0.042625347453785954
+5800:error 0.056241589618292134
+5900:error 0.016798400589135128
+6000:error 0.03404851177897533
+6100:error 0.028972975396903942
+6200:error 0.01572555942490573
+6300:error 0.048110746037786964
+6400:error 0.039118552165591194
+6500:error 0.03954060666366999
+6600:error 0.047240563507126423
+6700:error 0.013729342899560402
+6800:error 0.03734015049471263
+6900:error 0.04385222818693631
+7000:error 0.038098235270263764
+7100:error 0.014325393180305138
+7200:error 0.039093361005808284
+7300:error 0.011914229228792664
+7400:error 0.012490068609142688
+7500:error 0.010110888778014877
+7600:error 0.017266400583083073
+7700:error 0.037972260655506615
+7800:error 0.010317947862704183
+7900:error 0.02181165885044425
+8000:error 0.033354842242808616
+8100:error 0.033244707069915634
+8200:error 0.02269772865101642
+8300:error 0.008219315372175379
+8400:error 0.03342460798252796
+8500:error 0.008080093519395289
+8600:error 0.02466937317542233
+8700:error 0.03307092886686206
+8800:error 0.033433889409569414
+8900:error 0.031423007039930506
+9000:error 0.018154152094468162
+9100:error 0.008635680953338276
+9200:error 0.030890671102892397
+9300:error 0.009020762345545542
+9400:error 0.015823853695083934
+9500:error 0.029353956299920176
+9600:error 0.03028116871034789
+9700:error 0.03009059907189612
+9800:error 0.025996249652393937
+9900:error 0.009595759182954272
+[1,1,1,1,1,1,0] -&gt; [ 0  0 -0 -0 ] [ 0  0  0  0 ]
+[0,1,1,0,0,0,0] -&gt; [ 0 -0 -0  1 ] [ 0  0  0  1 ]
+[1,1,0,1,1,0,1] -&gt; [-0 -0  1  0 ] [ 0  0  1  0 ]
+[1,1,1,1,0,0,1] -&gt; [-0  0  1  1 ] [ 0  0  1  1 ]
+[0,1,1,0,0,1,1] -&gt; [ 0  1 -0  0 ] [ 0  1  0  0 ]
+[1,0,1,1,0,1,1] -&gt; [-0  1 -0  1 ] [ 0  1  0  1 ]
+[1,0,1,1,1,1,1] -&gt; [-0  1  1  0 ] [ 0  1  1  0 ]
+[1,1,1,0,0,0,0] -&gt; [-0  1  1  1 ] [ 0  1  1  1 ]
+[1,1,1,1,1,1,1] -&gt; [ 1 -0 -0  0 ] [ 1  0  0  0 ]
+[1,1,1,1,0,1,1] -&gt; [ 1  0 -0  1 ] [ 1  0  0  1 ]</code></pre>
+<h3 id="結語-1"><a href="#結語-1">結語</a></h3>
+<p>您可以看到上述兩個訓練案例，都是完全正確的，這代表反傳遞演算法可以讓多層感知器學會 XOR 與七段顯示器的函數。</p>
+<p>當然、多層感知器也可以學會更難的問題，像是手寫的數字與英文字辨認等等，手寫中文辨認和語音辨認當然也是可行的，只不過需要很多的訓練範例與節點，學習的效果才會夠好就是了！</p>
+<h3 id="參考文獻-2"><a href="#參考文獻-2">參考文獻</a></h3>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Backpropagation">Wikipedia:Backpropagation</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Multilayer_perceptron">Wikipedia:Multilayer perceptron</a></li>
+<li><a href="http://zh.wikipedia.org/wiki/%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AE%97%E6%B3%95">維基百科:反向傳播演算法</a></li>
+<li><a href="http://zh.wikipedia.org/wiki/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA">維基百科:多層感知機</a></li>
+</ul>
+<p>【本文由陳鍾誠取材並修改自 <a href="http://zh.wikipedia.org/">維基百科</a>，採用創作共用的 <a href="http://creativecommons.org/licenses/by-sa/3.0/tw/">姓名標示、相同方式分享</a> 授權】</p>
+<h2 id="類神經網路轉譯成-c-作者張藝瀚"><a href="#類神經網路轉譯成-c-作者張藝瀚">類神經網路轉譯成 C++ (作者：張藝瀚)</a></h2>
+<p>我的第一支類神經網路程式終於誕生啦!</p>
+<p>雖然只是轉譯自别人的 C# 程式範例,雖然只是簡單的 XOR Gate,依我的理解補上缺的程式碼, 第一次執行成功看到輸出值逐漸收歛, 感覺很有成就感, 總算實現了多年的心願! 後續目標是做出更複雜的模型 (好歹要有反饋式), 做成 Multithread, 做到雲端...</p>
+<p>感謝 C#.Net 版的原作者漠哥, 同意我轉譯成 C++ 使用, 原作網址是:</p>
+<ul>
+<li><a href="http://mogerwu.pixnet.net/blog/post/25518602">http://mogerwu.pixnet.net/blog/post/25518602</a></li>
+</ul>
+<p>轉譯好, 確定可以在 Linux 下編譯執行的C++程式碼分享如下:</p>
+<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">/* =========================================================================</span>
+<span class="co">   Summary :</span>
+<span class="co">       類神經網路 - 學習機器人</span>
+<span class="co">   Compiler :</span>
+<span class="co">       linux:</span>
+<span class="co">           g++ -lrt -o ./Neural3 ./Neural3.cpp</span>
+<span class="co">   Usage :</span>
+<span class="co">       ./Neural3</span>
+<span class="co">   Reference :</span>
+<span class="co">      類神經網路-神經網路物件 @ 人生四十宅開始二號宅  痞客邦 PIXNET</span>
+<span class="co">        http://mogerwu.pixnet.net/blog/post/25518602</span>
+<span class="co">   Remark :</span>
+<span class="co">   History :</span>
+<span class="co">   yyyy.mm.dd Author           Discription</span>
+<span class="co">   ---------- ---------------- ---------------------------------------------</span>
+<span class="co">   2010.11.10 Yihhann Chang    Translate from the C# source code of Moger Wu</span>
+<span class="co">   ---------- ---------------- ---------------------------------------------</span>
+<span class="co">   Test:</span>
+<span class="co">       ./Neural3</span>
+<span class="co"> </span>
+<span class="co">========================================================================= */</span>
+ 
+<span class="ot">#include &lt;ctype.h&gt;</span>
+<span class="ot">#include &lt;math.h&gt;   </span><span class="co">// for exp(), fabs(), sqrt()</span>
+<span class="ot">#include &lt;stdio.h&gt;</span>
+<span class="ot">#include &lt;stdlib.h&gt;</span>
+<span class="ot">#include &lt;string.h&gt;</span>
+<span class="ot">#include &lt;time.h&gt;   </span><span class="co">// for srand()</span>
+ 
+<span class="co">// 之前寫的類神經程式因為考慮到多執行緒，許多人看不懂，這一篇使用陣列來表達</span>
+<span class="co">// 神經元，並且完全不考慮多執行緒的問題，應該比較容易理解。</span>
+ 
+<span class="co">// 首先當然就是設計神經元，Value為神經元輸出值，如果神經元位於輸入層，它</span>
+<span class="co">// 同時也是輸入值，這樣設計是為了後面計算的程式好寫。神經元初始化的時候</span>
+<span class="co">// 必須要告訴他上一層的神經元個數，這樣他才能準備好神經鍵陣列Synapse。初</span>
+<span class="co">// 始化的時候讓閥值（GateValue)、神經鍵（Synapse）都使用亂數設定初始值，</span>
+<span class="co">// 根據經驗如果使用固定值，也就是1與-1交錯的初始值，在某些案例中可能不容</span>
+<span class="co">// 易收斂。</span>
+<span class="co">//</span>
+<span class="co">// 同時神經元也包含誤差值(diffentValue)、閥值修正(fixGateValue)、神經鍵</span>
+<span class="co">// 修正(fixSynapse[])，這樣把所有的值都放一起應該比較容易懂了吧。</span>
+<span class="kw">class</span> Element
+{
+    <span class="kw">public</span> :
+    <span class="dt">double</span> Value;
+    <span class="dt">double</span> GateValue;
+    <span class="dt">double</span> *Synapse;
+ 
+    <span class="co">// internal :</span>
+    <span class="dt">double</span> diffentValue;
+    <span class="dt">double</span> fixGateValue;
+    <span class="dt">double</span> *fixSynapse;
+    <span class="dt">int</span> UpperLayerSize; <span class="co">// the length of Synapse and fixSynapse</span>
+ 
+    <span class="kw">public</span> :
+ 
+    Element(<span class="dt">int</span> upperLayerSize) {
+        <span class="dt">int</span> s;
+ 
+        UpperLayerSize = upperLayerSize;
+        Synapse = <span class="kw">new</span> <span class="dt">double</span>[UpperLayerSize];
+        fixSynapse = <span class="kw">new</span> <span class="dt">double</span>[UpperLayerSize];
+ 
+        <span class="kw">if</span> (UpperLayerSize &gt; <span class="dv">0</span>) {
+            GateValue = ( (<span class="dt">double</span>)rand() / RAND_MAX ) * <span class="dv">2</span> - <span class="dv">1</span>;
+            <span class="kw">for</span> ( s = <span class="dv">0</span>; s &lt; UpperLayerSize; s++) {
+                Synapse[s] = ( (<span class="dt">double</span>)rand() / RAND_MAX ) * <span class="dv">2</span> - <span class="dv">1</span>;
+            }
+        }
+    }
+   
+    <span class="co">// 解構式, 釋放動態配置的資源</span>
+    ~Element() {
+        <span class="kw">if</span>( Synapse != NULL ) <span class="kw">delete</span> Synapse;
+        <span class="kw">if</span>( fixSynapse != NULL ) <span class="kw">delete</span> fixSynapse;
+    }
+   
+};
+<span class="co">// end of class Element</span>
+ 
+<span class="co">// 接著解釋網路元件的設計。</span>
+<span class="co">//     Element ***Elements;</span>
+<span class="co">// 用一個二維的動態陣列來儲存神經元，陣列第一個註腳就是神經層，第二個註腳</span>
+<span class="co">// 就是每個神經層的神經元。</span>
+ 
+<span class="dt">const</span> <span class="dt">int</span> ELEMENTS_LENGTH = <span class="dv">3</span>;   <span class="co">// Network::Elements.length, 三種 Layer</span>
+<span class="kw">class</span> Network {
+    <span class="kw">public</span>:
+    Element ***Elements;
+    <span class="dt">double</span> *Standar;
+    <span class="dt">double</span> DiffentValue;
+ 
+    <span class="co">// Elements[?].length, 三種 Layer 的元素數, 方便跑迴圈用</span>
+    <span class="dt">int</span> Elements_lengths[ELEMENTS_LENGTH];
+ 
+    <span class="co">// 為了程式方便，設計兩個屬性，直接傳回輸入層和輸出層。</span>
+    Element ** OutputLayer; <span class="co">// Elements[2];</span>
+    Element ** InputLayer;  <span class="co">// Elements[0];</span>
+ 
+    Network(<span class="dt">int</span> InputLayerSize, <span class="dt">int</span> HiddenLayerSize, <span class="dt">int</span> OutputLayerSize) {
+        <span class="co">// 使用動態的方式宣告每一層的大小，這樣也比較符合實際網路架構。</span>
+        Elements = <span class="kw">new</span> Element **[<span class="dv">3</span>];
+        Elements[<span class="dv">0</span>] = <span class="kw">new</span> Element *[InputLayerSize];
+        Elements[<span class="dv">1</span>] = <span class="kw">new</span> Element *[HiddenLayerSize];
+        Elements[<span class="dv">2</span>] = <span class="kw">new</span> Element *[OutputLayerSize];
+ 
+        OutputLayer = Elements[<span class="dv">2</span>];
+        InputLayer = Elements[<span class="dv">0</span>];
+        Elements_lengths[<span class="dv">0</span>] = InputLayerSize;
+        Elements_lengths[<span class="dv">1</span>] = HiddenLayerSize;
+        Elements_lengths[<span class="dv">2</span>] = OutputLayerSize;
+ 
+        Standar = <span class="kw">new</span> <span class="dt">double</span>[OutputLayerSize];
+ 
+        <span class="dt">int</span> upperLayerSize = <span class="dv">0</span>;
+        <span class="kw">for</span> (<span class="dt">int</span> l = <span class="dv">0</span>; l &lt; ELEMENTS_LENGTH; l++) {
+            <span class="kw">for</span> (<span class="dt">int</span> e = <span class="dv">0</span>; e &lt; Elements_lengths[l]; e++) {
+                Elements[l][e] = <span class="kw">new</span> Element(upperLayerSize);
+            }
+            upperLayerSize = Elements_lengths[l];
+        }
+    }
+    <span class="co">// end of Network(int InputLayerSize, int HiddenLayerSize, int OutputLayerSize)</span>
+ 
+    <span class="co">// 解構式, 釋放動態配置的資源</span>
+    ~Network() {
+        <span class="kw">if</span>( Elements != NULL ) {
+            <span class="kw">for</span> (<span class="dt">int</span> l = <span class="dv">0</span>; l &lt; ELEMENTS_LENGTH; l++) {
+                <span class="kw">if</span>( Elements[l] != NULL ) {
+                    <span class="kw">for</span> (<span class="dt">int</span> e = <span class="dv">0</span>; e &lt; Elements_lengths[l]; e++) {
+                        <span class="kw">if</span>( Elements[l][e] != NULL ) <span class="kw">delete</span> Elements[l][e];
+                    }
+                    <span class="kw">delete</span> Elements[l];
+                }
+            }
+            <span class="kw">delete</span> Elements;
+        }
+        <span class="kw">if</span>( Standar != NULL ) <span class="kw">delete</span> Standar;
+    }
+    <span class="co">// end of ~Network()</span>
+ 
+ 
+    <span class="co">// 因為網路的修正動作是將所有的範例都計算過修正值之後，再一次進行修正，並</span>
+    <span class="co">// 且再用新的網路進行計算，因此必須在計算之前將網路的動態值歸零，也就是說</span>
+    <span class="co">// 下面這段程式裏面所歸零的值都是加總的值，必須在新的週期開始的時候清除掉。</span>
+    <span class="dt">void</span> ClearValue() {
+        DiffentValue = <span class="dv">0</span>;
+        <span class="kw">for</span> (<span class="dt">int</span> l = <span class="dv">0</span>; l &lt; ELEMENTS_LENGTH; l++) {
+            <span class="kw">for</span> (<span class="dt">int</span> e = <span class="dv">0</span>; e &lt; Elements_lengths[l]; e++) {
+                Elements[l][e]-&gt;Value = <span class="dv">0</span>;
+                Elements[l][e]-&gt;diffentValue = <span class="dv">0</span>;
+                Elements[l][e]-&gt;fixGateValue = <span class="dv">0</span>;
+                <span class="kw">for</span> (<span class="dt">int</span> s = <span class="dv">0</span>; s &lt; Elements[l][e]-&gt;UpperLayerSize; s++) {
+                    Elements[l][e]-&gt;fixSynapse[s] = <span class="dv">0</span>;
+                }
+            }
+        }
+        <span class="co">// ==== DEBUG ==== TODO : LastHidden 不曉得是哪來的, 後面也沒用到</span>
+        <span class="co">// for (int h = 0; h &lt; LastHidden.Length; h++) {</span>
+        <span class="co">//     LastHidden[h] = 0;</span>
+        <span class="co">// }</span>
+    }
+ 
+    <span class="co">// 計算網路的輸出值，看過書的應該可以看得懂，數學公式實在不好貼，等我想到</span>
+    <span class="co">// 好方法再補上吧。</span>
+    <span class="dt">void</span> Summation() {
+        <span class="kw">for</span> (<span class="dt">int</span> l = <span class="dv">1</span>; l &lt; ELEMENTS_LENGTH; l++) {
+            <span class="kw">for</span> (<span class="dt">int</span> e = <span class="dv">0</span>; e &lt; Elements_lengths[l]; e++) {
+                <span class="dt">double</span> outvalue = -Elements[l][e]-&gt;GateValue;
+                <span class="kw">for</span> (<span class="dt">int</span> s = <span class="dv">0</span>; s &lt; Elements[l][e]-&gt;UpperLayerSize; s++) {
+                    outvalue += Elements[l - <span class="dv">1</span>][s]-&gt;Value *
+                        Elements[l][e]-&gt;Synapse[s];
+                }
+                Elements[l][e]-&gt;Value = (<span class="dt">double</span>)(<span class="dv">1</span> / (<span class="dv">1</span> + exp(-outvalue)));
+            }
+        }
+    }
+ 
+    <span class="co">// 計算網路誤差值，這裡我把公式分成兩種，一種是用來計算修正網路值用的，</span>
+    <span class="co">// 使用書上所寫的公式。而另一個是給人看的，同時也是輸出值夠精密到可以跳</span>
+    <span class="co">// 出的依據。為甚麼要這麼做請參考這一篇，雖然很多人來看，還是沒有人告訴</span>
+    <span class="co">// 我答案，所以我用土方法解決這個問題。</span>
+    <span class="dt">void</span> CalcDiffent() {
+        <span class="co">//output layer</span>
+        <span class="kw">for</span> (<span class="dt">int</span> e = <span class="dv">0</span>; e &lt; Elements_lengths[<span class="dv">2</span>]; e++) {
+            <span class="co">//給電腦看的用標準差公式</span>
+            OutputLayer[e]-&gt;diffentValue =
+                (Standar[e] - OutputLayer[e]-&gt;Value) *
+                (OutputLayer[e]-&gt;Value * (<span class="dv">1</span> - OutputLayer[e]-&gt;Value) + <span class="fl">0.01</span>);
+            <span class="co">//給人看的用傳統公式</span>
+            DiffentValue += fabs(Standar[e] - OutputLayer[e]-&gt;Value);
+        }
+        <span class="co">//hidden layer</span>
+        <span class="kw">for</span> (<span class="dt">int</span> l = ELEMENTS_LENGTH - <span class="dv">2</span>; l &gt; <span class="dv">0</span>; l--) {
+            <span class="kw">for</span> (<span class="dt">int</span> e = <span class="dv">0</span>; e &lt; Elements_lengths[l]; e++) {
+                <span class="dt">double</span> sumDiff = <span class="dv">0</span>;
+                <span class="kw">for</span> (<span class="dt">int</span> ne = <span class="dv">0</span>; ne &lt; Elements_lengths[l + <span class="dv">1</span>]; ne++) {
+                    sumDiff += Elements[l + <span class="dv">1</span>][ne]-&gt;Synapse[e] *
+                        Elements[l + <span class="dv">1</span>][ne]-&gt;diffentValue;
+                }
+                Elements[l][e]-&gt;diffentValue = (Elements[l][e]-&gt;Value *
+                    (<span class="dv">1</span> - Elements[l][e]-&gt;Value)) * sumDiff;
+            }
+        }
+    }
+ 
+    <span class="co">// 得到誤差值之後就可以依照誤差值來得到修正值，因為要所有的範例都學習過</span>
+    <span class="co">// 才進行網路修正，所以所有的修正都是累加的。公式還是請自行參考書上說明</span>
+    <span class="co">// 。事實上這一段程式可以跟計算誤差值的程式合併，分開來寫比較容易看得懂</span>
+    <span class="co">// ，如果想要效能好一點就請將它合併在一起。</span>
+    <span class="dt">void</span> CalcFixValue(<span class="dt">double</span> LearnSpeed) {
+        <span class="kw">for</span> (<span class="dt">int</span> l = ELEMENTS_LENGTH - <span class="dv">1</span>; l &gt; <span class="dv">0</span>; l--) {
+            <span class="kw">for</span> (<span class="dt">int</span> e = <span class="dv">0</span>; e &lt; Elements_lengths[l]; e++) {
+                Elements[l][e]-&gt;fixGateValue =
+                    -LearnSpeed * Elements[l][e]-&gt;diffentValue;
+                <span class="kw">for</span> (<span class="dt">int</span> ue = <span class="dv">0</span>; ue &lt; Elements_lengths[l - <span class="dv">1</span>]; ue++) {
+                    Elements[l][e]-&gt;fixSynapse[ue] +=
+                        LearnSpeed * Elements[l][e]-&gt;diffentValue *
+                            Elements[l - <span class="dv">1</span>][ue]-&gt;Value;
+                }
+            }
+        }
+    }
+ 
+    <span class="co">// 當所有的範例都學習完成之後，當然就是要實際修正網路內容，修正值取平均，</span>
+    <span class="co">// 所以需要傳入範例個數來進行運算。</span>
+    <span class="dt">void</span> FixNetwork(<span class="dt">int</span> SampleCount) {
+        <span class="kw">for</span> (<span class="dt">int</span> l = <span class="dv">1</span>; l &lt; ELEMENTS_LENGTH; l++) {
+            <span class="kw">for</span> (<span class="dt">int</span> e = <span class="dv">0</span>; e &lt; Elements_lengths[l]; e++) {
+                Elements[l][e]-&gt;GateValue +=
+                    Elements[l][e]-&gt;fixGateValue / sqrt((<span class="dt">double</span>)SampleCount);
+                <span class="kw">for</span> (<span class="dt">int</span> s = <span class="dv">0</span>; s &lt; Elements[l][e]-&gt;UpperLayerSize; s++) {
+                    Elements[l][e]-&gt;Synapse[s] +=
+                        Elements[l][e]-&gt;fixSynapse[s] /
+                            sqrt((<span class="dt">double</span>)SampleCount);
+                }
+            }
+        }
+    }
+};
+<span class="co">// end of class Network</span>
+ 
+<span class="co">// 學習機器人基礎類別</span>
+<span class="co">// 這個類是個基礎類，因為載入資料和將資料放進輸入層的動作，每一個案例都</span>
+<span class="co">// 不相同，因此使用必須繼承的關鍵字abstract宣告這個類別，並且宣告兩個方</span>
+<span class="co">// 法LoadSample和LoadData為必須實做的。</span>
+<span class="kw">class</span> RobotBase {
+    <span class="kw">public</span> :
+    <span class="dt">int</span> SampleCount;
+   
+    <span class="co">// internal :</span>
+    <span class="dt">int</span> inputLayerSize, outputLayerSize;
+    Network *worknet;
+    <span class="dt">int</span> noBestCount;
+    <span class="dt">int</span> learnSamples;
+    <span class="dt">double</span> bestDiffent; <span class="co">// = 10000;</span>
+   
+    <span class="co">// 建構式 ,賦與初值</span>
+    RobotBase(){
+        bestDiffent = <span class="dv">10000</span>;
+        worknet = NULL;
+    }
+ 
+    <span class="co">// 解構式, 釋放動態配置的資源</span>
+    ~RobotBase(){
+        <span class="kw">if</span>( worknet != NULL ) <span class="kw">delete</span> worknet;
+    }
+ 
+    <span class="co">// 純虛擬函式, 由繼承者實作</span>
+    <span class="kw">virtual</span> <span class="dt">void</span> LoadSample() = <span class="dv">0</span>;
+    <span class="kw">virtual</span> <span class="dt">void</span> LoadData(<span class="dt">int</span> SampleNo) = <span class="dv">0</span>;
+ 
+    <span class="co">// public delegate void OnCycleFinish(int CycleNo, double BestDiffent, double NewDiffent);</span>
+    <span class="co">// public event OnCycleFinish EventCycleFinish;</span>
+ 
+    <span class="co">// public delegate void OnBadLearning(int NoBestCount);</span>
+    <span class="co">// public event OnBadLearning EventBadLearning;</span>
+ 
+    <span class="co">// 最後就是最重要的學習過程了，基本程式和前面VB.Net的寫法一樣，就是用</span>
+    <span class="co">// 【找不到最佳值的次數】或【達到預定的精密度】來決定學習是否完成。不</span>
+    <span class="co">// 過有的時候誤差值調整的幅度很小，可能導致跑了幾十萬次都還出不來，可</span>
+    <span class="co">// 以考慮再增加一個對cycle的限制。</span>
+    <span class="kw">virtual</span> <span class="dt">void</span> Learning(<span class="dt">double</span> LearnSpeed, <span class="dt">int</span> HiddenLayerSize,
+        <span class="dt">int</span> NoBestLimit, <span class="dt">double</span> Precision)
+    {
+        worknet = <span class="kw">new</span> Network(inputLayerSize, HiddenLayerSize, outputLayerSize);
+        bestDiffent = <span class="dv">10000</span>;
+        <span class="dt">int</span> cycle = <span class="dv">0</span>;
+        noBestCount = <span class="dv">0</span>;
+        <span class="kw">while</span> ((noBestCount &lt; NoBestLimit) &amp;&amp; (bestDiffent &gt; Precision)) {
+            <span class="dt">double</span> newDiffent;
+ 
+            cycle++;
+            worknet-&gt;ClearValue();
+            <span class="kw">for</span> (<span class="dt">int</span> sampleNo = <span class="dv">0</span>; sampleNo &lt; learnSamples; sampleNo++) {
+                LoadData(sampleNo);
+                worknet-&gt;Summation();
+                worknet-&gt;CalcDiffent();
+                worknet-&gt;CalcFixValue(LearnSpeed);
+                <span class="co">// ==== DEBUG ====</span>
+                <span class="dt">int</span> e;
+                printf( <span class="st">&quot;Input:( &quot;</span> );
+                <span class="kw">for</span>( e = <span class="dv">0</span>; e &lt; worknet-&gt;Elements_lengths[<span class="dv">0</span>]; e++)
+                    printf( <span class="st">&quot;%+f &quot;</span>, worknet-&gt;InputLayer[e]-&gt;Value );
+                printf( <span class="st">&quot;), Standard:( &quot;</span> );
+                <span class="kw">for</span>( e = <span class="dv">0</span>; e &lt; worknet-&gt;Elements_lengths[<span class="dv">2</span>]; e++)
+                    printf( <span class="st">&quot;%f &quot;</span>, worknet-&gt;Standar[e] );
+                printf( <span class="st">&quot;), Output:( &quot;</span> );
+                <span class="kw">for</span>( e = <span class="dv">0</span>; e &lt; worknet-&gt;Elements_lengths[<span class="dv">2</span>]; e++)
+                    printf( <span class="st">&quot;%f &quot;</span>, worknet-&gt;OutputLayer[e]-&gt;Value );
+                printf( <span class="st">&quot;)</span><span class="ch">\n</span><span class="st">&quot;</span> );
+            }
+            newDiffent = worknet-&gt;DiffentValue / learnSamples;
+            <span class="kw">if</span> (newDiffent &lt; bestDiffent) {
+                bestDiffent = newDiffent;
+                noBestCount = <span class="dv">0</span>;
+            }
+            <span class="kw">else</span> {
+                noBestCount++;
+            }
+            <span class="co">// if (EventBadLearning != null) EventBadLearning(noBestCount);</span>
+            worknet-&gt;FixNetwork(learnSamples);
+            <span class="co">// if (EventCycleFinish != null) EventCycleFinish(cycle, bestDiffent, newDiffent);</span>
+           
+            <span class="co">// ==== DEBUG ====</span>
+            printf( <span class="st">&quot;cycle=%d, noBestCount=%d, bestDiffent=%0.8f, newDiffent=%0.8f</span><span class="ch">\n</span><span class="st">&quot;</span>,
+                cycle, noBestCount, bestDiffent, newDiffent );
+        }
+ 
+        <span class="kw">delete</span> worknet;
+        worknet = NULL;
+    }
+};
+<span class="co">// end of class RobotBase</span>
+ 
+<span class="co">// XOR為範例</span>
+<span class="kw">class</span> RobotXOR : <span class="kw">public</span> RobotBase
+{
+    <span class="kw">public</span> :
+    <span class="co">// XOR 學習機</span>
+    RobotXOR() {
+        inputLayerSize = <span class="dv">2</span>;     <span class="co">// 輸入值 2 個</span>
+        outputLayerSize = <span class="dv">1</span>;    <span class="co">// 輸出結果1 個</span>
+        learnSamples = <span class="dv">4</span>;       <span class="co">// 輸入組合只有 4 種</span>
+    }
+ 
+    <span class="co">// 設定輸入樣本, 及標準答案</span>
+    <span class="dt">void</span> LoadData( <span class="dt">int</span> sampleNo )
+    {
+        <span class="kw">switch</span> ( sampleNo )
+        {
+            <span class="kw">case</span> <span class="dv">0</span>:
+                worknet-&gt;InputLayer[<span class="dv">0</span>]-&gt;Value = -<span class="dv">1</span>;
+                worknet-&gt;InputLayer[<span class="dv">1</span>]-&gt;Value = -<span class="dv">1</span>;
+                worknet-&gt;Standar[<span class="dv">0</span>]           =  <span class="dv">0</span>;
+                <span class="kw">break</span>;
+            <span class="kw">case</span> <span class="dv">1</span>:
+                worknet-&gt;InputLayer[<span class="dv">0</span>]-&gt;Value = -<span class="dv">1</span>;
+                worknet-&gt;InputLayer[<span class="dv">1</span>]-&gt;Value =  <span class="dv">1</span>;
+                worknet-&gt;Standar[<span class="dv">0</span>]           =  <span class="dv">1</span>;
+                <span class="kw">break</span>;
+            <span class="kw">case</span> <span class="dv">2</span>:
+                worknet-&gt;InputLayer[<span class="dv">0</span>]-&gt;Value =  <span class="dv">1</span>;
+                worknet-&gt;InputLayer[<span class="dv">1</span>]-&gt;Value = -<span class="dv">1</span>;
+                worknet-&gt;Standar[<span class="dv">0</span>]           =  <span class="dv">1</span>;
+                <span class="kw">break</span>;
+            <span class="kw">case</span> <span class="dv">3</span>:
+                worknet-&gt;InputLayer[<span class="dv">0</span>]-&gt;Value =  <span class="dv">1</span>;
+                worknet-&gt;InputLayer[<span class="dv">1</span>]-&gt;Value =  <span class="dv">1</span>;
+                worknet-&gt;Standar[<span class="dv">0</span>]           =  <span class="dv">0</span>;
+                <span class="kw">break</span>;
+        }
+    }
+    <span class="co">// end of void LoadData( int sampleNo )</span>
+ 
+    <span class="co">// 這函數應該是用來取代 LoadData, 當樣本數量龐大時, 可以改從檔案/資料庫載入</span>
+    <span class="dt">void</span> LoadSample()
+    {
+    }
+ 
+    <span class="co">// 通常隱藏層的寬度可以設置為</span>
+    <span class="co">// hiddenLayerSize=(inputLayerSize+outputLayerSize)/2</span>
+    <span class="co">// ，但是許多案例並不能滿足需求，而是要用嘗試錯誤法去求得合適的隱藏層寬度</span>
+    <span class="co">// 。前面Learning宣告為可以被重新包裝的，就是?了這個，當然你也可以把它包</span>
+    <span class="co">// 裝在一起。如果一個學習週期跳出後，精密度不夠就試著調整隱藏層寬度。</span>
+    <span class="dt">void</span> Learning(<span class="dt">double</span> LearnSpeed, <span class="dt">int</span> HiddenLayerSize, <span class="dt">int</span> CycleLimit,
+        <span class="dt">double</span> Precision)
+    {
+        <span class="kw">while</span> (bestDiffent &gt; Precision) {
+            <span class="co">// if (EventHiddenLayerChange != null) EventHiddenLayerChange(HiddenLayerSize);</span>
+            <span class="kw">this</span>-&gt;RobotBase::Learning(LearnSpeed, HiddenLayerSize, CycleLimit,
+                Precision);
+            <span class="kw">if</span> (bestDiffent &gt; Precision) {
+                HiddenLayerSize = (<span class="dt">int</span>)(HiddenLayerSize * <span class="fl">1.2</span> + <span class="dv">1</span>);
+            }
+            <span class="co">// ==== DEBUG ====</span>
+            printf( <span class="st">&quot;bestDiffent=%0.8f, Precision=%0.8f, HiddenLayerSize=%d</span><span class="ch">\n\n</span><span class="st">&quot;</span>,
+                bestDiffent, Precision, HiddenLayerSize );
+        }
+    }
+};
+<span class="co">// end of class RobotXOR</span>
+ 
+ 
+<span class="co">// ===========================================================================</span>
+<span class="dt">int</span> main()
+{
+    RobotXOR *Robot;
+    srand ( time(NULL) );   <span class="co">/* initialize random seed: */</span>
+    printf( <span class="st">&quot;Hello~</span><span class="ch">\n</span><span class="st">&quot;</span> );
+ 
+    Robot = <span class="kw">new</span> RobotXOR;
+   
+    Robot-&gt;Learning(
+        <span class="dv">1000</span>,    <span class="co">// double LearnSpeed</span>
+        <span class="dv">10</span>,      <span class="co">// int HiddenLayerSize</span>
+        <span class="dv">10</span>,      <span class="co">// int CycleLimit</span>
+        <span class="fl">0.00001</span>  <span class="co">// double Precision</span>
+    );
+    <span class="kw">delete</span> Robot;
+ 
+    printf( <span class="st">&quot;Bye~</span><span class="ch">\n</span><span class="st">&quot;</span> );
+}</code></pre>
+<h1 id="程式人文集"><a href="#程式人文集">程式人文集</a></h1>
+<h2 id="arduino入門教學16-amarino-的-speaktoarduino-範例程式-作者cooper-maa"><a href="#arduino入門教學16-amarino-的-speaktoarduino-範例程式-作者cooper-maa">Arduino入門教學(16) – Amarino 的 SpeakToArduino 範例程式 (作者：Cooper Maa)</a></h2>
+<p>這篇是寫給 amarino 初學者看的，目的是教導你如何執行 Amarino 的 SpeakToArduino 範例程式。SpeakToArduino 這個範例示範如何用 Android 手機聲控 Arduino。</p>
+<h3 id="所需材料"><a href="#所需材料">所需材料</a></h3>
+<ul>
+<li>Android 手機一支</li>
+<li>Arduino x1</li>
+<li>bluetooth module x 1</li>
+<li>紅色 LED, 綠色 LED 及藍色 LED 各一顆（若無特定顏色 LED，可用其它顏色的 LED 取代），或一顆 RGB Led</li>
+<li>220 歐姆電阻 x 3</li>
+</ul>
+<h3 id="step-1安裝-amarino"><a href="#step-1安裝-amarino">Step 1：安裝 Amarino</a></h3>
+<p>到 <a href="http://www.amarino-toolkit.net/">http://www.amarino-toolkit.net/</a> 下載下列 App 並安裝到 Android 手機上：</p>
+<ol style="list-style-type: decimal">
+<li><p><a href="http://code.google.com/p/amarino/downloads/detail?name=Amarino_2_v0_55.apk&amp;can=2&amp;q=">Amarino</a></p></li>
+<li><p><a href="http://code.google.com/p/amarino/downloads/detail?name=AmarinoPluginBundle.apk&amp;can=2&amp;q=">Amarino Plug-in Bundle</a></p></li>
+<li><p><a href="http://code.google.com/p/amarino-examples/downloads/detail?name=SpeakToArduino.apk&amp;can=2&amp;q=#makechanges">SpeakToArduino</a></p></li>
+</ol>
+<h3 id="step-2-安裝-arduino-ide-與-meetandroid-library"><a href="#step-2-安裝-arduino-ide-與-meetandroid-library">Step 2: 安裝 Arduino IDE 與 MeetAndroid Library</a></h3>
+<p>如果你電腦上還沒有 Arduino IDE，請先到 <a href="http://arduino.cc/en/Main/Software">http://arduino.cc/en/Main/Software</a> 下載軟體，下載後解壓縮即可。</p>
+<p>接著下載 <a href="http://code.google.com/p/amarino/downloads/detail?name=MeetAndroid_4.zip&amp;can=2&amp;q=">MeetAndroid Library</a>，把 MeetAndroid 解到 Arduino IDE 安裝目錄下的 libraries 資料夾。</p>
+<p>重新啟動 Arduino IDE，在 Sketch &gt; Import Library 底下應該會看到 MeetAndroid，如下圖：</p>
+<div class="figure">
+<img src="../img/image_thumb4222.png" />
+</div>
+<h3 id="step-3連接-led"><a href="#step-3連接-led">Step 3：連接 LED</a></h3>
+<p>參考下圖，把紅、綠、藍三顆 LED 分別接到 pin 9, 10, 11，LED 的接法為: 長腳（陽極）接到 pin 腳，而短腳（陰極）串接一顆 220 ohm 電阻接到 GND：</p>
+<div class="figure">
+<img src="../img/image_thumb62.png" />
+</div>
+<h3 id="step-4-上傳-speaktoarduino-程式"><a href="#step-4-上傳-speaktoarduino-程式">Step 4： 上傳 SpeakToArduino 程式</a></h3>
+<p>到這裏下載，並使用 Arduino IDE 打開 SpeakToArduino 程式。</p>
+<p>程式所用的 baud rate 預設是 57600 bps，如果你的藍芽模組不是 57600 bps，請做適當的調整：</p>
+<div class="figure">
+<img src="../img/image_thumb3.png" />
+</div>
+<p>然後把程式上傳到 Arduino 板子上。</p>
+<h3 id="step-5連接藍芽模組"><a href="#step-5連接藍芽模組">Step 5：連接藍芽模組</a></h3>
+<p>我用的是 <a href="http://www.wavesen.com/">廣州匯承信息科技</a> 的 HC-0x 系列藍芽模組，下圖是 HC-0x 藍芽模組的外觀：</p>
+<div class="figure">
+<img src="../img/SpeakToArduinoDevice1.jpg" alt="▲ HC-0x 藍芽模組 (圖左：正面圖，圖右：背面圖）" /><p class="caption">▲ HC-0x 藍芽模組 (圖左：正面圖，圖右：背面圖）</p>
+</div>
+<p>連接方法很簡單，照下表把 Arduino 和藍芽模組連接起來就好：</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Arduino</th>
+<th align="left">藍芽模組</th>
+<th align="left">備註</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">5V</td>
+<td align="left">VCC</td>
+<td align="left">注意電源不可接錯</td>
+</tr>
+<tr class="even">
+<td align="left">GND</td>
+<td align="left">GND</td>
+<td align="left">注意電源不可接錯</td>
+</tr>
+<tr class="odd">
+<td align="left">RXD</td>
+<td align="left">TXD</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">TXD</td>
+<td align="left">RXD</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<img src="../img/image_thumb132222.png" />
+</div>
+<p>有兩點要注意：第一是電源千萬不可接錯，不然可能會燒壞藍芽模組，第二是 Arduino 的 RXD 要接藍芽模組的 TXD，而 Arduino 的 TXD 要接藍芽模組的 RXD。</p>
+<p>通電之後，藍芽模組上的 LED 會一直閃爍：</p>
+<div class="figure">
+<img src="../img/image_thumb13322222.png" />
+</div>
+<h3 id="step-6執行-speaktoarduino-app"><a href="#step-6執行-speaktoarduino-app">Step 6：執行 SpeakToArduino App</a></h3>
+<p>首先，先利用 Amarino 搜尋藍芽設備，找到設備後，將藍芽設備的 MAC Address 抄起來（記得不要在 Amarino 設定任何 Event！）：</p>
+<div class="figure">
+<img src="../img/image_thumb14325.png" />
+</div>
+<p>打開 Android 手機上的 SpeakToArduino App，你會看到這樣的畫面:</p>
+<div class="figure">
+<img src="../img/image_thumb7.png" />
+</div>
+<p>選手機 Menu 鍵 Set BT Device Address，手機會跳出這個畫面，此時請輸入剛剛抄下來的 MAC Address，然後按下【Save】鈕:</p>
+<div class="figure">
+<img src="../img/image_thumb5.png" />
+</div>
+<p>按一下手機 Back 鍵退出 SpeakToArduino App，然後重新啟動 SpeakToArduino，這樣 App 才會用新的 Mac Adress 跟藍芽模組連線。</p>
+<p>如果一切順利，Android 手機就會跟 Arduino 建立連線，並且呈現如下圖的畫面（注意手機上方的 Status bar，若有成功與 Arduino 連線，status bar 上會顯示 Active connection: … 的訊息）：</p>
+<div class="figure">
+<img src="../img/image_thumb11.png" />
+</div>
+<p>按下【Click and order your color】鈕，手機會跳出語音辨識的畫面：</p>
+<div class="figure">
+<img src="../img/image_thumb15.png" />
+</div>
+<p>這時便可以說出想要的顏色，例如 red, green, blue, white, pink, orange, yellow, dark 或 off，這時候 Arduino 上三顆 LED 便會同步改變亮度。比如當我說 red，這時 Android 手機就會叫 Arduino 把紅色 LED 打開：</p>
+<div class="figure">
+<img src="../img/image_thumb13.png" />
+</div>
+<p>如果你有 RGB Led，可以用一顆 RGB Led 取代三顆 Led，這樣更可以呈現 LED 顏色變化的效果。</p>
+<h3 id="參考資料"><a href="#參考資料">參考資料</a></h3>
+<ul>
+<li><a href="http://coopermaa2nd.blogspot.tw/2012/07/getting-started-with-amarino.html">Getting Started with Amarino 簡報</a></li>
+<li><a href="http://coopermaa2nd.blogspot.tw/2012/06/amarino-android-arduino.html">以 Amarino 連接 Android 與 Arduino</a></li>
+<li><a href="http://coopermaa2nd.blogspot.tw/2012/06/multicolorlamp.html">MultiColorLamp</a></li>
+<li><a href="http://coopermaa2nd.blogspot.tw/2012/06/sensorgraph.html">SensorGraph</a></li>
+</ul>
+<p>【本文作者為馬萬圳，原文網址為： <a href="http://coopermaa2nd.blogspot.tw/2012/07/speaktoarduino.html">http://coopermaa2nd.blogspot.tw/2012/07/speaktoarduino.html</a> ，由陳鍾誠編輯後納入本雜誌】</p>
+<h2 id="openni-2-的錯誤處理-作者-heresy-ku"><a href="#openni-2-的錯誤處理-作者-heresy-ku">OpenNI 2 的錯誤處理 (作者： Heresy Ku )</a></h2>
+<p>在上一篇的 <a href="http://kheresy.wordpress.com/2012/12/24/openni2-basic-example/">《OpenNI 2 基本程式範例》</a> 裡，Heresy 基本上是先整理了一下，要使用 Visual Studio 來進行 OpenNI 2 的程式開發的話，要怎樣進專案的設定，另外也用一個最簡單的例子，來說明 OpenNI 2 的程式要怎麼寫。而這一篇，則是再繼續做補充，讓程式更完整。</p>
+<p>在上一個範例裡面，Heresy 為了版面、以及簡化程式碼的關係，是假設程式執行都沒有問題，所以把所有錯誤的檢查都拿掉了。不過實際上，程式在執行的時候，其實都是應該要考慮到各種錯誤狀況的！而 OpenNI 2 也有提供一些簡單的介面，可以用來檢查程式執行時，有沒有錯誤。</p>
+<p>首先，和 OpenNI 1.x 的時候，OpenNI 大部分的函式，都會回傳一個代表結果的值，讓開發者可以據此判斷該函式是否已正確執行；而在 OpenNI 2，這個回傳的結果，是一個叫做 openni::Status 的列舉型別。基本的使用狀況，大致上如下：</p>
+<pre class="sourceCode CPP"><code class="sourceCode cpp">openni::Status eRes = openni::OpenNI::initialize();
+<span class="kw">if</span>( eRes != openni::STATUS_OK )
+{
+  std::cerr &lt;&lt; openni::OpenNI::getExtendedError() &lt;&lt; std::endl;
+  <span class="kw">return</span> -<span class="dv">1</span>;
+}</code></pre>
+<p>如果函式有正確執行的話，所得到的回傳值會是 openni::STATUS_OK；反過來說，只要回傳值不是 STATUS_OK， 就代表函式執行是有問題的。</p>
+<p>而基本上 openni::Status 已經定義的一些常見的錯誤狀況，可以用來做進一步處理的判斷。不過如果是想要得到文字性的錯誤說明的話，也可以透過 openni::OpenNI::getExtendedErropr() 這個函式，來取得更完整的錯誤說明文字。不過要注意的是，他取得的會是最後一筆錯誤資訊，如果之後又有呼叫其他函式的話，可能會影響到它的內容。（不過他是 thread-safe 的） 而如果把之前的範例，全部都加上錯誤檢查的話，則會變成類似這樣子：</p>
+<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// STL Header</span>
+<span class="ot">#include &lt;iostream&gt;</span>
+ 
+<span class="co">// 1. include OpenNI Header</span>
+<span class="ot">#include &quot;OpenNI.h&quot;</span>
+ 
+<span class="co">// using namespace</span>
+<span class="kw">using</span> <span class="kw">namespace</span> std;
+<span class="kw">using</span> <span class="kw">namespace</span> openni;
+ 
+<span class="dt">int</span> main( <span class="dt">int</span> argc, <span class="dt">char</span>** argv )
+{
+  <span class="co">// 2. initialize OpenNI</span>
+  <span class="kw">if</span>( OpenNI::initialize() == STATUS_OK )
+  {
+    <span class="co">// 3. open a device</span>
+    Device devAnyDevice;
+    <span class="kw">if</span>( devAnyDevice.open( ANY_DEVICE ) == STATUS_OK )
+    {
+      <span class="co">// 4. create depth stream</span>
+      VideoStream streamDepth;
+      <span class="kw">if</span>( streamDepth.create( devAnyDevice, SENSOR_DEPTH ) == STATUS_OK )
+      {
+        <span class="kw">if</span>( streamDepth.start() == STATUS_OK )
+        {
+          <span class="co">// 5 main loop, continue read</span>
+          VideoFrameRef frameDepth;
+          <span class="kw">for</span>( <span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="dv">100</span>; ++ i )
+          {
+            <span class="co">// 5.1 get frame</span>
+            <span class="kw">if</span>( streamDepth.readFrame( &amp;frameDepth ) == STATUS_OK )
+            {
+              <span class="co">// 5.2 get data array</span>
+              <span class="dt">const</span> DepthPixel* pDepth = (<span class="dt">const</span> DepthPixel*)frameDepth.getData();
+ 
+              <span class="co">// 5.3 output the depth value of center point</span>
+              <span class="dt">int</span> idx = frameDepth.getWidth()*(frameDepth.getHeight()+<span class="dv">1</span>)/<span class="dv">2</span>;
+              cout &lt;&lt; pDepth[idx] &lt;&lt; endl;
+            }
+            <span class="kw">else</span>
+            {
+              cerr &lt;&lt; <span class="st">&quot;Can not read frame</span><span class="ch">\n</span><span class="st">&quot;</span>;
+              cerr &lt;&lt; OpenNI::getExtendedError() &lt;&lt; endl;
+            }
+          }
+        }
+        <span class="kw">else</span>
+        {
+          cerr &lt;&lt; <span class="st">&quot;Can not start depth stream</span><span class="ch">\n</span><span class="st">&quot;</span>;
+          cerr &lt;&lt; OpenNI::getExtendedError() &lt;&lt; endl;
+        }
+ 
+        streamDepth.destroy();
+      }
+      <span class="kw">else</span>
+      {
+        cerr &lt;&lt; <span class="st">&quot;Can not create depth stream</span><span class="ch">\n</span><span class="st">&quot;</span>;
+        cerr &lt;&lt; OpenNI::getExtendedError() &lt;&lt; endl;
+      }
+ 
+      devAnyDevice.close();
+    }
+    <span class="kw">else</span>
+    {
+      cerr &lt;&lt; <span class="st">&quot;Can not open device</span><span class="ch">\n</span><span class="st">&quot;</span>;
+      cerr &lt;&lt; OpenNI::getExtendedError() &lt;&lt; endl;
+    }
+ 
+    <span class="co">// 7. shutdown</span>
+    OpenNI::shutdown();
+  }
+  <span class="kw">else</span>
+  {
+    cerr &lt;&lt; <span class="st">&quot;OpenNI initialize error</span><span class="ch">\n</span><span class="st">&quot;</span>;
+    cerr &lt;&lt; OpenNI::getExtendedError() &lt;&lt; endl;
+  }
+ 
+  <span class="kw">return</span> <span class="dv">0</span>;
+}</code></pre>
+<p>這裡比較不一樣的是，Heresy 在前面有加上 using namespace openni;， 指定去使用 openni 這個 namespace，所以之後的程式，都可以把 namespace 省略掉；如此一來，程式寫起來會再簡短一點。 當然，上面的寫法也不是唯一的錯誤檢查的方法。像在官方範例「SimpleRead」裡面，採用的就是另一種程式風格的流程，有興趣的也可以看看。要採用哪種，基本上就是看人習慣了～只是另外也要提一下，理論上在出現錯誤時，main() 應該也要回傳非 0 的錯誤代碼的，Heresy 這邊沒有特別去處理這一塊就是了。</p>
+<p>不過…既然都是 C++ 的 API 了，沒有採用 exception（參考）來做處理…Heresy 個人是覺得有點可惜啊…總覺得以各方面來說，OpenNI 的開發團隊，似乎對 C++ 不是很熟悉？雖然 OpenNI 1.x 和 OpenNI 2 都提供了 C++ 的 API，但是實際上，很多介面設計的方式，都還是用 C 的形式來做的…還是其實是有其他考量？所以甚至連陣列都是另外寫一個自己的版本（openni::Array），而沒有直接採用 STL 的版本（也沒有 iterator 可以用）…</p>
+<p>【本文來自 Heresy's Space 的網誌，原文網址為： <a href="http://kheresy.wordpress.com/2012/12/26/openni-error-handle/">http://kheresy.wordpress.com/2012/12/26/openni-error-handle/</a> ，由 Heresy 捐出網誌給程式人雜誌，經陳鍾誠編輯後納入雜誌】</p>
+<h2 id="人工神經網路-artificial-neural-network-作者bridan"><a href="#人工神經網路-artificial-neural-network-作者bridan">人工神經網路 (Artificial Neural Network) (作者：Bridan)</a></h2>
+<p><a href="http://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C">NEURO</a> 這門學問是我工作時才學習得的知識，多年前曾有一篇 <a href="http://4rdp.blogspot.tw/2009/07/washing-machine.html">洗衣機</a> 貼文提到它，當時第一次知道這東西時，已經從研究所畢業好幾年，書局也沒幾本書可以參考，書中一堆數學式，有看沒有很懂，九O年代網路剛興起，沒甚麼資料可查，正好一位大學同學在大同工學院攻讀博士班主攻語音辨識，NEURO 就是用於學習辨識語音模式的解決方案之一，因此跟主管提出學習計畫，對授課教授表達旁聽的想法，就每周固定時間去大同工學院上課，我不需要學分，所以不用繳學費、不必考試、不必交作業，自備課本上了一個學期的課，這種學習方法在我準備插班大學考試也用過，並認識一些朋友。最近上網查，沒什麼人對 NEURO 議題，提供簡單的實例，以供初學者參考入門，現在將個人所知的做個紀錄分享。</p>
+<p>類神經網路有很多解決方案，這裡使用 BP 方法。首先認識神經元的數學模型，</p>
+<div class="figure">
+<img src="../img/BridanAN.gif" />
+</div>
+<p>MP (MultiLayer Perceptron) 模型公式：</p>
+<h3 id="一先計算內部數值"><a href="#一先計算內部數值">一、先計算內部數值</a></h3>
+<p>Ui = Σ Wji Xj – θi</p>
+<p>Wji = 連結強度</p>
+<p>Xj = 神經元 j 所傳來之訊號</p>
+<p>θi = 神經元 i 之閥值</p>
+<h3 id="二計算輸出數值"><a href="#二計算輸出數值">二、計算輸出數值</a></h3>
+<p>Yi = f(Ui) = Yi 處理單元函數</p>
+<p>f = 轉換函數，通常為階梯函數(Step function)</p>
+<p>例如 Yi = 1 / (1 + exp(-Ui))</p>
+<h3 id="三δ差距量-用來修正權重"><a href="#三δ差距量-用來修正權重">三、δ差距量 ，用來修正權重</a></h3>
+<p>{T}目標輸出量</p>
+<p>{Y}推論輸出量</p>
+<p>差距量 = 目標輸出量 – 推論輸出量 = δi = Ti – Yi</p>
+<p>本文範例採取的修正算式 δi = Yi‧(1 - Yi)‧(Ti – Yi)</p>
+<h3 id="四計算輸出閥值及權重變量"><a href="#四計算輸出閥值及權重變量">四、計算輸出閥值及權重變量</a></h3>
+<p>η：學習速率，控制權重修正幅度</p>
+<p>輸出單元閥值改變量 = △θi = - η‧δi</p>
+<p>權重改變量 = △Wji = Xj‧η‧δi</p>
+<h3 id="五修正下一輪閥值及權重"><a href="#五修正下一輪閥值及權重">五、修正下一輪閥值及權重</a></h3>
+<p>θi = θi + △θi</p>
+<p>Wji = Wji + △Wji</p>
+<h3 id="六檢驗成果"><a href="#六檢驗成果">六、檢驗成果</a></h3>
+<p>總錯誤率 = 誤分類案例總數/範例總數</p>
+<p><strong>依問題的複雜層度，利用它組合一知識神經網路，基本上有三大層－輸入層、隱藏層及輸出層。</strong></p>
+<div class="figure">
+<img src="../img/BridanNeuro_XOR.jpg" />
+</div>
+<p>最後整理一個 <a href="https://docs.google.com/spreadsheet/ccc?key=0AvTFWEwZaQ8_dEI1YlBla081dDJ0MERiY3NSNzcwMFE&amp;usp=sharing">試算表</a> 提供有興趣的朋友參考，以 XOR 邏輯為例，X1, X2 為輸入，Y為輸出，用 #3, #4, #5 三個神經元學習，H3, H4 是隱藏層(夾在輸入及輸出之間)，簡單的問題一個隱藏層就夠，複雜的可能需要兩層。使用四種組合狀態重複訓練，最後它會穩定判別輸入，並給予適合的答案。</p>
+<p>以 <a href="http://4rdp.blogspot.tw/2009/08/recursion.html">遞迴或遞歸 (Recursion)</a> <em>這樣技術，可將非線性數學問題收斂求解，</em> <strong>能處理類似邏輯型式的問題</strong> ，供大家參考。</p>
+<p>(本文來自「研發養成所」 Bridan 的網誌，原文網址為 <a href="http://4rdp.blogspot.tw/2013/10/artificial-neural-network.html">http://4rdp.blogspot.tw/2013/10/artificial-neural-network.html</a> ，由陳鍾誠編輯後納入程式人雜誌)</p>
+<h2 id="visual-basic-6.0利用遞迴與程序導向解-n-queens-puzzle-皇后問題-作者廖憲得-0xde"><a href="#visual-basic-6.0利用遞迴與程序導向解-n-queens-puzzle-皇后問題-作者廖憲得-0xde">Visual Basic 6.0:利用遞迴與程序導向解 N Queens Puzzle 皇后問題 (作者：廖憲得 0xde)</a></h2>
+<p>什麼是 N Queens Puzzle 皇后問題問題？　 通常我們都會用 8 皇后來稱呼它，但將 8 改成動態數字 n，則稱為 n 皇后</p>
+<p>什麼是 8 Queens Puzzle 皇后問題問題？　</p>
+<p>那麼 8 皇后問題又是什麼呢？</p>
+<blockquote>
+<p>八皇后問題是一個以西洋棋為背景的問題：如何能夠在8×8的西洋棋棋盤上放置八個皇后，使得任何一個皇后都無法直接吃掉其他的皇后？ 為了達到此目的，任兩個皇后都不能處於同一條橫行、縱行或斜線上。 八皇后問題可以推廣為更一般的n皇后擺放問題 ：這時棋盤的大小變為n × n ，而皇后個數也變成n 。 若且唯若 n = 1或n ≥ 4時問題有解[1] 。</p>
+</blockquote>
+<ul>
+<li>維基百科：<a href="http://en.wikipedia.org/wiki/Eight_queens">http://en.wikipedia.org/wiki/Eight_queens</a></li>
+</ul>
+<div class="figure">
+<img src="../img/queen5.JPG" alt="5 皇后總共有 10 組解" /><p class="caption">5 皇后總共有 10 組解</p>
+</div>
+<div class="figure">
+<img src="../img/queen8.JPG" alt="8 皇后總共有 92 組解" /><p class="caption">8 皇后總共有 92 組解</p>
+</div>
+<pre><code>【1皇后】共1組解  
+【2皇后】共0組解  
+【3皇后】共0組解  
+【4皇后】共2組解  
+【5皇后】共10組解  
+【6皇后】共4組解  
+【7皇后】共40組解  
+【8皇后】共92組解  
+【9皇后】共352組解  
+【10皇后】共724組解  
+【11皇后】共2680組解  
+【12皇后】共14200組解  
+【13皇后】共73712組解  
+【14皇后】共365596組解  
+【15皇后】共2279184組解  
+【16皇后】共14772512組解  </code></pre>
+<p>通常跑超過 10 皇后就需要等待不少時間了！</p>
+<p>如何使用遞迴與程序導向去實作呢？</p>
+<pre class="sourceCode monobasic"><code class="sourceCode monobasic"><span class="kw">Dim</span> QueenXY() <span class="co">&#39; 棋盤</span>
+<span class="kw">Dim</span> TempQueenXY(9999) <span class="co">&#39; 暫存的棋盤</span>
+<span class="kw">Dim</span> TempNumber <span class="co">&#39; 數量</span>
+<span class="kw">Dim</span> QueenNumber <span class="co">&#39; 正解總數</span>
+<span class="kw">Private</span> <span class="kw">Sub </span>Form_Activate()
+Queen = 9 <span class="co">&#39; 皇后數</span>
+
+<span class="kw">ReDim</span> QueenXY(Queen - 1, Queen - 1) <span class="co">&#39; 配置棋盤</span>
+
+<span class="kw">For </span>I = 0 <span class="kw">To</span> Queen - 1
+    <span class="kw">For </span>J = 0 <span class="kw">To</span> Queen - 1
+        QueenXY(I, J) = 0
+    <span class="kw">Next </span>J
+<span class="kw">Next </span>I
+    
+    QueenNumber = 0
+    List1.Clear
+    
+<span class="kw">For </span>I = 0 <span class="kw">To</span> UBound(QueenXY)
+    <span class="kw">Call</span> InputQueen(I, 0)
+<span class="kw">Next </span>I
+
+    MsgBox <span class="st">&quot;總解有 =&gt; &quot;</span> &amp; QueenNumber &amp; <span class="st">&quot; 組&quot;</span>
+<span class="kw">End Sub</span>
+
+
+<span class="kw">Function </span>InputQueen(X, Y) <span class="co">&#39; 放置皇后</span>
+    <span class="kw">If </span>X &gt;= 0 <span class="kw">And</span> X &lt;= UBound(QueenXY) <span class="kw">And</span> Y &gt;= 0 <span class="kw">And</span> Y &lt;= UBound(QueenXY) <span class="kw">Then</span> <span class="co">&#39; 判斷棋盤是否超過</span>
+        
+        <span class="kw">If </span>QueenXY(X, Y) = 0 <span class="kw">Then</span> <span class="co">&#39; 判斷是否為可放 (是否被殺)</span>
+            
+
+            
+            BackupTemp <span class="co">&#39; Step 備份目前棋盤狀</span>
+            <span class="kw">Call</span> KillQueen(X, Y) <span class="co">&#39; 建立被殺</span>
+            <span class="kw">For </span>I = 0 <span class="kw">To</span> UBound(QueenXY) <span class="co">&#39; 放下一個</span>
+                <span class="kw">Call</span> InputQueen(I, Y + 1)
+            <span class="kw">Next </span>I
+            <span class="kw">If </span>Y = UBound(QueenXY) <span class="kw">Then</span>
+                QueenNumber = QueenNumber + 1
+                
+                
+                Temp = <span class="st">&quot;&quot;</span>
+                        List1.AddItem <span class="st">&quot;第 &quot;</span> &amp; QueenNumber &amp; <span class="st">&quot; 組答案為：&quot;</span>
+                <span class="kw">For </span>I = 0 <span class="kw">To</span> UBound(QueenXY)
+                    <span class="kw">For </span>J = 0 <span class="kw">To</span> UBound(QueenXY)
+                        Temp = Temp &amp; QueenXY(I, J) &amp; <span class="st">&quot; &quot;</span>
+                    <span class="kw">Next </span>J
+                        List1.AddItem Temp
+                        Temp = <span class="st">&quot;&quot;</span>
+                <span class="kw">Next </span>I
+                        List1.AddItem <span class="st">&quot;&quot;</span>
+                
+            <span class="kw">End If</span>
+                
+                Reductive <span class="co">&#39; 還原</span>
+        <span class="kw">End If</span>
+    <span class="kw">End If</span>
+<span class="kw">End Function</span>
+
+<span class="kw">Function </span>KillQueen(KX, KY) <span class="co">&#39; 跟自己八方被殺</span>
+
+QueenXY(KX, KY) = <span class="st">&quot;Q&quot;</span>
+
+<span class="kw">For </span>I = 0 <span class="kw">To</span> UBound(QueenXY)
+    <span class="kw">For </span>J = 0 <span class="kw">To</span> UBound(QueenXY)
+        <span class="kw">If </span>I = KX <span class="kw">And</span> J = KY <span class="kw">Then</span>
+        <span class="kw">Else</span>
+            <span class="kw">If </span>I = KX <span class="kw">Or</span> J = KY <span class="kw">Then</span> QueenXY(I, J) = 1 <span class="co">&#39; 四面</span>
+            
+            <span class="kw">If </span>(J - KY) &lt;&gt; 0 <span class="kw">And</span> (I - KX) &lt;&gt; 0 <span class="kw">Then</span> <span class="co">&#39; 不為 0 (自己)</span>
+                <span class="kw">If </span>Abs((J - KY) / (I - KX)) = 1 <span class="kw">Then</span> QueenXY(I, J) = 1 <span class="co">&#39; 八方 (斜率絕對值 = 1)</span>
+            <span class="kw">End If</span>
+        <span class="kw">End If</span>
+    <span class="kw">Next </span>J
+<span class="kw">Next </span>I
+
+<span class="kw">End Function</span>
+
+<span class="kw">Function </span>BackupTemp() <span class="co">&#39; 備份</span>
+    Temp = <span class="st">&quot;&quot;</span>
+    <span class="kw">For </span>I = 0 <span class="kw">To</span> UBound(QueenXY)
+        <span class="kw">For </span>J = 0 <span class="kw">To</span> UBound(QueenXY)
+             Temp = Temp &amp; QueenXY(I, J) &amp; <span class="st">&quot;,&quot;</span>
+        <span class="kw">Next </span>J
+    <span class="kw">Next </span>I
+    
+    TempQueenXY(TempNumber) = Temp
+    TempNumber = TempNumber + 1
+<span class="kw">End Function</span>
+
+<span class="kw">Function </span>Reductive() <span class="co">&#39; 還原</span>
+    Temp = Split(TempQueenXY(TempNumber - 1), <span class="st">&quot;,&quot;</span>)
+    TempI = 0
+    <span class="kw">For </span>I = 0 <span class="kw">To</span> UBound(QueenXY)
+        <span class="kw">For </span>J = 0 <span class="kw">To</span> UBound(QueenXY)
+            QueenXY(I, J) = Temp(TempI)
+            TempI = TempI + 1
+        <span class="kw">Next </span>J
+    <span class="kw">Next </span>I
+    
+    TempNumber = TempNumber - 1
+<span class="kw">End Function</span></code></pre>
+<ul>
+<li>原始碼下載： <a href="http://files.dotblogs.com.tw/0xde/1311/2013111193556893.rar">N皇后(N Queen).rar</a></li>
+</ul>
+<p>【本文作者為「廖憲得」，原文網址為： <a href="http://www.dotblogs.com.tw/0xde/archive/2013/11/11/127531.aspx">http://www.dotblogs.com.tw/0xde/archive/2013/11/11/127531.aspx</a> ，由陳鍾誠編輯後納入本雜誌】</p>
+<h2 id="開放電腦計畫-10-j0c-編譯器使用-node.js-javascript-實作-作者陳鍾誠"><a href="#開放電腦計畫-10-j0c-編譯器使用-node.js-javascript-實作-作者陳鍾誠">開放電腦計畫 (10) – J0C 編譯器：使用 node.js + javascript 實作 (作者：陳鍾誠)</a></h2>
+<p>在 開放電腦計畫的前九篇文章中，我們首先介紹了整體架構，接著設計出了 CPU0 的指令集，然後寫出了 AS0 組譯器與 VM0 虛擬機：</p>
+<ul>
+<li><a href="https://dl.dropboxusercontent.com/u/101584453/pmag/201306/htm/article5.html">開放電腦計畫 (1) – 整體架構與 CPU0 處理器</a></li>
+<li><a href="http://programmermagazine.github.io/201307/htm/article5.html">開放電腦計畫 (2) – AS0 組譯器：使用 JavaScript+Node.js 實作</a></li>
+<li><a href="http://programmermagazine.github.io/201309/htm/article5.html">開放電腦計畫 (3) – VM0 虛擬機：使用 JavaScript+Node.js 實作</a></li>
+</ul>
+<p>接著我們用 Verilog 設計了一連串的 CPU，主要包含 32 位元的 CPU0 與 16 位元的 MCU0 等處理器。</p>
+<p>但是、直到目前為止，我們都還沒有為開放電腦計畫打造出「高階語言」，因此本文將設計出一個 名為 J0 的高階語言 (代表JavaScript 的精簡版)，並採用 JavaScript 去實作，然後在 node.js 平台中執行。</p>
+<p>有了 J0 語言與 J0C 編譯器之後，我們就可以創建出以下的工具鏈：</p>
+<blockquote>
+<p>J0 語言 ( j0c 編譯器) =&gt; IR0 中間碼 (ir2as 轉換器) =&gt; CPU0 組合語言 (AS0 組譯器) =&gt; CPU0 機器碼 (VM0 虛擬機執行或 CPU0 FPGA 執行)</p>
+</blockquote>
+<h3 id="javascript-簡化版----j0-語言"><a href="#javascript-簡化版----j0-語言">JavaScript 簡化版 -- J0 語言</a></h3>
+<p>以下是一個 J0 語言的程式範例，支援了 function, while, if, for 等語句，並且支援了「陣列與字典」等資料結構。</p>
+<p>檔案：test.j0</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">s = <span class="fu">sum</span>(<span class="dv">10</span>);
+
+<span class="kw">function</span> <span class="fu">sum</span>(n) {
+  s = <span class="dv">0</span>;
+  i=<span class="dv">1</span>;
+  <span class="kw">while</span> (i&lt;=<span class="dv">10</span>) {
+    s = s + i;
+    i++;
+  }
+  <span class="kw">return</span> s;
+}
+
+m = <span class="fu">max</span>(<span class="dv">3</span>,<span class="dv">5</span>);
+
+<span class="kw">function</span> <span class="fu">max</span>(a, b) {
+  <span class="kw">if</span> (a &gt; b)
+    <span class="kw">return</span> a;
+  <span class="kw">else</span>
+    <span class="kw">return</span> b;
+}
+
+<span class="kw">function</span> <span class="fu">total</span>(a) {
+  s = <span class="dv">0</span>;
+  <span class="kw">for</span> (i <span class="kw">in</span> a) {
+    s = s + a[i];
+  }
+  <span class="kw">return</span> s;
+}
+
+a = [ <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">6</span>];
+t = <span class="fu">total</span>(a);
+word = { <span class="dt">e</span>:<span class="st">&quot;dog&quot;</span>, <span class="dt">c</span>:<span class="st">&quot;狗&quot;</span> };</code></pre>
+<h3 id="原始碼"><a href="#原始碼">原始碼</a></h3>
+<p>接著我們用 node.js + javascript 實作出 j0c 編譯器，該編譯器可以將 J0 語言的程式，編譯成一種平坦化的中間碼格式，我們稱這種格式為 IR0，也就是 Intermediate Representation 0 的意思，以下是 j0c 編譯器的完整程式碼。</p>
+<p>檔案：j0c.js</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// j0c 編譯器，用法範例： node j0c test.j0</span>
+<span class="kw">var</span> fs = <span class="fu">require</span>(<span class="st">&quot;fs&quot;</span>);
+<span class="kw">var</span> util = <span class="fu">require</span>(<span class="st">&quot;util&quot;</span>);
+<span class="kw">var</span> log = <span class="ot">console</span>.<span class="fu">log</span>;     <span class="co">// 將 console.log 名稱縮短一點</span>
+<span class="kw">var</span> format = <span class="ot">util</span>.<span class="fu">format</span>;  <span class="co">// 字串格式化</span>
+<span class="kw">var</span> tokens = [];
+<span class="kw">var</span> tokenIdx = <span class="dv">0</span>;
+<span class="kw">var</span> end = <span class="st">&quot;$END&quot;</span>;
+<span class="kw">var</span> funcName = <span class="st">&quot;main&quot;</span>;
+<span class="kw">var</span> funcStack = [ funcName ];
+<span class="kw">var</span> irText = <span class="st">&quot;&quot;</span>;
+<span class="kw">var</span> symTable = {};
+symTable[funcName] = { <span class="dt">type</span>:<span class="st">&quot;function&quot;</span>, <span class="dt">name</span>:<span class="st">&quot;main&quot;</span>, <span class="dt">pcodes</span>:[] };
+
+<span class="kw">var</span> scan=<span class="kw">function</span>(text) { 
+  <span class="kw">var</span> re = <span class="kw">new</span> <span class="fu">RegExp</span>(<span class="ot">/</span><span class="fl">(\/\*</span><span class="bn">[</span><span class="fl">\s\S</span><span class="bn">]</span><span class="fl">*?\*\/)|(\/\/</span><span class="bn">[</span><span class="fl">^\r\n</span><span class="bn">]</span><span class="fl">)|(</span><span class="ot">&quot;.</span><span class="fl">*?</span><span class="ot">&quot;</span><span class="fl">)|(</span><span class="bn">\d</span><span class="fl">+(\.</span><span class="bn">\d</span><span class="fl">*)?)|(</span><span class="bn">[a-zA-Z]\w</span><span class="fl">*)|(</span><span class="bn">[&gt;=&lt;!</span><span class="fl">\+\-\*\/</span><span class="bn">&amp;%|]</span><span class="fl">+)|(</span><span class="bn">\s</span><span class="fl">+)|(</span><span class="ot">.</span><span class="fl">)</span><span class="ot">/gm</span>);
+  <span class="kw">var</span> types = [ <span class="st">&quot;&quot;</span>, <span class="st">&quot;COMMENT&quot;</span>, <span class="st">&quot;COMMENT&quot;</span>, <span class="st">&quot;STRING&quot;</span>, <span class="st">&quot;INTEGER&quot;</span>, <span class="st">&quot;FLOAT&quot;</span>, <span class="st">&quot;ID&quot;</span>, <span class="st">&quot;OP2&quot;</span>, <span class="st">&quot;SPACE&quot;</span>, <span class="st">&quot;CH&quot;</span> ];
+  tokens = [];
+  tokenIdx = <span class="dv">0</span>;
+  <span class="kw">var</span> lines = <span class="dv">1</span>, m;
+  <span class="kw">while</span>((m = <span class="ot">re</span>.<span class="fu">exec</span>(text)) !== <span class="kw">null</span>) {
+    <span class="kw">var</span> token = m[<span class="dv">0</span>], type;
+    <span class="kw">for</span> (i=<span class="dv">1</span>; i&lt;=<span class="dv">9</span>; i++) { 
+      <span class="kw">if</span> (m[i] !== <span class="kw">undefined</span>)
+        type = types[i];
+    }
+    <span class="kw">if</span> (!<span class="ot">token</span>.<span class="fu">match</span>(<span class="ot">/</span><span class="fl">^</span><span class="bn">[</span><span class="fl">\s\r\n</span><span class="bn">]</span><span class="ot">/</span>) &amp;&amp; type!=<span class="st">&quot;COMMENT&quot;</span>) {
+      <span class="ot">tokens</span>.<span class="fu">push</span>({ <span class="st">&quot;token&quot;</span>:token, <span class="st">&quot;type&quot;</span>:type, <span class="st">&quot;lines&quot;</span>:lines });
+    }
+    lines += <span class="ot">token</span>.<span class="fu">split</span>(<span class="ot">/</span><span class="bn">\n</span><span class="ot">/</span>).<span class="fu">length</span><span class="dv">-1</span>;
+  }
+  <span class="ot">tokens</span>.<span class="fu">push</span>({ <span class="st">&quot;token&quot;</span>: end, <span class="st">&quot;type&quot;</span>:end, <span class="st">&quot;lines&quot;</span>:lines });
+  <span class="kw">return</span> tokens;
+}
+
+<span class="kw">var</span> error=<span class="kw">function</span>(expect) {  
+  <span class="kw">var</span> token = tokens[tokenIdx];
+  <span class="fu">log</span>(<span class="st">&quot;Error: line=%d token (%s) do not match expect (%s)!&quot;</span>, <span class="ot">token</span>.<span class="fu">lines</span>, <span class="ot">token</span>.<span class="fu">token</span>, expect); 
+  <span class="fu">log</span>(<span class="kw">new</span> <span class="fu">Error</span>().<span class="fu">stack</span>);
+  <span class="ot">process</span>.<span class="fu">exit</span>(<span class="dv">1</span>);
+}
+
+<span class="kw">var</span> skip=<span class="kw">function</span>(o) { <span class="kw">if</span> (<span class="fu">isNext</span>(o)) <span class="fu">next</span>(o); }
+
+<span class="kw">var</span> next=<span class="kw">function</span>(o) {
+  <span class="kw">if</span> (o==<span class="kw">null</span> || <span class="fu">isNext</span>(o)) {
+    <span class="kw">return</span> tokens[tokenIdx++].<span class="fu">token</span>;
+  }
+  <span class="fu">error</span>(o);
+}
+
+<span class="kw">var</span> isNext=<span class="kw">function</span>(o) {
+  <span class="kw">if</span> (tokenIdx &gt;= <span class="ot">tokens</span>.<span class="fu">length</span>) 
+    <span class="kw">return</span> <span class="kw">false</span>;
+  <span class="kw">var</span> token = tokens[tokenIdx].<span class="fu">token</span>;
+  <span class="kw">if</span> (o <span class="kw">instanceof</span> RegExp) {
+    <span class="kw">return</span> <span class="ot">token</span>.<span class="fu">match</span>(o);
+  } <span class="kw">else</span>
+    <span class="kw">return</span> (token == o);
+}
+
+<span class="kw">var</span> nextType=<span class="kw">function</span>(o) {
+  <span class="kw">if</span> (o==<span class="kw">null</span> || <span class="fu">isNextType</span>(o)) {
+    <span class="kw">return</span> tokens[tokenIdx++].<span class="fu">token</span>;
+  }
+  <span class="fu">error</span>(o);
+}
+
+<span class="kw">var</span> isNextType=<span class="kw">function</span>(pattern) {
+  <span class="kw">var</span> type = tokens[tokenIdx].<span class="fu">type</span>;
+  <span class="kw">return</span> ((<span class="st">&quot;|&quot;</span>+pattern+<span class="st">&quot;|&quot;</span>).<span class="fu">indexOf</span>(<span class="st">&quot;|&quot;</span>+type+<span class="st">&quot;|&quot;</span>)&gt;=<span class="dv">0</span>);
+}
+
+<span class="kw">var</span> pcode=<span class="kw">function</span>(label, op, p, p1, p2) {
+  symTable[funcName].<span class="ot">pcodes</span>.<span class="fu">push</span>({<span class="st">&quot;label&quot;</span>:label, <span class="st">&quot;op&quot;</span>:op, <span class="st">&quot;p&quot;</span>:p, <span class="st">&quot;p1&quot;</span>:p1, <span class="st">&quot;p2&quot;</span>:p2});
+  <span class="kw">var</span> irCode = <span class="fu">format</span>(<span class="st">&quot;%s</span><span class="ch">\t</span><span class="st">%s</span><span class="ch">\t</span><span class="st">%s</span><span class="ch">\t</span><span class="st">%s</span><span class="ch">\t</span><span class="st">%s&quot;</span>, label, op, p, p1, p2);
+  <span class="fu">log</span>(irCode);
+  irText += irCode+<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>;
+}
+
+<span class="kw">var</span> tempIdx = <span class="dv">1</span>;
+<span class="kw">var</span> nextTemp=<span class="kw">function</span>() { 
+  <span class="kw">var</span> name=<span class="st">&quot;T&quot;</span>+tempIdx++;
+  symTable[name] = { <span class="dt">type</span>:<span class="st">&quot;var&quot;</span>, <span class="dt">name</span>:name };
+  <span class="kw">return</span> name; 
+}
+
+<span class="kw">var</span> labelIdx = <span class="dv">1</span>;
+<span class="kw">var</span> nextLabel=<span class="kw">function</span>() { <span class="kw">return</span> <span class="st">&quot;L&quot;</span>+labelIdx++; }
+
+<span class="kw">var</span> elseIdx = <span class="dv">1</span>;
+<span class="kw">var</span> nextElse=<span class="kw">function</span>() { <span class="kw">return</span> <span class="st">&quot;else&quot;</span>+elseIdx++; }
+
+<span class="kw">var</span> compile=<span class="kw">function</span>(text) {
+  <span class="fu">scan</span>(text);
+  <span class="fu">PROG</span>();
+}
+
+<span class="co">// PROG = STMTS</span>
+<span class="kw">var</span> PROG=<span class="kw">function</span>() {
+  <span class="fu">STMTS</span>();
+}
+
+<span class="co">// STMTS = STMT*</span>
+<span class="kw">var</span> STMTS=<span class="kw">function</span>() {
+  <span class="kw">while</span> (!<span class="fu">isNext</span>(<span class="st">&quot;}&quot;</span>) &amp;&amp; !<span class="fu">isNext</span>(end))
+    <span class="fu">STMT</span>();
+}
+
+<span class="co">// BLOCK = { STMTS }</span>
+<span class="kw">var</span> BLOCK=<span class="kw">function</span>() {
+  <span class="fu">next</span>(<span class="st">&quot;{&quot;</span>);
+  <span class="fu">STMTS</span>();
+  <span class="fu">next</span>(<span class="st">&quot;}&quot;</span>);
+}
+
+<span class="co">// STMT = FOR | WHILE | IF | FUNCTION | return EXP ; | ASSIGN ; | BLOCK</span>
+<span class="kw">var</span> STMT=<span class="kw">function</span>() {
+  <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;for&quot;</span>)) {
+    <span class="fu">FOR</span>();
+  } <span class="kw">else</span> <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;while&quot;</span>)) {
+    <span class="fu">WHILE</span>();
+  } <span class="kw">else</span> <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;if&quot;</span>)) {
+    <span class="fu">IF</span>();
+  } <span class="kw">else</span> <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;function&quot;</span>)) {
+    <span class="fu">FUNCTION</span>();
+  } <span class="kw">else</span> <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;return&quot;</span>)) {
+    <span class="fu">next</span>(<span class="st">&quot;return&quot;</span>);
+    <span class="kw">var</span> e = <span class="fu">EXP</span>();
+    <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;return&quot;</span>, e, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+    <span class="fu">next</span>(<span class="st">&quot;;&quot;</span>);
+  } <span class="kw">else</span> <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;{&quot;</span>)) {
+    <span class="fu">BLOCK</span>();
+  } <span class="kw">else</span> {
+    <span class="fu">ASSIGN</span>();
+    <span class="fu">next</span>(<span class="st">&quot;;&quot;</span>);
+  }
+}
+
+<span class="co">// FOR = for (ID in EXP) BLOCK</span>
+<span class="kw">var</span> FOR=<span class="kw">function</span>() {
+  <span class="kw">var</span> startLabel = <span class="fu">nextLabel</span>(), exitLabel = <span class="fu">nextLabel</span>();
+  <span class="fu">next</span>(<span class="st">&quot;for&quot;</span>); 
+  <span class="fu">next</span>(<span class="st">&quot;(&quot;</span>); 
+  <span class="kw">var</span> id = <span class="fu">nextType</span>(<span class="st">&quot;ID&quot;</span>);
+  <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;=&quot;</span>, id, <span class="st">&quot;0&quot;</span>, <span class="st">&quot;&quot;</span>);
+  <span class="fu">next</span>(<span class="st">&quot;in&quot;</span>);
+  <span class="kw">var</span> e=<span class="fu">EXP</span>(); 
+  <span class="fu">next</span>(<span class="st">&quot;)&quot;</span>);
+  <span class="kw">var</span> t = <span class="fu">nextTemp</span>();
+  <span class="fu">pcode</span>(startLabel, <span class="st">&quot;&lt;&quot;</span>, t, id, e+<span class="st">&quot;.length&quot;</span>);
+  <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;if0&quot;</span>, t, exitLabel, <span class="st">&quot;&quot;</span>);
+  <span class="fu">BLOCK</span>(); 
+  <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;goto&quot;</span>, startLabel, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+  <span class="fu">pcode</span>(exitLabel, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+}
+
+<span class="co">// WHILE = while (EXP) BLOCK</span>
+<span class="kw">var</span> WHILE=<span class="kw">function</span>() {
+  <span class="kw">var</span> startLabel = <span class="fu">nextLabel</span>(), exitLabel=<span class="fu">nextLabel</span>();
+  <span class="fu">pcode</span>(startLabel, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+  <span class="fu">next</span>(<span class="st">&quot;while&quot;</span>); 
+  <span class="fu">next</span>(<span class="st">&quot;(&quot;</span>); 
+  <span class="kw">var</span> e = <span class="fu">EXP</span>(); 
+  <span class="fu">next</span>(<span class="st">&quot;)&quot;</span>); 
+  <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;if0&quot;</span>, e, exitLabel, <span class="st">&quot;&quot;</span>);
+  <span class="fu">BLOCK</span>();
+  <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;goto&quot;</span>, startLabel, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+  <span class="fu">pcode</span>(exitLabel, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+}
+
+<span class="co">// IF = if (EXP) STMT (else STMT)?</span>
+<span class="kw">var</span> IF=<span class="kw">function</span>() {
+  <span class="fu">next</span>(<span class="st">&quot;if&quot;</span>); 
+  <span class="fu">next</span>(<span class="st">&quot;(&quot;</span>); 
+  <span class="kw">var</span> e = <span class="fu">EXP</span>(); 
+  <span class="fu">next</span>(<span class="st">&quot;)&quot;</span>); 
+  <span class="kw">var</span> elseLabel = <span class="fu">nextLabel</span>();
+  <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;if0&quot;</span>, e, elseLabel, <span class="st">&quot;&quot;</span>);
+  <span class="fu">STMT</span>();
+  <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;else&quot;</span>)) {
+    <span class="fu">next</span>(<span class="st">&quot;else&quot;</span>);
+    <span class="fu">pcode</span>(elseLabel, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+    <span class="fu">STMT</span>();
+  }
+}
+
+<span class="co">// ASSIGN = ID[++|--]?(=EXP?)?</span>
+<span class="kw">var</span> ASSIGN=<span class="kw">function</span>() {
+  <span class="kw">var</span> id, op, hasNext = <span class="kw">false</span>;
+  <span class="kw">if</span> (<span class="fu">isNextType</span>(<span class="st">&quot;ID&quot;</span>)) {
+    id = <span class="fu">nextType</span>(<span class="st">&quot;ID&quot;</span>);
+    symTable[id] = { <span class="dt">type</span>:<span class="st">&quot;var&quot;</span>, <span class="dt">name</span>:id };
+    <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;++&quot;</span>) || <span class="fu">isNext</span>(<span class="st">&quot;--&quot;</span>)) {
+      <span class="kw">var</span> op = <span class="fu">next</span>(<span class="kw">null</span>);
+      <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, op, id, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+    }
+    hasNext = <span class="kw">true</span>;
+  }
+  <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;=&quot;</span>)) {
+    <span class="fu">next</span>(<span class="st">&quot;=&quot;</span>);
+    <span class="kw">var</span> e = <span class="fu">EXP</span>();
+    <span class="kw">if</span> (id != <span class="kw">undefined</span>)
+      <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;=&quot;</span>, id, e, <span class="st">&quot;&quot;</span>);
+    hasNext = <span class="kw">true</span>;
+  }
+  <span class="kw">if</span> (!hasNext)
+    <span class="kw">return</span> <span class="fu">EXP</span>();
+}
+
+<span class="co">// EXP=TERM (OP2 TERM)?</span>
+<span class="kw">var</span> EXP=<span class="kw">function</span>() {
+  t1 = <span class="fu">TERM</span>();
+  <span class="kw">if</span> (<span class="fu">isNextType</span>(<span class="st">&quot;OP2&quot;</span>)) {
+    <span class="kw">var</span> op2 = <span class="fu">next</span>(<span class="kw">null</span>);
+    t2 = <span class="fu">TERM</span>();
+    <span class="kw">var</span> t = <span class="fu">nextTemp</span>();
+    <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, op2, t, t1, t2);
+    t1 = t;
+  }
+  <span class="kw">return</span> t1;
+}
+
+<span class="co">// TERM=STRING | INTEGER | FLOAT | ARRAY | TABLE | ID (TERMS)? | ID [TERMS]?| ( EXP )</span>
+<span class="kw">var</span> TERM=<span class="kw">function</span>() {
+  <span class="kw">if</span> (<span class="fu">isNextType</span>(<span class="st">&quot;STRING|INTEGER|FLOAT&quot;</span>)) {
+    <span class="kw">return</span> <span class="fu">next</span>(<span class="kw">null</span>);
+  } <span class="kw">else</span> <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;[&quot;</span>)) {
+    <span class="kw">return</span> <span class="fu">ARRAY</span>();
+  } <span class="kw">else</span> <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;{&quot;</span>)) {
+    <span class="kw">return</span> <span class="fu">TABLE</span>();
+  } <span class="kw">else</span> <span class="kw">if</span> (<span class="fu">isNextType</span>(<span class="st">&quot;ID&quot;</span>)) { <span class="co">// function call</span>
+    <span class="kw">var</span> id = <span class="fu">next</span>(<span class="kw">null</span>);
+    <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;(&quot;</span>)) { 
+      <span class="fu">next</span>(<span class="st">&quot;(&quot;</span>); 
+      <span class="kw">while</span> (!<span class="fu">isNext</span>(<span class="st">&quot;)&quot;</span>)) {
+        <span class="co">// TERM();</span>
+        <span class="kw">var</span> arg = <span class="fu">next</span>(<span class="kw">null</span>);
+        <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;arg&quot;</span>, arg, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+        <span class="fu">skip</span>(<span class="st">&quot;,&quot;</span>);
+      }
+      <span class="fu">next</span>(<span class="st">&quot;)&quot;</span>);
+      <span class="kw">var</span> ret = <span class="fu">nextTemp</span>();
+      <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;call&quot;</span>, ret, id, <span class="st">&quot;&quot;</span>);
+      <span class="kw">return</span> ret;
+    }
+    <span class="kw">var</span> array = id;
+    <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;[&quot;</span>)) { 
+      <span class="fu">next</span>(<span class="st">&quot;[&quot;</span>); 
+      <span class="kw">while</span> (!<span class="fu">isNext</span>(<span class="st">&quot;]&quot;</span>)) {
+        <span class="kw">var</span> idx = <span class="fu">TERM</span>();
+        <span class="kw">var</span> t = <span class="fu">nextTemp</span>();
+        <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;[]&quot;</span>, t, array, idx);
+        <span class="fu">skip</span>(<span class="st">&quot;,&quot;</span>);
+        array = t;
+      }
+      <span class="fu">next</span>(<span class="st">&quot;]&quot;</span>);
+      <span class="kw">return</span> array;
+    }
+    <span class="kw">return</span> id;
+  } <span class="kw">else</span> <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;(&quot;</span>)) {
+    <span class="fu">next</span>(<span class="st">&quot;(&quot;</span>);  
+    <span class="kw">var</span> e = <span class="fu">EXP</span>();  
+    <span class="fu">next</span>(<span class="st">&quot;)&quot;</span>);
+    <span class="kw">return</span> e;
+  } <span class="kw">else</span> <span class="fu">error</span>();
+}
+
+<span class="co">// FUNCTION = function ID(ARGS) BLOCK</span>
+<span class="kw">var</span> FUNCTION = <span class="kw">function</span>() {
+  <span class="fu">next</span>(<span class="st">&quot;function&quot;</span>);
+  funcName = <span class="fu">nextType</span>(<span class="st">&quot;ID&quot;</span>);
+  <span class="ot">funcStack</span>.<span class="fu">push</span>(funcName);
+  symTable[funcName] = { <span class="dt">type</span>:<span class="st">&quot;function&quot;</span>, <span class="dt">name</span>:funcName, <span class="dt">pcodes</span>: [] };
+  <span class="fu">pcode</span>(funcName, <span class="st">&quot;function&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+  <span class="fu">next</span>(<span class="st">&quot;(&quot;</span>);
+  <span class="kw">while</span> (!<span class="fu">isNext</span>(<span class="st">&quot;)&quot;</span>)) {
+    <span class="kw">var</span> arg=<span class="fu">nextType</span>(<span class="st">&quot;ID&quot;</span>);
+    <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;param&quot;</span>, arg, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+    <span class="fu">skip</span>(<span class="st">&quot;,&quot;</span>);
+  }
+  <span class="fu">next</span>(<span class="st">&quot;)&quot;</span>); 
+  <span class="fu">BLOCK</span>();
+  <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;endf&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+  <span class="ot">funcStack</span>.<span class="fu">pop</span>();
+  funcName = funcStack[<span class="ot">funcStack</span>.<span class="fu">length</span><span class="dv">-1</span>];
+}
+
+<span class="co">// ARRAY = [ TERMS ];</span>
+<span class="kw">var</span> ARRAY = <span class="kw">function</span>() {
+  <span class="fu">next</span>(<span class="st">&quot;[&quot;</span>);
+  <span class="kw">var</span> array = <span class="fu">nextTemp</span>();
+  <span class="fu">pcode</span>(array, <span class="st">&quot;array&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+  <span class="kw">while</span> (!<span class="fu">isNext</span>(<span class="st">&quot;]&quot;</span>)) {
+    <span class="kw">var</span> t = <span class="fu">TERM</span>();
+    <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;push&quot;</span>, array, t, <span class="st">&quot;&quot;</span>);
+    <span class="fu">skip</span>(<span class="st">&quot;,&quot;</span>);
+  }
+  <span class="fu">next</span>(<span class="st">&quot;]&quot;</span>);
+  <span class="kw">return</span> array;
+}
+
+<span class="co">// TABLE = { (TERM:TERM)* }</span>
+<span class="kw">var</span> TABLE = <span class="kw">function</span>() {
+  <span class="fu">next</span>(<span class="st">&quot;{&quot;</span>); 
+  <span class="kw">var</span> table = <span class="fu">nextTemp</span>();
+  <span class="fu">pcode</span>(table, <span class="st">&quot;table&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+  <span class="kw">while</span> (!<span class="fu">isNext</span>(<span class="st">&quot;}&quot;</span>)) {
+    <span class="kw">var</span> key = <span class="fu">TERM</span>(); 
+    <span class="fu">next</span>(<span class="st">&quot;:&quot;</span>); 
+    <span class="kw">var</span> value = <span class="fu">TERM</span>();
+    <span class="fu">skip</span>(<span class="st">&quot;,&quot;</span>);
+    <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;map&quot;</span>, table, key, value);
+  }
+  <span class="fu">next</span>(<span class="st">&quot;}&quot;</span>);
+  <span class="kw">return</span> table;
+}
+
+<span class="kw">var</span> source = <span class="ot">fs</span>.<span class="fu">readFileSync</span>(<span class="ot">process</span>.<span class="fu">argv</span>[<span class="dv">2</span>], <span class="st">&quot;utf8&quot;</span>);
+<span class="fu">compile</span>(source);</code></pre>
+<h3 id="執行結果"><a href="#執行結果">執行結果</a></h3>
+<p>然後、我們可以用 node.js 來執行上述程式，並且編譯指定的 J0 程式檔，例如以下指令就用 j0c 編譯器去編譯了 test.j0 這個輸入檔，接著畫面上所輸出的就是 IR0 的中間碼。</p>
+<pre><code>D:\Dropbox\Public\web\oc\code\js&gt;node j0c test.j0
+        arg     10
+        call    T1      sum
+        =       s       T1
+sum     function
+        param   n
+        =       s       0
+        =       i       1
+L1
+        &lt;=      T2      i       10
+        if0     T2      L2
+        +       T3      s       i
+        =       s       T3
+        ++      i
+        goto    L1
+L2
+        return  s
+        endf
+        arg     3
+        arg     5
+        call    T4      max
+        =       m       T4
+max     function
+        param   a
+        param   b
+        &gt;       T5      a       b
+        if0     T5      L3
+        return  a
+L3
+        return  b
+        endf
+total   function
+        param   a
+        =       s       0
+        =       i       0
+L4      &lt;       T6      i       a.length
+        if0     T6      L5
+        []      T7      a       i
+        +       T8      s       T7
+        =       s       T8
+        goto    L4
+L5
+        return  s
+        endf
+T9      array
+        push    T9      1
+        push    T9      3
+        push    T9      7
+        push    T9      2
+        push    T9      6
+        =       a       T9
+        arg     a
+        call    T10     total
+        =       t       T10
+T11     table
+        map     T11     e       &quot;dog&quot;
+        map     T11     c       &quot;狗&quot;
+        =       word    T11
+</code></pre>
+<h3 id="結語-2"><a href="#結語-2">結語</a></h3>
+<p>在開放電腦計劃中，我們希望透過 J0 語言，以及 j0c 編譯器，用簡易的程式揭露「高階語言與編譯器」的設計原理。</p>
+<p>在下期中，我們將撰寫程式去將上述 IR0 中間碼轉換為 CPU0 的組合語言，這樣就可以接上先前所作的組譯器 AS0 與虛擬機 VM0，以形成一套簡易但完整的工具鏈。</p>
+<p>透過這樣的工具鏈，我們希望能讓熟悉程式人輕易的學會「電腦軟硬體的設計原理」。</p>
+<h1 id="雜誌訊息"><a href="#雜誌訊息">雜誌訊息</a></h1>
+<h2 id="讀者訂閱"><a href="#讀者訂閱">讀者訂閱</a></h2>
+<p>程式人雜誌是一個結合「開放原始碼與公益捐款活動」的雜誌，簡稱「開放公益雜誌」。開放公益雜誌本著「讀書做善事、寫書做公益」的精神，我們非常歡迎程式人認養專欄、或者捐出您的網誌，如果您願意成為本雜誌的專欄作家，請加入 <a href="https://www.facebook.com/groups/programmerMagazine/">程式人雜誌社團</a> 一同共襄盛舉。</p>
+<p>我們透過發行這本雜誌，希望讓大家可以讀到想讀的書，學到想學的技術，同時也讓寫作的朋友的作品能產生良好價值 – 那就是讓讀者根據雜誌的價值捐款給慈善團體。 讀雜誌做公益也不需要有壓力，您不需要每讀一本就急著去捐款，您可以讀了十本再捐，或者使用固定的月捐款方式，當成是雜誌訂閱費，或者是季捐款、一年捐一次等都 OK ! 甚至是單純當個讀者我們也都很歡迎！</p>
+<p>本雜誌每期參考價：NT 50 元，如果您喜歡本雜誌，請將書款捐贈公益團體。例如可捐贈給「羅慧夫顱顏基金會 彰化銀行(009) 帳號：5234-01-41778-800」。(若匯款要加註可用「程式人雜誌」五個字)</p>
+<h2 id="投稿須知"><a href="#投稿須知">投稿須知</a></h2>
+<p><em>給專欄寫作者：</em> 做公益不需要有壓力。如果您願意撰寫專欄，您可以輕鬆的寫，如果當月的稿件出不來，我們會安排其他稿件上場。</p>
+<p><em>給網誌捐贈者：</em> 如果您沒時間寫專欄或投稿，沒關係，只要將您的網誌以 [創作共用的「姓名標示、非商業性、相同方式分享」授權] 並通知我們，我們會自動從中選取需要的文章進行編輯，放入適當的雜誌當中出刊。</p>
+<p><em>給文章投稿者：</em> 程式人雜誌非常歡迎您加入作者的行列，如果您想撰寫任何文章或投稿，請用 markdown 或 LibreOffice 編輯好您的稿件，並於每個月 25 日前投稿到<a href="https://www.facebook.com/groups/programmerMagazine/">程式人雜誌社團</a> 的檔案區，我們會盡可能將稿件編入隔月1號出版程式人雜誌當中，也歡迎您到社團中與我們一同討論。</p>
+<p>如果您要投稿給程式人雜誌，我們最希望的格式是採用 markdown 的格式撰寫，然後將所有檔按壓縮為 zip 上傳到社團檔案區給我們， 如您想學習 markdown 的撰寫出版方式，可以參考 <a href="https://dl.dropboxusercontent.com/u/101584453/pmag/201304/htm/video1.html">看影片學 markdown 編輯出版流程</a> 一文。</p>
+<p>如果您無法採用 markdown 的方式撰寫，也可以直接給我們您的稿件，像是 MS. Word 的 doc 檔或 LibreOffice 的 odt 檔都可以，我們 會將這些稿件改寫為 markdown 之後編入雜誌當中。</p>
+<h2 id="參與編輯"><a href="#參與編輯">參與編輯</a></h2>
+<p>您也可以擔任程式人雜誌的編輯，甚至創造一個全新的公益雜誌，我們誠摯的邀請您加入「開放公益出版」的行列，如果您想擔任編輯或創造新雜誌，也歡迎到 <a href="https://www.facebook.com/groups/programmerMagazine/">程式人雜誌社團</a> 來與我們討論相關事宜。</p>
+<h2 id="公益資訊"><a href="#公益資訊">公益資訊</a></h2>
+<table>
+<col width="22%" />
+<col width="20%" />
+<col width="28%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">公益團體</th>
+<th align="left">聯絡資訊</th>
+<th align="left">服務對象</th>
+<th align="left">捐款帳號</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">財團法人羅慧夫顱顏基金會</td>
+<td align="left"><a href="http://www.nncf.org/">http://www.nncf.org/</a> <BR/> <script type="text/javascript">
+<!--
+h='&#110;&#110;&#x63;&#102;&#46;&#x6f;&#114;&#x67;';a='&#64;';n='&#108;&#x79;&#110;&#110;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#108;&#x79;&#110;&#110;&#32;&#x61;&#116;&#32;&#110;&#110;&#x63;&#102;&#32;&#100;&#x6f;&#116;&#32;&#x6f;&#114;&#x67;</noscript> <BR/> 02-27190408分機 232</td>
+<td align="left">顱顏患者 (如唇顎裂、小耳症或其他罕見顱顏缺陷）</td>
+<td align="left">銀行：009彰化銀行民生分行<BR/> 帳號：5234-01-41778-800</td>
+</tr>
+<tr class="even">
+<td align="left">社團法人台灣省兒童少年成長協會</td>
+<td align="left"><a href="http://www.cyga.org/">http://www.cyga.org/</a> <BR/> <script type="text/javascript">
+<!--
+h='&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;';a='&#64;';n='&#x63;&#x79;&#x67;&#x61;&#x39;&#x39;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#x63;&#x79;&#x67;&#x61;&#x39;&#x39;&#32;&#x61;&#116;&#32;&#x67;&#x6d;&#x61;&#x69;&#108;&#32;&#100;&#x6f;&#116;&#32;&#x63;&#x6f;&#x6d;</noscript> <BR/> 04-23058005</td>
+<td align="left">單親、隔代教養.弱勢及一般家庭之兒童青少年</td>
+<td align="left">銀行：新光銀行 <BR/> 戶名：台灣省兒童少年成長協會 <BR/> 帳號：103-0912-10-000212-0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="footer">
+<a href="https://www.facebook.com/groups/programmerMagazine/">程式人雜誌</a> ，採用 <a href="http://creativecommons.org/licenses/by-sa/3.0/tw/ ">創作共用：姓名標示、相同方式分享</a> 授權，歡迎加入 <a href="https://www.facebook.com/groups/programmerMagazine/">雜誌社團</a>
+</div>
+</body>
+</html>

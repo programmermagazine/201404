@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="../css/pmag.css" type="text/css" />
+</head>
+<body>
+<div id="header_wrap">
+   <h1><a href="https://www.facebook.com/groups/programmerMagazine">程式人雜誌</a> <sub> --  <a href="https://dl.dropbox.com/u/101584453/pmag/201403/htm/home.html">2014 年 4 月號</a> (開放公益出版品)</sub></h1>
+</div>
+<div id="content">
+<div id="TOC">
+<ul>
+<li><a href="#visual-basic-6.0利用遞迴與程序導向解-n-queens-puzzle-皇后問題-作者廖憲得-0xde">Visual Basic 6.0:利用遞迴與程序導向解 N Queens Puzzle 皇后問題 (作者：廖憲得 0xde)</a></li>
+</ul>
+</div>
+<h2 id="visual-basic-6.0利用遞迴與程序導向解-n-queens-puzzle-皇后問題-作者廖憲得-0xde"><a href="#visual-basic-6.0利用遞迴與程序導向解-n-queens-puzzle-皇后問題-作者廖憲得-0xde">Visual Basic 6.0:利用遞迴與程序導向解 N Queens Puzzle 皇后問題 (作者：廖憲得 0xde)</a></h2>
+<p>什麼是 N Queens Puzzle 皇后問題問題？　 通常我們都會用 8 皇后來稱呼它，但將 8 改成動態數字 n，則稱為 n 皇后</p>
+<p>什麼是 8 Queens Puzzle 皇后問題問題？　</p>
+<p>那麼 8 皇后問題又是什麼呢？</p>
+<blockquote>
+<p>八皇后問題是一個以西洋棋為背景的問題：如何能夠在8×8的西洋棋棋盤上放置八個皇后，使得任何一個皇后都無法直接吃掉其他的皇后？ 為了達到此目的，任兩個皇后都不能處於同一條橫行、縱行或斜線上。 八皇后問題可以推廣為更一般的n皇后擺放問題 ：這時棋盤的大小變為n × n ，而皇后個數也變成n 。 若且唯若 n = 1或n ≥ 4時問題有解[1] 。</p>
+</blockquote>
+<ul>
+<li>維基百科：<a href="http://en.wikipedia.org/wiki/Eight_queens">http://en.wikipedia.org/wiki/Eight_queens</a></li>
+</ul>
+<div class="figure">
+<img src="../img/queen5.JPG" alt="5 皇后總共有 10 組解" /><p class="caption">5 皇后總共有 10 組解</p>
+</div>
+<div class="figure">
+<img src="../img/queen8.JPG" alt="8 皇后總共有 92 組解" /><p class="caption">8 皇后總共有 92 組解</p>
+</div>
+<pre><code>【1皇后】共1組解  
+【2皇后】共0組解  
+【3皇后】共0組解  
+【4皇后】共2組解  
+【5皇后】共10組解  
+【6皇后】共4組解  
+【7皇后】共40組解  
+【8皇后】共92組解  
+【9皇后】共352組解  
+【10皇后】共724組解  
+【11皇后】共2680組解  
+【12皇后】共14200組解  
+【13皇后】共73712組解  
+【14皇后】共365596組解  
+【15皇后】共2279184組解  
+【16皇后】共14772512組解  </code></pre>
+<p>通常跑超過 10 皇后就需要等待不少時間了！</p>
+<p>如何使用遞迴與程序導向去實作呢？</p>
+<pre class="sourceCode monobasic"><code class="sourceCode monobasic"><span class="kw">Dim</span> QueenXY() <span class="co">&#39; 棋盤</span>
+<span class="kw">Dim</span> TempQueenXY(9999) <span class="co">&#39; 暫存的棋盤</span>
+<span class="kw">Dim</span> TempNumber <span class="co">&#39; 數量</span>
+<span class="kw">Dim</span> QueenNumber <span class="co">&#39; 正解總數</span>
+<span class="kw">Private</span> <span class="kw">Sub </span>Form_Activate()
+Queen = 9 <span class="co">&#39; 皇后數</span>
+
+<span class="kw">ReDim</span> QueenXY(Queen - 1, Queen - 1) <span class="co">&#39; 配置棋盤</span>
+
+<span class="kw">For </span>I = 0 <span class="kw">To</span> Queen - 1
+    <span class="kw">For </span>J = 0 <span class="kw">To</span> Queen - 1
+        QueenXY(I, J) = 0
+    <span class="kw">Next </span>J
+<span class="kw">Next </span>I
+    
+    QueenNumber = 0
+    List1.Clear
+    
+<span class="kw">For </span>I = 0 <span class="kw">To</span> UBound(QueenXY)
+    <span class="kw">Call</span> InputQueen(I, 0)
+<span class="kw">Next </span>I
+
+    MsgBox <span class="st">&quot;總解有 =&gt; &quot;</span> &amp; QueenNumber &amp; <span class="st">&quot; 組&quot;</span>
+<span class="kw">End Sub</span>
+
+
+<span class="kw">Function </span>InputQueen(X, Y) <span class="co">&#39; 放置皇后</span>
+    <span class="kw">If </span>X &gt;= 0 <span class="kw">And</span> X &lt;= UBound(QueenXY) <span class="kw">And</span> Y &gt;= 0 <span class="kw">And</span> Y &lt;= UBound(QueenXY) <span class="kw">Then</span> <span class="co">&#39; 判斷棋盤是否超過</span>
+        
+        <span class="kw">If </span>QueenXY(X, Y) = 0 <span class="kw">Then</span> <span class="co">&#39; 判斷是否為可放 (是否被殺)</span>
+            
+
+            
+            BackupTemp <span class="co">&#39; Step 備份目前棋盤狀</span>
+            <span class="kw">Call</span> KillQueen(X, Y) <span class="co">&#39; 建立被殺</span>
+            <span class="kw">For </span>I = 0 <span class="kw">To</span> UBound(QueenXY) <span class="co">&#39; 放下一個</span>
+                <span class="kw">Call</span> InputQueen(I, Y + 1)
+            <span class="kw">Next </span>I
+            <span class="kw">If </span>Y = UBound(QueenXY) <span class="kw">Then</span>
+                QueenNumber = QueenNumber + 1
+                
+                
+                Temp = <span class="st">&quot;&quot;</span>
+                        List1.AddItem <span class="st">&quot;第 &quot;</span> &amp; QueenNumber &amp; <span class="st">&quot; 組答案為：&quot;</span>
+                <span class="kw">For </span>I = 0 <span class="kw">To</span> UBound(QueenXY)
+                    <span class="kw">For </span>J = 0 <span class="kw">To</span> UBound(QueenXY)
+                        Temp = Temp &amp; QueenXY(I, J) &amp; <span class="st">&quot; &quot;</span>
+                    <span class="kw">Next </span>J
+                        List1.AddItem Temp
+                        Temp = <span class="st">&quot;&quot;</span>
+                <span class="kw">Next </span>I
+                        List1.AddItem <span class="st">&quot;&quot;</span>
+                
+            <span class="kw">End If</span>
+                
+                Reductive <span class="co">&#39; 還原</span>
+        <span class="kw">End If</span>
+    <span class="kw">End If</span>
+<span class="kw">End Function</span>
+
+<span class="kw">Function </span>KillQueen(KX, KY) <span class="co">&#39; 跟自己八方被殺</span>
+
+QueenXY(KX, KY) = <span class="st">&quot;Q&quot;</span>
+
+<span class="kw">For </span>I = 0 <span class="kw">To</span> UBound(QueenXY)
+    <span class="kw">For </span>J = 0 <span class="kw">To</span> UBound(QueenXY)
+        <span class="kw">If </span>I = KX <span class="kw">And</span> J = KY <span class="kw">Then</span>
+        <span class="kw">Else</span>
+            <span class="kw">If </span>I = KX <span class="kw">Or</span> J = KY <span class="kw">Then</span> QueenXY(I, J) = 1 <span class="co">&#39; 四面</span>
+            
+            <span class="kw">If </span>(J - KY) &lt;&gt; 0 <span class="kw">And</span> (I - KX) &lt;&gt; 0 <span class="kw">Then</span> <span class="co">&#39; 不為 0 (自己)</span>
+                <span class="kw">If </span>Abs((J - KY) / (I - KX)) = 1 <span class="kw">Then</span> QueenXY(I, J) = 1 <span class="co">&#39; 八方 (斜率絕對值 = 1)</span>
+            <span class="kw">End If</span>
+        <span class="kw">End If</span>
+    <span class="kw">Next </span>J
+<span class="kw">Next </span>I
+
+<span class="kw">End Function</span>
+
+<span class="kw">Function </span>BackupTemp() <span class="co">&#39; 備份</span>
+    Temp = <span class="st">&quot;&quot;</span>
+    <span class="kw">For </span>I = 0 <span class="kw">To</span> UBound(QueenXY)
+        <span class="kw">For </span>J = 0 <span class="kw">To</span> UBound(QueenXY)
+             Temp = Temp &amp; QueenXY(I, J) &amp; <span class="st">&quot;,&quot;</span>
+        <span class="kw">Next </span>J
+    <span class="kw">Next </span>I
+    
+    TempQueenXY(TempNumber) = Temp
+    TempNumber = TempNumber + 1
+<span class="kw">End Function</span>
+
+<span class="kw">Function </span>Reductive() <span class="co">&#39; 還原</span>
+    Temp = Split(TempQueenXY(TempNumber - 1), <span class="st">&quot;,&quot;</span>)
+    TempI = 0
+    <span class="kw">For </span>I = 0 <span class="kw">To</span> UBound(QueenXY)
+        <span class="kw">For </span>J = 0 <span class="kw">To</span> UBound(QueenXY)
+            QueenXY(I, J) = Temp(TempI)
+            TempI = TempI + 1
+        <span class="kw">Next </span>J
+    <span class="kw">Next </span>I
+    
+    TempNumber = TempNumber - 1
+<span class="kw">End Function</span></code></pre>
+<ul>
+<li>原始碼下載： <a href="http://files.dotblogs.com.tw/0xde/1311/2013111193556893.rar">N皇后(N Queen).rar</a></li>
+</ul>
+<p>【本文作者為「廖憲得」，原文網址為： <a href="http://www.dotblogs.com.tw/0xde/archive/2013/11/11/127531.aspx">http://www.dotblogs.com.tw/0xde/archive/2013/11/11/127531.aspx</a> ，由陳鍾誠編輯後納入本雜誌】</p>
+</div>
+<div id="footer">
+<a href="https://www.facebook.com/groups/programmerMagazine/">程式人雜誌</a> ，採用 <a href="http://creativecommons.org/licenses/by-sa/3.0/tw/ ">創作共用：姓名標示、相同方式分享</a> 授權，歡迎加入 <a href="https://www.facebook.com/groups/programmerMagazine/">雜誌社團</a>
+</div>
+</body>
+</html>

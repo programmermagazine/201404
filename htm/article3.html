@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../css/pmag.css" type="text/css" />
+</head>
+<body>
+<div id="header_wrap">
+   <h1><a href="https://www.facebook.com/groups/programmerMagazine">程式人雜誌</a> <sub> --  <a href="https://dl.dropbox.com/u/101584453/pmag/201403/htm/home.html">2014 年 4 月號</a> (開放公益出版品)</sub></h1>
+</div>
+<div id="content">
+<div id="TOC">
+<ul>
+<li><a href="#人工神經網路-artificial-neural-network-作者bridan">人工神經網路 (Artificial Neural Network) (作者：Bridan)</a></li>
+</ul>
+</div>
+<h2 id="人工神經網路-artificial-neural-network-作者bridan"><a href="#人工神經網路-artificial-neural-network-作者bridan">人工神經網路 (Artificial Neural Network) (作者：Bridan)</a></h2>
+<p><a href="http://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C">NEURO</a> 這門學問是我工作時才學習得的知識，多年前曾有一篇 <a href="http://4rdp.blogspot.tw/2009/07/washing-machine.html">洗衣機</a> 貼文提到它，當時第一次知道這東西時，已經從研究所畢業好幾年，書局也沒幾本書可以參考，書中一堆數學式，有看沒有很懂，九O年代網路剛興起，沒甚麼資料可查，正好一位大學同學在大同工學院攻讀博士班主攻語音辨識，NEURO 就是用於學習辨識語音模式的解決方案之一，因此跟主管提出學習計畫，對授課教授表達旁聽的想法，就每周固定時間去大同工學院上課，我不需要學分，所以不用繳學費、不必考試、不必交作業，自備課本上了一個學期的課，這種學習方法在我準備插班大學考試也用過，並認識一些朋友。最近上網查，沒什麼人對 NEURO 議題，提供簡單的實例，以供初學者參考入門，現在將個人所知的做個紀錄分享。</p>
+<p>類神經網路有很多解決方案，這裡使用 BP 方法。首先認識神經元的數學模型，</p>
+<div class="figure">
+<img src="../img/BridanAN.gif" />
+</div>
+<p>MP (MultiLayer Perceptron) 模型公式：</p>
+<h3 id="一先計算內部數值"><a href="#一先計算內部數值">一、先計算內部數值</a></h3>
+<p>Ui = Σ Wji Xj – θi</p>
+<p>Wji = 連結強度</p>
+<p>Xj = 神經元 j 所傳來之訊號</p>
+<p>θi = 神經元 i 之閥值</p>
+<h3 id="二計算輸出數值"><a href="#二計算輸出數值">二、計算輸出數值</a></h3>
+<p>Yi = f(Ui) = Yi 處理單元函數</p>
+<p>f = 轉換函數，通常為階梯函數(Step function)</p>
+<p>例如 Yi = 1 / (1 + exp(-Ui))</p>
+<h3 id="三δ差距量-用來修正權重"><a href="#三δ差距量-用來修正權重">三、δ差距量 ，用來修正權重</a></h3>
+<p>{T}目標輸出量</p>
+<p>{Y}推論輸出量</p>
+<p>差距量 = 目標輸出量 – 推論輸出量 = δi = Ti – Yi</p>
+<p>本文範例採取的修正算式 δi = Yi‧(1 - Yi)‧(Ti – Yi)</p>
+<h3 id="四計算輸出閥值及權重變量"><a href="#四計算輸出閥值及權重變量">四、計算輸出閥值及權重變量</a></h3>
+<p>η：學習速率，控制權重修正幅度</p>
+<p>輸出單元閥值改變量 = △θi = - η‧δi</p>
+<p>權重改變量 = △Wji = Xj‧η‧δi</p>
+<h3 id="五修正下一輪閥值及權重"><a href="#五修正下一輪閥值及權重">五、修正下一輪閥值及權重</a></h3>
+<p>θi = θi + △θi</p>
+<p>Wji = Wji + △Wji</p>
+<h3 id="六檢驗成果"><a href="#六檢驗成果">六、檢驗成果</a></h3>
+<p>總錯誤率 = 誤分類案例總數/範例總數</p>
+<p><strong>依問題的複雜層度，利用它組合一知識神經網路，基本上有三大層－輸入層、隱藏層及輸出層。</strong></p>
+<div class="figure">
+<img src="../img/BridanNeuro_XOR.jpg" />
+</div>
+<p>最後整理一個 <a href="https://docs.google.com/spreadsheet/ccc?key=0AvTFWEwZaQ8_dEI1YlBla081dDJ0MERiY3NSNzcwMFE&amp;usp=sharing">試算表</a> 提供有興趣的朋友參考，以 XOR 邏輯為例，X1, X2 為輸入，Y為輸出，用 #3, #4, #5 三個神經元學習，H3, H4 是隱藏層(夾在輸入及輸出之間)，簡單的問題一個隱藏層就夠，複雜的可能需要兩層。使用四種組合狀態重複訓練，最後它會穩定判別輸入，並給予適合的答案。</p>
+<p>以 <a href="http://4rdp.blogspot.tw/2009/08/recursion.html">遞迴或遞歸 (Recursion)</a> <em>這樣技術，可將非線性數學問題收斂求解，</em> <strong>能處理類似邏輯型式的問題</strong> ，供大家參考。</p>
+<p>(本文來自「研發養成所」 Bridan 的網誌，原文網址為 <a href="http://4rdp.blogspot.tw/2013/10/artificial-neural-network.html">http://4rdp.blogspot.tw/2013/10/artificial-neural-network.html</a> ，由陳鍾誠編輯後納入程式人雜誌)</p>
+</div>
+<div id="footer">
+<a href="https://www.facebook.com/groups/programmerMagazine/">程式人雜誌</a> ，採用 <a href="http://creativecommons.org/licenses/by-sa/3.0/tw/ ">創作共用：姓名標示、相同方式分享</a> 授權，歡迎加入 <a href="https://www.facebook.com/groups/programmerMagazine/">雜誌社團</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../css/pmag.css" type="text/css" />
+</head>
+<body>
+<div id="header_wrap">
+   <h1><a href="https://www.facebook.com/groups/programmerMagazine">程式人雜誌</a> <sub> --  <a href="https://dl.dropbox.com/u/101584453/pmag/201403/htm/home.html">2014 年 4 月號</a> (開放公益出版品)</sub></h1>
+</div>
+<div id="content">
+<div id="TOC">
+<ul>
+<li><a href="#arduino入門教學16-amarino-的-speaktoarduino-範例程式-作者cooper-maa">Arduino入門教學(16) – Amarino 的 SpeakToArduino 範例程式 (作者：Cooper Maa)</a></li>
+</ul>
+</div>
+<h2 id="arduino入門教學16-amarino-的-speaktoarduino-範例程式-作者cooper-maa"><a href="#arduino入門教學16-amarino-的-speaktoarduino-範例程式-作者cooper-maa">Arduino入門教學(16) – Amarino 的 SpeakToArduino 範例程式 (作者：Cooper Maa)</a></h2>
+<p>這篇是寫給 amarino 初學者看的，目的是教導你如何執行 Amarino 的 SpeakToArduino 範例程式。SpeakToArduino 這個範例示範如何用 Android 手機聲控 Arduino。</p>
+<h3 id="所需材料"><a href="#所需材料">所需材料</a></h3>
+<ul>
+<li>Android 手機一支</li>
+<li>Arduino x1</li>
+<li>bluetooth module x 1</li>
+<li>紅色 LED, 綠色 LED 及藍色 LED 各一顆（若無特定顏色 LED，可用其它顏色的 LED 取代），或一顆 RGB Led</li>
+<li>220 歐姆電阻 x 3</li>
+</ul>
+<h3 id="step-1安裝-amarino"><a href="#step-1安裝-amarino">Step 1：安裝 Amarino</a></h3>
+<p>到 <a href="http://www.amarino-toolkit.net/">http://www.amarino-toolkit.net/</a> 下載下列 App 並安裝到 Android 手機上：</p>
+<ol style="list-style-type: decimal">
+<li><p><a href="http://code.google.com/p/amarino/downloads/detail?name=Amarino_2_v0_55.apk&amp;can=2&amp;q=">Amarino</a></p></li>
+<li><p><a href="http://code.google.com/p/amarino/downloads/detail?name=AmarinoPluginBundle.apk&amp;can=2&amp;q=">Amarino Plug-in Bundle</a></p></li>
+<li><p><a href="http://code.google.com/p/amarino-examples/downloads/detail?name=SpeakToArduino.apk&amp;can=2&amp;q=#makechanges">SpeakToArduino</a></p></li>
+</ol>
+<h3 id="step-2-安裝-arduino-ide-與-meetandroid-library"><a href="#step-2-安裝-arduino-ide-與-meetandroid-library">Step 2: 安裝 Arduino IDE 與 MeetAndroid Library</a></h3>
+<p>如果你電腦上還沒有 Arduino IDE，請先到 <a href="http://arduino.cc/en/Main/Software">http://arduino.cc/en/Main/Software</a> 下載軟體，下載後解壓縮即可。</p>
+<p>接著下載 <a href="http://code.google.com/p/amarino/downloads/detail?name=MeetAndroid_4.zip&amp;can=2&amp;q=">MeetAndroid Library</a>，把 MeetAndroid 解到 Arduino IDE 安裝目錄下的 libraries 資料夾。</p>
+<p>重新啟動 Arduino IDE，在 Sketch &gt; Import Library 底下應該會看到 MeetAndroid，如下圖：</p>
+<div class="figure">
+<img src="../img/image_thumb4222.png" />
+</div>
+<h3 id="step-3連接-led"><a href="#step-3連接-led">Step 3：連接 LED</a></h3>
+<p>參考下圖，把紅、綠、藍三顆 LED 分別接到 pin 9, 10, 11，LED 的接法為: 長腳（陽極）接到 pin 腳，而短腳（陰極）串接一顆 220 ohm 電阻接到 GND：</p>
+<div class="figure">
+<img src="../img/image_thumb62.png" />
+</div>
+<h3 id="step-4-上傳-speaktoarduino-程式"><a href="#step-4-上傳-speaktoarduino-程式">Step 4： 上傳 SpeakToArduino 程式</a></h3>
+<p>到這裏下載，並使用 Arduino IDE 打開 SpeakToArduino 程式。</p>
+<p>程式所用的 baud rate 預設是 57600 bps，如果你的藍芽模組不是 57600 bps，請做適當的調整：</p>
+<div class="figure">
+<img src="../img/image_thumb3.png" />
+</div>
+<p>然後把程式上傳到 Arduino 板子上。</p>
+<h3 id="step-5連接藍芽模組"><a href="#step-5連接藍芽模組">Step 5：連接藍芽模組</a></h3>
+<p>我用的是 <a href="http://www.wavesen.com/">廣州匯承信息科技</a> 的 HC-0x 系列藍芽模組，下圖是 HC-0x 藍芽模組的外觀：</p>
+<div class="figure">
+<img src="../img/SpeakToArduinoDevice1.jpg" alt="▲ HC-0x 藍芽模組 (圖左：正面圖，圖右：背面圖）" /><p class="caption">▲ HC-0x 藍芽模組 (圖左：正面圖，圖右：背面圖）</p>
+</div>
+<p>連接方法很簡單，照下表把 Arduino 和藍芽模組連接起來就好：</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Arduino</th>
+<th align="left">藍芽模組</th>
+<th align="left">備註</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">5V</td>
+<td align="left">VCC</td>
+<td align="left">注意電源不可接錯</td>
+</tr>
+<tr class="even">
+<td align="left">GND</td>
+<td align="left">GND</td>
+<td align="left">注意電源不可接錯</td>
+</tr>
+<tr class="odd">
+<td align="left">RXD</td>
+<td align="left">TXD</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">TXD</td>
+<td align="left">RXD</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<img src="../img/image_thumb132222.png" />
+</div>
+<p>有兩點要注意：第一是電源千萬不可接錯，不然可能會燒壞藍芽模組，第二是 Arduino 的 RXD 要接藍芽模組的 TXD，而 Arduino 的 TXD 要接藍芽模組的 RXD。</p>
+<p>通電之後，藍芽模組上的 LED 會一直閃爍：</p>
+<div class="figure">
+<img src="../img/image_thumb13322222.png" />
+</div>
+<h3 id="step-6執行-speaktoarduino-app"><a href="#step-6執行-speaktoarduino-app">Step 6：執行 SpeakToArduino App</a></h3>
+<p>首先，先利用 Amarino 搜尋藍芽設備，找到設備後，將藍芽設備的 MAC Address 抄起來（記得不要在 Amarino 設定任何 Event！）：</p>
+<div class="figure">
+<img src="../img/image_thumb14325.png" />
+</div>
+<p>打開 Android 手機上的 SpeakToArduino App，你會看到這樣的畫面:</p>
+<div class="figure">
+<img src="../img/image_thumb7.png" />
+</div>
+<p>選手機 Menu 鍵 Set BT Device Address，手機會跳出這個畫面，此時請輸入剛剛抄下來的 MAC Address，然後按下【Save】鈕:</p>
+<div class="figure">
+<img src="../img/image_thumb5.png" />
+</div>
+<p>按一下手機 Back 鍵退出 SpeakToArduino App，然後重新啟動 SpeakToArduino，這樣 App 才會用新的 Mac Adress 跟藍芽模組連線。</p>
+<p>如果一切順利，Android 手機就會跟 Arduino 建立連線，並且呈現如下圖的畫面（注意手機上方的 Status bar，若有成功與 Arduino 連線，status bar 上會顯示 Active connection: … 的訊息）：</p>
+<div class="figure">
+<img src="../img/image_thumb11.png" />
+</div>
+<p>按下【Click and order your color】鈕，手機會跳出語音辨識的畫面：</p>
+<div class="figure">
+<img src="../img/image_thumb15.png" />
+</div>
+<p>這時便可以說出想要的顏色，例如 red, green, blue, white, pink, orange, yellow, dark 或 off，這時候 Arduino 上三顆 LED 便會同步改變亮度。比如當我說 red，這時 Android 手機就會叫 Arduino 把紅色 LED 打開：</p>
+<div class="figure">
+<img src="../img/image_thumb13.png" />
+</div>
+<p>如果你有 RGB Led，可以用一顆 RGB Led 取代三顆 Led，這樣更可以呈現 LED 顏色變化的效果。</p>
+<h3 id="參考資料"><a href="#參考資料">參考資料</a></h3>
+<ul>
+<li><a href="http://coopermaa2nd.blogspot.tw/2012/07/getting-started-with-amarino.html">Getting Started with Amarino 簡報</a></li>
+<li><a href="http://coopermaa2nd.blogspot.tw/2012/06/amarino-android-arduino.html">以 Amarino 連接 Android 與 Arduino</a></li>
+<li><a href="http://coopermaa2nd.blogspot.tw/2012/06/multicolorlamp.html">MultiColorLamp</a></li>
+<li><a href="http://coopermaa2nd.blogspot.tw/2012/06/sensorgraph.html">SensorGraph</a></li>
+</ul>
+<p>【本文作者為馬萬圳，原文網址為： <a href="http://coopermaa2nd.blogspot.tw/2012/07/speaktoarduino.html">http://coopermaa2nd.blogspot.tw/2012/07/speaktoarduino.html</a> ，由陳鍾誠編輯後納入本雜誌】</p>
+</div>
+<div id="footer">
+<a href="https://www.facebook.com/groups/programmerMagazine/">程式人雜誌</a> ，採用 <a href="http://creativecommons.org/licenses/by-sa/3.0/tw/ ">創作共用：姓名標示、相同方式分享</a> 授權，歡迎加入 <a href="https://www.facebook.com/groups/programmerMagazine/">雜誌社團</a>
+</div>
+</body>
+</html>

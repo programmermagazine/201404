@@ -1,0 +1,481 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="../css/pmag.css" type="text/css" />
+</head>
+<body>
+<div id="header_wrap">
+   <h1><a href="https://www.facebook.com/groups/programmerMagazine">程式人雜誌</a> <sub> --  <a href="https://dl.dropbox.com/u/101584453/pmag/201403/htm/home.html">2014 年 4 月號</a> (開放公益出版品)</sub></h1>
+</div>
+<div id="content">
+<div id="TOC">
+<ul>
+<li><a href="#開放電腦計畫-10-j0c-編譯器使用-node.js-javascript-實作-作者陳鍾誠">開放電腦計畫 (10) – J0C 編譯器：使用 node.js + javascript 實作 (作者：陳鍾誠)</a></li>
+</ul>
+</div>
+<h2 id="開放電腦計畫-10-j0c-編譯器使用-node.js-javascript-實作-作者陳鍾誠"><a href="#開放電腦計畫-10-j0c-編譯器使用-node.js-javascript-實作-作者陳鍾誠">開放電腦計畫 (10) – J0C 編譯器：使用 node.js + javascript 實作 (作者：陳鍾誠)</a></h2>
+<p>在 開放電腦計畫的前九篇文章中，我們首先介紹了整體架構，接著設計出了 CPU0 的指令集，然後寫出了 AS0 組譯器與 VM0 虛擬機：</p>
+<ul>
+<li><a href="https://dl.dropboxusercontent.com/u/101584453/pmag/201306/htm/article5.html">開放電腦計畫 (1) – 整體架構與 CPU0 處理器</a></li>
+<li><a href="http://programmermagazine.github.io/201307/htm/article5.html">開放電腦計畫 (2) – AS0 組譯器：使用 JavaScript+Node.js 實作</a></li>
+<li><a href="http://programmermagazine.github.io/201309/htm/article5.html">開放電腦計畫 (3) – VM0 虛擬機：使用 JavaScript+Node.js 實作</a></li>
+</ul>
+<p>接著我們用 Verilog 設計了一連串的 CPU，主要包含 32 位元的 CPU0 與 16 位元的 MCU0 等處理器。</p>
+<p>但是、直到目前為止，我們都還沒有為開放電腦計畫打造出「高階語言」，因此本文將設計出一個 名為 J0 的高階語言 (代表JavaScript 的精簡版)，並採用 JavaScript 去實作，然後在 node.js 平台中執行。</p>
+<p>有了 J0 語言與 J0C 編譯器之後，我們就可以創建出以下的工具鏈：</p>
+<blockquote>
+<p>J0 語言 ( j0c 編譯器) =&gt; IR0 中間碼 (ir2as 轉換器) =&gt; CPU0 組合語言 (AS0 組譯器) =&gt; CPU0 機器碼 (VM0 虛擬機執行或 CPU0 FPGA 執行)</p>
+</blockquote>
+<h3 id="javascript-簡化版----j0-語言"><a href="#javascript-簡化版----j0-語言">JavaScript 簡化版 -- J0 語言</a></h3>
+<p>以下是一個 J0 語言的程式範例，支援了 function, while, if, for 等語句，並且支援了「陣列與字典」等資料結構。</p>
+<p>檔案：test.j0</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">s = <span class="fu">sum</span>(<span class="dv">10</span>);
+
+<span class="kw">function</span> <span class="fu">sum</span>(n) {
+  s = <span class="dv">0</span>;
+  i=<span class="dv">1</span>;
+  <span class="kw">while</span> (i&lt;=<span class="dv">10</span>) {
+    s = s + i;
+    i++;
+  }
+  <span class="kw">return</span> s;
+}
+
+m = <span class="fu">max</span>(<span class="dv">3</span>,<span class="dv">5</span>);
+
+<span class="kw">function</span> <span class="fu">max</span>(a, b) {
+  <span class="kw">if</span> (a &gt; b)
+    <span class="kw">return</span> a;
+  <span class="kw">else</span>
+    <span class="kw">return</span> b;
+}
+
+<span class="kw">function</span> <span class="fu">total</span>(a) {
+  s = <span class="dv">0</span>;
+  <span class="kw">for</span> (i <span class="kw">in</span> a) {
+    s = s + a[i];
+  }
+  <span class="kw">return</span> s;
+}
+
+a = [ <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">6</span>];
+t = <span class="fu">total</span>(a);
+word = { <span class="dt">e</span>:<span class="st">&quot;dog&quot;</span>, <span class="dt">c</span>:<span class="st">&quot;狗&quot;</span> };</code></pre>
+<h3 id="原始碼"><a href="#原始碼">原始碼</a></h3>
+<p>接著我們用 node.js + javascript 實作出 j0c 編譯器，該編譯器可以將 J0 語言的程式，編譯成一種平坦化的中間碼格式，我們稱這種格式為 IR0，也就是 Intermediate Representation 0 的意思，以下是 j0c 編譯器的完整程式碼。</p>
+<p>檔案：j0c.js</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// j0c 編譯器，用法範例： node j0c test.j0</span>
+<span class="kw">var</span> fs = <span class="fu">require</span>(<span class="st">&quot;fs&quot;</span>);
+<span class="kw">var</span> util = <span class="fu">require</span>(<span class="st">&quot;util&quot;</span>);
+<span class="kw">var</span> log = <span class="ot">console</span>.<span class="fu">log</span>;     <span class="co">// 將 console.log 名稱縮短一點</span>
+<span class="kw">var</span> format = <span class="ot">util</span>.<span class="fu">format</span>;  <span class="co">// 字串格式化</span>
+<span class="kw">var</span> tokens = [];
+<span class="kw">var</span> tokenIdx = <span class="dv">0</span>;
+<span class="kw">var</span> end = <span class="st">&quot;$END&quot;</span>;
+<span class="kw">var</span> funcName = <span class="st">&quot;main&quot;</span>;
+<span class="kw">var</span> funcStack = [ funcName ];
+<span class="kw">var</span> irText = <span class="st">&quot;&quot;</span>;
+<span class="kw">var</span> symTable = {};
+symTable[funcName] = { <span class="dt">type</span>:<span class="st">&quot;function&quot;</span>, <span class="dt">name</span>:<span class="st">&quot;main&quot;</span>, <span class="dt">pcodes</span>:[] };
+
+<span class="kw">var</span> scan=<span class="kw">function</span>(text) { 
+  <span class="kw">var</span> re = <span class="kw">new</span> <span class="fu">RegExp</span>(<span class="ot">/</span><span class="fl">(\/\*</span><span class="bn">[</span><span class="fl">\s\S</span><span class="bn">]</span><span class="fl">*?\*\/)|(\/\/</span><span class="bn">[</span><span class="fl">^\r\n</span><span class="bn">]</span><span class="fl">)|(</span><span class="ot">&quot;.</span><span class="fl">*?</span><span class="ot">&quot;</span><span class="fl">)|(</span><span class="bn">\d</span><span class="fl">+(\.</span><span class="bn">\d</span><span class="fl">*)?)|(</span><span class="bn">[a-zA-Z]\w</span><span class="fl">*)|(</span><span class="bn">[&gt;=&lt;!</span><span class="fl">\+\-\*\/</span><span class="bn">&amp;%|]</span><span class="fl">+)|(</span><span class="bn">\s</span><span class="fl">+)|(</span><span class="ot">.</span><span class="fl">)</span><span class="ot">/gm</span>);
+  <span class="kw">var</span> types = [ <span class="st">&quot;&quot;</span>, <span class="st">&quot;COMMENT&quot;</span>, <span class="st">&quot;COMMENT&quot;</span>, <span class="st">&quot;STRING&quot;</span>, <span class="st">&quot;INTEGER&quot;</span>, <span class="st">&quot;FLOAT&quot;</span>, <span class="st">&quot;ID&quot;</span>, <span class="st">&quot;OP2&quot;</span>, <span class="st">&quot;SPACE&quot;</span>, <span class="st">&quot;CH&quot;</span> ];
+  tokens = [];
+  tokenIdx = <span class="dv">0</span>;
+  <span class="kw">var</span> lines = <span class="dv">1</span>, m;
+  <span class="kw">while</span>((m = <span class="ot">re</span>.<span class="fu">exec</span>(text)) !== <span class="kw">null</span>) {
+    <span class="kw">var</span> token = m[<span class="dv">0</span>], type;
+    <span class="kw">for</span> (i=<span class="dv">1</span>; i&lt;=<span class="dv">9</span>; i++) { 
+      <span class="kw">if</span> (m[i] !== <span class="kw">undefined</span>)
+        type = types[i];
+    }
+    <span class="kw">if</span> (!<span class="ot">token</span>.<span class="fu">match</span>(<span class="ot">/</span><span class="fl">^</span><span class="bn">[</span><span class="fl">\s\r\n</span><span class="bn">]</span><span class="ot">/</span>) &amp;&amp; type!=<span class="st">&quot;COMMENT&quot;</span>) {
+      <span class="ot">tokens</span>.<span class="fu">push</span>({ <span class="st">&quot;token&quot;</span>:token, <span class="st">&quot;type&quot;</span>:type, <span class="st">&quot;lines&quot;</span>:lines });
+    }
+    lines += <span class="ot">token</span>.<span class="fu">split</span>(<span class="ot">/</span><span class="bn">\n</span><span class="ot">/</span>).<span class="fu">length</span><span class="dv">-1</span>;
+  }
+  <span class="ot">tokens</span>.<span class="fu">push</span>({ <span class="st">&quot;token&quot;</span>: end, <span class="st">&quot;type&quot;</span>:end, <span class="st">&quot;lines&quot;</span>:lines });
+  <span class="kw">return</span> tokens;
+}
+
+<span class="kw">var</span> error=<span class="kw">function</span>(expect) {  
+  <span class="kw">var</span> token = tokens[tokenIdx];
+  <span class="fu">log</span>(<span class="st">&quot;Error: line=%d token (%s) do not match expect (%s)!&quot;</span>, <span class="ot">token</span>.<span class="fu">lines</span>, <span class="ot">token</span>.<span class="fu">token</span>, expect); 
+  <span class="fu">log</span>(<span class="kw">new</span> <span class="fu">Error</span>().<span class="fu">stack</span>);
+  <span class="ot">process</span>.<span class="fu">exit</span>(<span class="dv">1</span>);
+}
+
+<span class="kw">var</span> skip=<span class="kw">function</span>(o) { <span class="kw">if</span> (<span class="fu">isNext</span>(o)) <span class="fu">next</span>(o); }
+
+<span class="kw">var</span> next=<span class="kw">function</span>(o) {
+  <span class="kw">if</span> (o==<span class="kw">null</span> || <span class="fu">isNext</span>(o)) {
+    <span class="kw">return</span> tokens[tokenIdx++].<span class="fu">token</span>;
+  }
+  <span class="fu">error</span>(o);
+}
+
+<span class="kw">var</span> isNext=<span class="kw">function</span>(o) {
+  <span class="kw">if</span> (tokenIdx &gt;= <span class="ot">tokens</span>.<span class="fu">length</span>) 
+    <span class="kw">return</span> <span class="kw">false</span>;
+  <span class="kw">var</span> token = tokens[tokenIdx].<span class="fu">token</span>;
+  <span class="kw">if</span> (o <span class="kw">instanceof</span> RegExp) {
+    <span class="kw">return</span> <span class="ot">token</span>.<span class="fu">match</span>(o);
+  } <span class="kw">else</span>
+    <span class="kw">return</span> (token == o);
+}
+
+<span class="kw">var</span> nextType=<span class="kw">function</span>(o) {
+  <span class="kw">if</span> (o==<span class="kw">null</span> || <span class="fu">isNextType</span>(o)) {
+    <span class="kw">return</span> tokens[tokenIdx++].<span class="fu">token</span>;
+  }
+  <span class="fu">error</span>(o);
+}
+
+<span class="kw">var</span> isNextType=<span class="kw">function</span>(pattern) {
+  <span class="kw">var</span> type = tokens[tokenIdx].<span class="fu">type</span>;
+  <span class="kw">return</span> ((<span class="st">&quot;|&quot;</span>+pattern+<span class="st">&quot;|&quot;</span>).<span class="fu">indexOf</span>(<span class="st">&quot;|&quot;</span>+type+<span class="st">&quot;|&quot;</span>)&gt;=<span class="dv">0</span>);
+}
+
+<span class="kw">var</span> pcode=<span class="kw">function</span>(label, op, p, p1, p2) {
+  symTable[funcName].<span class="ot">pcodes</span>.<span class="fu">push</span>({<span class="st">&quot;label&quot;</span>:label, <span class="st">&quot;op&quot;</span>:op, <span class="st">&quot;p&quot;</span>:p, <span class="st">&quot;p1&quot;</span>:p1, <span class="st">&quot;p2&quot;</span>:p2});
+  <span class="kw">var</span> irCode = <span class="fu">format</span>(<span class="st">&quot;%s</span><span class="ch">\t</span><span class="st">%s</span><span class="ch">\t</span><span class="st">%s</span><span class="ch">\t</span><span class="st">%s</span><span class="ch">\t</span><span class="st">%s&quot;</span>, label, op, p, p1, p2);
+  <span class="fu">log</span>(irCode);
+  irText += irCode+<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>;
+}
+
+<span class="kw">var</span> tempIdx = <span class="dv">1</span>;
+<span class="kw">var</span> nextTemp=<span class="kw">function</span>() { 
+  <span class="kw">var</span> name=<span class="st">&quot;T&quot;</span>+tempIdx++;
+  symTable[name] = { <span class="dt">type</span>:<span class="st">&quot;var&quot;</span>, <span class="dt">name</span>:name };
+  <span class="kw">return</span> name; 
+}
+
+<span class="kw">var</span> labelIdx = <span class="dv">1</span>;
+<span class="kw">var</span> nextLabel=<span class="kw">function</span>() { <span class="kw">return</span> <span class="st">&quot;L&quot;</span>+labelIdx++; }
+
+<span class="kw">var</span> elseIdx = <span class="dv">1</span>;
+<span class="kw">var</span> nextElse=<span class="kw">function</span>() { <span class="kw">return</span> <span class="st">&quot;else&quot;</span>+elseIdx++; }
+
+<span class="kw">var</span> compile=<span class="kw">function</span>(text) {
+  <span class="fu">scan</span>(text);
+  <span class="fu">PROG</span>();
+}
+
+<span class="co">// PROG = STMTS</span>
+<span class="kw">var</span> PROG=<span class="kw">function</span>() {
+  <span class="fu">STMTS</span>();
+}
+
+<span class="co">// STMTS = STMT*</span>
+<span class="kw">var</span> STMTS=<span class="kw">function</span>() {
+  <span class="kw">while</span> (!<span class="fu">isNext</span>(<span class="st">&quot;}&quot;</span>) &amp;&amp; !<span class="fu">isNext</span>(end))
+    <span class="fu">STMT</span>();
+}
+
+<span class="co">// BLOCK = { STMTS }</span>
+<span class="kw">var</span> BLOCK=<span class="kw">function</span>() {
+  <span class="fu">next</span>(<span class="st">&quot;{&quot;</span>);
+  <span class="fu">STMTS</span>();
+  <span class="fu">next</span>(<span class="st">&quot;}&quot;</span>);
+}
+
+<span class="co">// STMT = FOR | WHILE | IF | FUNCTION | return EXP ; | ASSIGN ; | BLOCK</span>
+<span class="kw">var</span> STMT=<span class="kw">function</span>() {
+  <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;for&quot;</span>)) {
+    <span class="fu">FOR</span>();
+  } <span class="kw">else</span> <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;while&quot;</span>)) {
+    <span class="fu">WHILE</span>();
+  } <span class="kw">else</span> <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;if&quot;</span>)) {
+    <span class="fu">IF</span>();
+  } <span class="kw">else</span> <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;function&quot;</span>)) {
+    <span class="fu">FUNCTION</span>();
+  } <span class="kw">else</span> <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;return&quot;</span>)) {
+    <span class="fu">next</span>(<span class="st">&quot;return&quot;</span>);
+    <span class="kw">var</span> e = <span class="fu">EXP</span>();
+    <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;return&quot;</span>, e, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+    <span class="fu">next</span>(<span class="st">&quot;;&quot;</span>);
+  } <span class="kw">else</span> <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;{&quot;</span>)) {
+    <span class="fu">BLOCK</span>();
+  } <span class="kw">else</span> {
+    <span class="fu">ASSIGN</span>();
+    <span class="fu">next</span>(<span class="st">&quot;;&quot;</span>);
+  }
+}
+
+<span class="co">// FOR = for (ID in EXP) BLOCK</span>
+<span class="kw">var</span> FOR=<span class="kw">function</span>() {
+  <span class="kw">var</span> startLabel = <span class="fu">nextLabel</span>(), exitLabel = <span class="fu">nextLabel</span>();
+  <span class="fu">next</span>(<span class="st">&quot;for&quot;</span>); 
+  <span class="fu">next</span>(<span class="st">&quot;(&quot;</span>); 
+  <span class="kw">var</span> id = <span class="fu">nextType</span>(<span class="st">&quot;ID&quot;</span>);
+  <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;=&quot;</span>, id, <span class="st">&quot;0&quot;</span>, <span class="st">&quot;&quot;</span>);
+  <span class="fu">next</span>(<span class="st">&quot;in&quot;</span>);
+  <span class="kw">var</span> e=<span class="fu">EXP</span>(); 
+  <span class="fu">next</span>(<span class="st">&quot;)&quot;</span>);
+  <span class="kw">var</span> t = <span class="fu">nextTemp</span>();
+  <span class="fu">pcode</span>(startLabel, <span class="st">&quot;&lt;&quot;</span>, t, id, e+<span class="st">&quot;.length&quot;</span>);
+  <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;if0&quot;</span>, t, exitLabel, <span class="st">&quot;&quot;</span>);
+  <span class="fu">BLOCK</span>(); 
+  <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;goto&quot;</span>, startLabel, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+  <span class="fu">pcode</span>(exitLabel, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+}
+
+<span class="co">// WHILE = while (EXP) BLOCK</span>
+<span class="kw">var</span> WHILE=<span class="kw">function</span>() {
+  <span class="kw">var</span> startLabel = <span class="fu">nextLabel</span>(), exitLabel=<span class="fu">nextLabel</span>();
+  <span class="fu">pcode</span>(startLabel, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+  <span class="fu">next</span>(<span class="st">&quot;while&quot;</span>); 
+  <span class="fu">next</span>(<span class="st">&quot;(&quot;</span>); 
+  <span class="kw">var</span> e = <span class="fu">EXP</span>(); 
+  <span class="fu">next</span>(<span class="st">&quot;)&quot;</span>); 
+  <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;if0&quot;</span>, e, exitLabel, <span class="st">&quot;&quot;</span>);
+  <span class="fu">BLOCK</span>();
+  <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;goto&quot;</span>, startLabel, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+  <span class="fu">pcode</span>(exitLabel, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+}
+
+<span class="co">// IF = if (EXP) STMT (else STMT)?</span>
+<span class="kw">var</span> IF=<span class="kw">function</span>() {
+  <span class="fu">next</span>(<span class="st">&quot;if&quot;</span>); 
+  <span class="fu">next</span>(<span class="st">&quot;(&quot;</span>); 
+  <span class="kw">var</span> e = <span class="fu">EXP</span>(); 
+  <span class="fu">next</span>(<span class="st">&quot;)&quot;</span>); 
+  <span class="kw">var</span> elseLabel = <span class="fu">nextLabel</span>();
+  <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;if0&quot;</span>, e, elseLabel, <span class="st">&quot;&quot;</span>);
+  <span class="fu">STMT</span>();
+  <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;else&quot;</span>)) {
+    <span class="fu">next</span>(<span class="st">&quot;else&quot;</span>);
+    <span class="fu">pcode</span>(elseLabel, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+    <span class="fu">STMT</span>();
+  }
+}
+
+<span class="co">// ASSIGN = ID[++|--]?(=EXP?)?</span>
+<span class="kw">var</span> ASSIGN=<span class="kw">function</span>() {
+  <span class="kw">var</span> id, op, hasNext = <span class="kw">false</span>;
+  <span class="kw">if</span> (<span class="fu">isNextType</span>(<span class="st">&quot;ID&quot;</span>)) {
+    id = <span class="fu">nextType</span>(<span class="st">&quot;ID&quot;</span>);
+    symTable[id] = { <span class="dt">type</span>:<span class="st">&quot;var&quot;</span>, <span class="dt">name</span>:id };
+    <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;++&quot;</span>) || <span class="fu">isNext</span>(<span class="st">&quot;--&quot;</span>)) {
+      <span class="kw">var</span> op = <span class="fu">next</span>(<span class="kw">null</span>);
+      <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, op, id, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+    }
+    hasNext = <span class="kw">true</span>;
+  }
+  <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;=&quot;</span>)) {
+    <span class="fu">next</span>(<span class="st">&quot;=&quot;</span>);
+    <span class="kw">var</span> e = <span class="fu">EXP</span>();
+    <span class="kw">if</span> (id != <span class="kw">undefined</span>)
+      <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;=&quot;</span>, id, e, <span class="st">&quot;&quot;</span>);
+    hasNext = <span class="kw">true</span>;
+  }
+  <span class="kw">if</span> (!hasNext)
+    <span class="kw">return</span> <span class="fu">EXP</span>();
+}
+
+<span class="co">// EXP=TERM (OP2 TERM)?</span>
+<span class="kw">var</span> EXP=<span class="kw">function</span>() {
+  t1 = <span class="fu">TERM</span>();
+  <span class="kw">if</span> (<span class="fu">isNextType</span>(<span class="st">&quot;OP2&quot;</span>)) {
+    <span class="kw">var</span> op2 = <span class="fu">next</span>(<span class="kw">null</span>);
+    t2 = <span class="fu">TERM</span>();
+    <span class="kw">var</span> t = <span class="fu">nextTemp</span>();
+    <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, op2, t, t1, t2);
+    t1 = t;
+  }
+  <span class="kw">return</span> t1;
+}
+
+<span class="co">// TERM=STRING | INTEGER | FLOAT | ARRAY | TABLE | ID (TERMS)? | ID [TERMS]?| ( EXP )</span>
+<span class="kw">var</span> TERM=<span class="kw">function</span>() {
+  <span class="kw">if</span> (<span class="fu">isNextType</span>(<span class="st">&quot;STRING|INTEGER|FLOAT&quot;</span>)) {
+    <span class="kw">return</span> <span class="fu">next</span>(<span class="kw">null</span>);
+  } <span class="kw">else</span> <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;[&quot;</span>)) {
+    <span class="kw">return</span> <span class="fu">ARRAY</span>();
+  } <span class="kw">else</span> <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;{&quot;</span>)) {
+    <span class="kw">return</span> <span class="fu">TABLE</span>();
+  } <span class="kw">else</span> <span class="kw">if</span> (<span class="fu">isNextType</span>(<span class="st">&quot;ID&quot;</span>)) { <span class="co">// function call</span>
+    <span class="kw">var</span> id = <span class="fu">next</span>(<span class="kw">null</span>);
+    <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;(&quot;</span>)) { 
+      <span class="fu">next</span>(<span class="st">&quot;(&quot;</span>); 
+      <span class="kw">while</span> (!<span class="fu">isNext</span>(<span class="st">&quot;)&quot;</span>)) {
+        <span class="co">// TERM();</span>
+        <span class="kw">var</span> arg = <span class="fu">next</span>(<span class="kw">null</span>);
+        <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;arg&quot;</span>, arg, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+        <span class="fu">skip</span>(<span class="st">&quot;,&quot;</span>);
+      }
+      <span class="fu">next</span>(<span class="st">&quot;)&quot;</span>);
+      <span class="kw">var</span> ret = <span class="fu">nextTemp</span>();
+      <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;call&quot;</span>, ret, id, <span class="st">&quot;&quot;</span>);
+      <span class="kw">return</span> ret;
+    }
+    <span class="kw">var</span> array = id;
+    <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;[&quot;</span>)) { 
+      <span class="fu">next</span>(<span class="st">&quot;[&quot;</span>); 
+      <span class="kw">while</span> (!<span class="fu">isNext</span>(<span class="st">&quot;]&quot;</span>)) {
+        <span class="kw">var</span> idx = <span class="fu">TERM</span>();
+        <span class="kw">var</span> t = <span class="fu">nextTemp</span>();
+        <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;[]&quot;</span>, t, array, idx);
+        <span class="fu">skip</span>(<span class="st">&quot;,&quot;</span>);
+        array = t;
+      }
+      <span class="fu">next</span>(<span class="st">&quot;]&quot;</span>);
+      <span class="kw">return</span> array;
+    }
+    <span class="kw">return</span> id;
+  } <span class="kw">else</span> <span class="kw">if</span> (<span class="fu">isNext</span>(<span class="st">&quot;(&quot;</span>)) {
+    <span class="fu">next</span>(<span class="st">&quot;(&quot;</span>);  
+    <span class="kw">var</span> e = <span class="fu">EXP</span>();  
+    <span class="fu">next</span>(<span class="st">&quot;)&quot;</span>);
+    <span class="kw">return</span> e;
+  } <span class="kw">else</span> <span class="fu">error</span>();
+}
+
+<span class="co">// FUNCTION = function ID(ARGS) BLOCK</span>
+<span class="kw">var</span> FUNCTION = <span class="kw">function</span>() {
+  <span class="fu">next</span>(<span class="st">&quot;function&quot;</span>);
+  funcName = <span class="fu">nextType</span>(<span class="st">&quot;ID&quot;</span>);
+  <span class="ot">funcStack</span>.<span class="fu">push</span>(funcName);
+  symTable[funcName] = { <span class="dt">type</span>:<span class="st">&quot;function&quot;</span>, <span class="dt">name</span>:funcName, <span class="dt">pcodes</span>: [] };
+  <span class="fu">pcode</span>(funcName, <span class="st">&quot;function&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+  <span class="fu">next</span>(<span class="st">&quot;(&quot;</span>);
+  <span class="kw">while</span> (!<span class="fu">isNext</span>(<span class="st">&quot;)&quot;</span>)) {
+    <span class="kw">var</span> arg=<span class="fu">nextType</span>(<span class="st">&quot;ID&quot;</span>);
+    <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;param&quot;</span>, arg, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+    <span class="fu">skip</span>(<span class="st">&quot;,&quot;</span>);
+  }
+  <span class="fu">next</span>(<span class="st">&quot;)&quot;</span>); 
+  <span class="fu">BLOCK</span>();
+  <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;endf&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+  <span class="ot">funcStack</span>.<span class="fu">pop</span>();
+  funcName = funcStack[<span class="ot">funcStack</span>.<span class="fu">length</span><span class="dv">-1</span>];
+}
+
+<span class="co">// ARRAY = [ TERMS ];</span>
+<span class="kw">var</span> ARRAY = <span class="kw">function</span>() {
+  <span class="fu">next</span>(<span class="st">&quot;[&quot;</span>);
+  <span class="kw">var</span> array = <span class="fu">nextTemp</span>();
+  <span class="fu">pcode</span>(array, <span class="st">&quot;array&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+  <span class="kw">while</span> (!<span class="fu">isNext</span>(<span class="st">&quot;]&quot;</span>)) {
+    <span class="kw">var</span> t = <span class="fu">TERM</span>();
+    <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;push&quot;</span>, array, t, <span class="st">&quot;&quot;</span>);
+    <span class="fu">skip</span>(<span class="st">&quot;,&quot;</span>);
+  }
+  <span class="fu">next</span>(<span class="st">&quot;]&quot;</span>);
+  <span class="kw">return</span> array;
+}
+
+<span class="co">// TABLE = { (TERM:TERM)* }</span>
+<span class="kw">var</span> TABLE = <span class="kw">function</span>() {
+  <span class="fu">next</span>(<span class="st">&quot;{&quot;</span>); 
+  <span class="kw">var</span> table = <span class="fu">nextTemp</span>();
+  <span class="fu">pcode</span>(table, <span class="st">&quot;table&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>);
+  <span class="kw">while</span> (!<span class="fu">isNext</span>(<span class="st">&quot;}&quot;</span>)) {
+    <span class="kw">var</span> key = <span class="fu">TERM</span>(); 
+    <span class="fu">next</span>(<span class="st">&quot;:&quot;</span>); 
+    <span class="kw">var</span> value = <span class="fu">TERM</span>();
+    <span class="fu">skip</span>(<span class="st">&quot;,&quot;</span>);
+    <span class="fu">pcode</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;map&quot;</span>, table, key, value);
+  }
+  <span class="fu">next</span>(<span class="st">&quot;}&quot;</span>);
+  <span class="kw">return</span> table;
+}
+
+<span class="kw">var</span> source = <span class="ot">fs</span>.<span class="fu">readFileSync</span>(<span class="ot">process</span>.<span class="fu">argv</span>[<span class="dv">2</span>], <span class="st">&quot;utf8&quot;</span>);
+<span class="fu">compile</span>(source);</code></pre>
+<h3 id="執行結果"><a href="#執行結果">執行結果</a></h3>
+<p>然後、我們可以用 node.js 來執行上述程式，並且編譯指定的 J0 程式檔，例如以下指令就用 j0c 編譯器去編譯了 test.j0 這個輸入檔，接著畫面上所輸出的就是 IR0 的中間碼。</p>
+<pre><code>D:\Dropbox\Public\web\oc\code\js&gt;node j0c test.j0
+        arg     10
+        call    T1      sum
+        =       s       T1
+sum     function
+        param   n
+        =       s       0
+        =       i       1
+L1
+        &lt;=      T2      i       10
+        if0     T2      L2
+        +       T3      s       i
+        =       s       T3
+        ++      i
+        goto    L1
+L2
+        return  s
+        endf
+        arg     3
+        arg     5
+        call    T4      max
+        =       m       T4
+max     function
+        param   a
+        param   b
+        &gt;       T5      a       b
+        if0     T5      L3
+        return  a
+L3
+        return  b
+        endf
+total   function
+        param   a
+        =       s       0
+        =       i       0
+L4      &lt;       T6      i       a.length
+        if0     T6      L5
+        []      T7      a       i
+        +       T8      s       T7
+        =       s       T8
+        goto    L4
+L5
+        return  s
+        endf
+T9      array
+        push    T9      1
+        push    T9      3
+        push    T9      7
+        push    T9      2
+        push    T9      6
+        =       a       T9
+        arg     a
+        call    T10     total
+        =       t       T10
+T11     table
+        map     T11     e       &quot;dog&quot;
+        map     T11     c       &quot;狗&quot;
+        =       word    T11
+</code></pre>
+<h3 id="結語"><a href="#結語">結語</a></h3>
+<p>在開放電腦計劃中，我們希望透過 J0 語言，以及 j0c 編譯器，用簡易的程式揭露「高階語言與編譯器」的設計原理。</p>
+<p>在下期中，我們將撰寫程式去將上述 IR0 中間碼轉換為 CPU0 的組合語言，這樣就可以接上先前所作的組譯器 AS0 與虛擬機 VM0，以形成一套簡易但完整的工具鏈。</p>
+<p>透過這樣的工具鏈，我們希望能讓熟悉程式人輕易的學會「電腦軟硬體的設計原理」。</p>
+</div>
+<div id="footer">
+<a href="https://www.facebook.com/groups/programmerMagazine/">程式人雜誌</a> ，採用 <a href="http://creativecommons.org/licenses/by-sa/3.0/tw/ ">創作共用：姓名標示、相同方式分享</a> 授權，歡迎加入 <a href="https://www.facebook.com/groups/programmerMagazine/">雜誌社團</a>
+</div>
+</body>
+</html>
